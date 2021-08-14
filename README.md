@@ -1,4 +1,4 @@
-# Welcome to React Image Uploader 👋
+# Welcome to Pomodoro Todo List 👋
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/react-examples-projects/pomodoro-todolist)
 [![Twitter: libardo\_r12](https://img.shields.io/twitter/follow/libardo\_r12.svg?style=social)](https://twitter.com/libardo\_r12)
 
