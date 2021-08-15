@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
+    "dotenv": "^10.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.1.0",
     "mongoose": "^5.13.7",
