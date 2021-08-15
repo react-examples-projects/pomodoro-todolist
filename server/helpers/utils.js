@@ -25,7 +25,7 @@ function getTokenInfo(token) {
 }
 
 function hashPassword(password) {
-  const salt = bcrypt.genSaltSync(SERVER.API.SALT_BCRYPT);
+  const salt = bcrypt.genSaltSync(parseInt(SERVER.API.SALT_BCRYPT));
   const hash = bcrypt.hashSync(password, salt);
   return hash;
 }

@@ -5,6 +5,7 @@ const { connectDb, closeDb } = require("../config/connection");
 
 async function startServer(app, routers) {
   try {
+    console.clear();
     await connectDb();
     app.use("/api", routers);
     app.use((req, res, next) => {
@@ -14,7 +15,6 @@ async function startServer(app, routers) {
     wrapServerErrors(app);
 
     const server = app.listen(SERVER.PORT, async () => {
-      console.clear();
       message.success(`Server has started in http://localhost:${SERVER.PORT}/`);
       process.on("SIGINT", () => closeDb(server));
       process.on("SIGTERM", () => closeDb(server));

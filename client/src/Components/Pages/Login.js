@@ -8,10 +8,12 @@ import {
   Input,
   InputPassword,
 } from "tiny-ui";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Login() {
-  const initialValues = { email: "example@gmail.com", password: "123456" };
+  const { state } = useLocation();
+  const initialValues = { email: state?.email || "", password: "" };
+  
   const handleSubmit = (values) => {
     console.log(values);
   };
@@ -19,7 +21,7 @@ export default function Login() {
   return (
     <Layout>
       <Layout.Content
-        className="fadeIn"
+        className="fadeIn radius-4"
         style={{
           maxWidth: "610px",
           margin: "auto",

@@ -7,6 +7,7 @@ import UserProvider from "./Components/Context/User/UserProvider";
 import Routers from "./Components/Routers";
 import "tiny-ui/dist/styles/index.css";
 import "./Styles/App.scss";
+import "./Styles/utils.scss";
 
 const client = new QueryClient({
   defaultOptions: {

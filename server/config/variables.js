@@ -1,4 +1,8 @@
-require("dotenv").config();
+const path = require("path");
+
+require("dotenv").config({
+  path: path.resolve(__dirname, "../.env"),
+});
 
 const MONGO_DB = {
   URL: process.env.MONGODB_URL + process.env.MONGO_DB,

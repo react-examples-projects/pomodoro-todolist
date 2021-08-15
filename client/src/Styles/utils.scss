@@ -1,0 +1,10 @@
+.text-capitalize {
+  text-transform: capitalize !important;
+  > * {
+    text-transform: capitalize !important;
+  }
+}
+
+.radius-4 {
+  border-radius: 4px !important;
+}

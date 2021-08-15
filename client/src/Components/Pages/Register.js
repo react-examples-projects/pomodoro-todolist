@@ -1,5 +1,6 @@
 import footer_login from "../../Images/footer_login.svg";
-import { Link } from "react-router-dom";
+import useSignup from "../Hooks/Auth/useSignup";
+import { Link, useHistory } from "react-router-dom";
 import {
   Image,
   Button,
@@ -11,15 +12,25 @@ import {
 } from "tiny-ui";
 
 export default function Register() {
-  const initialValues = { name: "", email: "", password: "" };
-  const handleSubmit = (values) => {
-    console.log(values);
+  const initialValues = {
+    name: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+  };
+  const signup = useSignup();
+  const { push } = useHistory();
+
+  const handleSubmit = async (values) => {
+    const res = await signup.mutateAsync(values);
+    console.log(res);
+    if (res.ok) push("/login", { email: res?.data?.email });
   };
 
   return (
     <Layout>
       <Layout.Content
-       className="fadeIn"
+        className="fadeIn radius-4"
         style={{
           maxWidth: "610px",
           margin: "auto",
@@ -44,7 +55,11 @@ export default function Register() {
             name="name"
             rules={[{ required: true, message: "El nombre es obligatorio" }]}
           >
-            <Input maxLength="100" placeholder="Carlos Rámirez Melendez" />
+            <Input
+              maxLength="100"
+              placeholder="Carlos Rámirez Melendez"
+              className="text-capitalize"
+            />
           </Form.Item>
 
           <Form.Item
@@ -88,6 +103,8 @@ export default function Register() {
             type="submit"
             btnType="primary"
             style={{ background: "#4127c1" }}
+            loading={signup.isLoading}
+            disabled={signup.isLoading}
             block
           >
             Iniciar

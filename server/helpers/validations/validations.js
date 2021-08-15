@@ -19,6 +19,7 @@ const loginSchemaValidation = yup.object({
     password: yup
       .string()
       .min(6, "Mínimo 6 carácteres para la contraseña")
+      .max(200, "Máximo 200 carácteres para la contraseña")
       .required("La contraseña es obligatoria"),
   }),
 });
@@ -28,7 +29,7 @@ const signupSchemaValidation = yup.object({
     name: yup
       .string()
       .min(4, "Mínimo 6 carácteres para el nombre")
-      .max(20, "Máximo 20 carácteres para el nombre")
+      .max(100, "Máximo 100 carácteres para el nombre")
       .required("El nombre es obligatorio"),
     email: yup
       .string()
@@ -37,6 +38,7 @@ const signupSchemaValidation = yup.object({
     password: yup
       .string()
       .min(6, "Mínimo 6 carácteres para la contraseña")
+      .max(200, "Máximo 200 carácteres para la contraseña")
       .required("La contraseña es obligatoria"),
     passwordConfirm: passwordScheme.test(
       "passwordChangeValidation",
