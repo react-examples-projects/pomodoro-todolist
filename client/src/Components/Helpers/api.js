@@ -2,14 +2,16 @@ import { api, login, signup, perfilPhoto, userInfo } from "../../Config/api";
 import { getToken } from "./token";
 import axios from "axios";
 
-axios.interceptors.request.use((req) => {
+const instance = axios.create({
+  baseURL: api,
+});
+
+instance.interceptors.request.use((req) => {
   const token = getToken();
   if (token) {
     req.headers.authorization = `Bearer ${token}`;
   }
-});
-const instance = axios.create({
-  baseURL: api,
+  return req;
 });
 
 /**

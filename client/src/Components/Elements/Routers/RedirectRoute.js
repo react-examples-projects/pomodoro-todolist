@@ -1,10 +1,11 @@
 import { Route, Redirect } from "react-router-dom";
 import { existsToken } from "../../Helpers/token";
 import LoaderPage from "../Loaders/LoaderPage";
-import useCurrentUser from "../../Hooks/User/useCurrentUser";
+import useUserInfo from "../../Hooks/User/useUserInfo";
 
 export default function RedirectRoute({ component: Component, ...rest }) {
-  const { user, isLoading } = useCurrentUser();
+  const { user, isLoading } = useUserInfo();
+
   if (isLoading) return <LoaderPage />;
 
   return (
@@ -12,7 +13,7 @@ export default function RedirectRoute({ component: Component, ...rest }) {
       {...rest}
       render={(props) =>
         existsToken() && user ? (
-          <Redirect to="/home" />
+          <Redirect to="/dashboard" />
         ) : (
           <Component {...props} />
         )

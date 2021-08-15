@@ -1,4 +1,7 @@
 import footer_login from "../../Images/footer_login.svg";
+import useLogin from "../Hooks/Auth/useLogin";
+import useCurrentUser from "../Hooks/User/useCurrentUser";
+import { setToken } from "../Helpers/token";
 import {
   Image,
   Button,
@@ -8,14 +11,22 @@ import {
   Input,
   InputPassword,
 } from "tiny-ui";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 
 export default function Login() {
   const { state } = useLocation();
+  const { push } = useHistory();
+  const { setUser } = useCurrentUser();
+  const login = useLogin();
   const initialValues = { email: state?.email || "", password: "" };
-  
-  const handleSubmit = (values) => {
-    console.log(values);
+
+  const handleSubmit = async (values) => {
+    const res = await login.mutateAsync(values);
+    if (res.ok) {
+      setToken(res?.data?.token);
+      setUser(res?.data?.user);
+      push("/dashboard");
+    }
   };
 
   return (
@@ -62,6 +73,8 @@ export default function Login() {
             type="submit"
             btnType="primary"
             style={{ background: "#4127c1" }}
+            loading={login.isLoading}
+            disabled={login.isLoading}
             block
           >
             Iniciar

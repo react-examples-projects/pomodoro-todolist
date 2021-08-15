@@ -10,6 +10,7 @@ class UserController {
     return new Promise((resolve, reject) => {
       user.save((err, result) => {
         if (err) return reject(err);
+        result = result.toObject();
         delete result.password;
         resolve(result);
       });
