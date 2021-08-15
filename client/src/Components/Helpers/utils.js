@@ -1,3 +1,35 @@
+import Async from "../Elements/Routers/LazyComponent";
+
+export const route = (component, path = "*", ...rest) => {
+  return {
+    component: Async(component),
+    path,
+    ...rest,
+  };
+};
+
+export const privateRoute = (component, path = "/") => {
+  return { component: Async(component), path, exact: true, private: true };
+};
+
+export const redirectRoute = (component, path = "/") => {
+  return {
+    component: Async(component),
+    path,
+    exact: true,
+    redirect: true,
+  };
+};
+
+export const publicRoute = (component, path = "/") => {
+  return {
+    component: Async(component),
+    path,
+    exact: true,
+    public: true,
+  };
+};
+
 /**
  * Convert a binary file to base 64 URL
  * @param {File} imageFile The binary file image

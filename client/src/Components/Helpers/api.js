@@ -1,4 +1,4 @@
-import { login, signup, perfilPhoto, userInfo } from "../../Config/api";
+import { api, login, signup, perfilPhoto, userInfo } from "../../Config/api";
 import { getToken } from "./token";
 import axios from "axios";
 
