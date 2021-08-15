@@ -1,10 +1,14 @@
 import { Typography, Menu, Icon } from "tiny-ui";
 import options from "../../Config/sideNavbarOptions";
+import useCurrentUser from "../Hooks/User/useCurrentUser";
+
 export default function SideNavbar() {
+  const { logout } = useCurrentUser();
+
   return (
     <nav>
       <Typography.Heading level={4} className="layout-title">
-        Pomodoro
+        Pomodoro TodoList
       </Typography.Heading>
       <Menu mode="vertical" className="layout-menu">
         {options.map((option) => (
@@ -13,6 +17,11 @@ export default function SideNavbar() {
             {option.title}
           </Menu.Item>
         ))}
+
+        <Menu.Item onClick={logout}>
+          <Icon name="arrow-right-circle" style={{ marginRight: "0.6rem" }} />
+          Salir
+        </Menu.Item>
       </Menu>
     </nav>
   );

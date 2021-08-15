@@ -8,3 +8,14 @@
 .radius-4 {
   border-radius: 4px !important;
 }
+
+.center-v,
+.center-h {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-v {
+  flex-direction: column;
+}

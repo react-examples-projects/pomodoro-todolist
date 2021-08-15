@@ -23,10 +23,6 @@ const options = [
     title: "configuración",
     icon: "setting",
   },
-  {
-    title: "salir",
-    icon: "arrow-right-circle",
-  },
 ];
 
 export default options;

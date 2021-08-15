@@ -12,7 +12,7 @@ export default function LayoutPage({ children }) {
           <Avatar icon={<Icon name="user" size="md" />} />
         </Layout.Header>
 
-        <Layout.Content>{children}</Layout.Content>
+        <Layout.Content className="layout-content">{children}</Layout.Content>
       </Layout>
     </Layout>
   );
