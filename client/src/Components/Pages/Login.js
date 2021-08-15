@@ -8,6 +8,7 @@ import {
   Input,
   InputPassword,
 } from "tiny-ui";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const initialValues = { email: "example@gmail.com", password: "123456" };
@@ -18,6 +19,7 @@ export default function Login() {
   return (
     <Layout>
       <Layout.Content
+        className="fadeIn"
         style={{
           maxWidth: "610px",
           margin: "auto",
@@ -62,9 +64,11 @@ export default function Login() {
           >
             Iniciar
           </Button>
-          <Button btnType="link" block>
-            Crea tu cuenta
-          </Button>
+          <Link to="/signup" title="Si no tienes cuenta, ¡creala en segundos!">
+            <Button btnType="link" block>
+              Crea tu cuenta
+            </Button>
+          </Link>
         </Form>
       </Layout.Content>
       <Image

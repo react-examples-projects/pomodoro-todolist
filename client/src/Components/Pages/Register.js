@@ -1,4 +1,5 @@
 import footer_login from "../../Images/footer_login.svg";
+import { Link } from "react-router-dom";
 import {
   Image,
   Button,
@@ -18,6 +19,7 @@ export default function Register() {
   return (
     <Layout>
       <Layout.Content
+       className="fadeIn"
         style={{
           maxWidth: "610px",
           margin: "auto",
@@ -90,9 +92,11 @@ export default function Register() {
           >
             Iniciar
           </Button>
-          <Button btnType="link" block>
-            Crea tu cuenta
-          </Button>
+          <Link to="/login" title="Si tienes cuenta, inicia sesión">
+            <Button btnType="link" block>
+              Inicia sesión si tienes cuenta
+            </Button>
+          </Link>
         </Form>
       </Layout.Content>
       <Image

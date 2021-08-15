@@ -13,7 +13,6 @@ const UserSchema = new Schema({
     maxLength: 20,
     required: [true, "La contraseña es obligatoria"],
   },
-  isAdmin: { type: Boolean, default: false },
   perfil_photo: {
     type: String,
     default:
@@ -21,7 +20,7 @@ const UserSchema = new Schema({
   },
   name: {
     type: String,
-    required: [true, "El nombre es obligatoria"],
+    required: [true, "El nombre es obligatorio"],
     minLength: 4,
     maxLength: 100,
     unique: true,

@@ -1,4 +1,4 @@
-import mongodb from "mongodb";
+const mongodb = require("mongodb");
 const { MONGO_DB } = require("./variables");
 const MongoClient = mongodb.MongoClient;
 const OPTIONS = {
@@ -12,5 +12,4 @@ module.exports = {
   MongoClient,
   MONGODB_URL: MONGO_DB.URL,
   OPTIONS,
-  MONGO_DB: MONGO_DB.DB_NAME,
 };
