@@ -1,12 +1,18 @@
 import LayoutPage from "../Elements/LayoutPage";
-import { Typography } from "tiny-ui";
 import Summary from "../Elements/Dashboard/Summary";
+import Notes from "../Elements/Dashboard/Notes";
+import { Row, Col } from "tiny-ui";
 
 export default function Dashboard() {
   return (
     <LayoutPage>
-      <Typography.Heading level={2}>Resumen de actividad</Typography.Heading>
       <Summary />
+      <Row>
+        <Col span={12}>
+          <Notes />
+        </Col>
+        <Col></Col>
+      </Row>
     </LayoutPage>
   );
 }

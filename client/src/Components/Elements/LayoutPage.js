@@ -8,11 +8,13 @@ export default function LayoutPage({ children }) {
         <SideNavbar />
       </Layout.Sidebar>
       <Layout>
-        <Layout.Header className="layout-header">
+        <Layout.Header className="layout-header mt-3 pe-3">
           <Avatar icon={<Icon name="user" size="md" />} />
         </Layout.Header>
 
-        <Layout.Content className="layout-content">{children}</Layout.Content>
+        <Layout.Content className="layout-content me-3 pb-6">
+          <main>{children}</main>
+        </Layout.Content>
       </Layout>
     </Layout>
   );

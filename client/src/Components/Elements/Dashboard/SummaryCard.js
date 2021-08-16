@@ -14,7 +14,9 @@ export default function SummaryCard({ title, content, icon }) {
             }}
             size={80}
           />
-          <Typography.Heading level={4} align="center">
+
+          
+          <Typography.Heading level={5} align="center">
             {title}
           </Typography.Heading>
           <Typography.Paragraph align="center">{content}</Typography.Paragraph>

@@ -6,7 +6,7 @@ export default function SideNavbar() {
   const { logout } = useCurrentUser();
 
   return (
-    <nav>
+    <nav className="layout-nav">
       <Typography.Heading level={4} className="layout-title">
         Pomodoro TodoList
       </Typography.Heading>

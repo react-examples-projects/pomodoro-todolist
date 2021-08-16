@@ -1,3 +1,19 @@
+@mixin margin($direction, $classname) {
+  @for $i from 0 to 11 {
+    .#{$classname}-#{$i} {
+      margin-#{$direction}: $i * 0.6rem !important;
+    }
+  }
+}
+
+@mixin padding($direction, $classname) {
+  @for $i from 0 to 11 {
+    .#{$classname}-#{$i} {
+      padding-#{$direction}: $i * 0.6rem !important;
+    }
+  }
+}
+
 .text-capitalize {
   text-transform: capitalize !important;
   > * {
@@ -19,3 +35,14 @@
 .center-v {
   flex-direction: column;
 }
+
+@include margin("top", "mt");
+@include margin("bottom", "mb");
+@include margin("left", "ms");
+@include margin("right", "me");
+
+@include padding("top", "pt");
+@include padding("bottom", "pb");
+@include padding("left", "ps");
+@include padding("right", "pe");
+
