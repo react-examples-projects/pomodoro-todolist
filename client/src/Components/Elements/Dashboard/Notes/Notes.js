@@ -6,8 +6,6 @@ import {
   Form,
   Input,
   Textarea,
-  Message,
-  NativeSelect,
 } from "tiny-ui";
 import NoteCard from "./NoteCard";
 import useNote from "../../../Hooks/Notes/useNote";
@@ -15,24 +13,21 @@ import useNote from "../../../Hooks/Notes/useNote";
 export default function Notes() {
   const { availables, notes, addNote, isVisibleModalNote, toggleModalNote } =
     useNote();
-  const [form] = Form.useForm();
-  const _addNote = () => {
-    const isValid = form.getFieldError();
-    console.log(isValid);
-    addNote({});
-    Message.success("Se creo la tarea");
+  const _addNote = (values) => {
+    console.log(values);
+    addNote(values);
   };
+
   return (
     <div className="mt-3 ps-1">
       <Modal
         visible={isVisibleModalNote}
         header="Crear una nota"
-        confirmText="Crear"
-        cancelText="Cancelar"
+        footer={null}
         onConfirm={_addNote}
         onCancel={toggleModalNote}
       >
-        <Form layout="vertical" form={form}>
+        <Form layout="vertical" onFinish={_addNote}>
           <Form.Item
             label="Título"
             name="title"
@@ -62,15 +57,13 @@ export default function Notes() {
             />
           </Form.Item>
 
-          <Form.Item label="Prioridad" name="priority">
-            <NativeSelect className="w-100">
-              <NativeSelect.Option value="important">
-                Importante
-              </NativeSelect.Option>
-              <NativeSelect.Option value="urgent">Urgente</NativeSelect.Option>
-              <NativeSelect.Option value="low">Baja</NativeSelect.Option>
-            </NativeSelect>
+          <Form.Item label="Etiquetas" name="tags">
+            <Input placeholder="Escribe una etiqueta" />
           </Form.Item>
+
+          <Button btnType="info" type="submit" block>
+            Crear nota
+          </Button>
         </Form>
       </Modal>
 

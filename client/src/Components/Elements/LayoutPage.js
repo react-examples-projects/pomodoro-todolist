@@ -13,7 +13,7 @@ export default function LayoutPage({ children }) {
         </Layout.Header>
 
         <Layout.Content className="layout-content me-3 pb-6">
-          <main>{children}</main>
+          <main className="fadeIn">{children}</main>
         </Layout.Content>
       </Layout>
     </Layout>

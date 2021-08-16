@@ -3,7 +3,10 @@ import { Typography, Card, Tag, Dropdown, Button, Menu, Icon } from "tiny-ui";
 export default function NoteCard({
   title = "Nota de prueba",
   content = "Recordar que debo de hacer algo",
-  tags = [],
+  tags = [
+    { title: "importante", color: "red" },
+    { title: "urgente", color: "orange" },
+  ],
 }) {
   return (
     <li className="mb-2">
@@ -19,8 +22,8 @@ export default function NoteCard({
           </Typography.Paragraph>
 
           <div className="mt-1">
-            {tags.map((tag) => (
-              <Tag color={tag.color || null} closable>
+            {tags.map((tag, i) => (
+              <Tag color={tag.color || null} key={i} closable>
                 <small>{tag.title}</small>
               </Tag>
             ))}

@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { Message } from "tiny-ui";
 
 export default function useNote() {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState([
+    { title: "importante", color: "red" },
+    { title: "urgente", color: "orange" },
+  ]);
   const [isVisibleModalNote, setIsVisibleModalNote] = useState(false);
   const amountNotes = notes.length;
   const availables = amountNotes > 0;
@@ -13,6 +17,7 @@ export default function useNote() {
   const addNote = (note) => {
     setNotes([...notes, note]);
     toggleModalNote();
+    Message.success("Se creo la nota");
   };
   const deleteAllNotes = () => {
     setNotes([]);
