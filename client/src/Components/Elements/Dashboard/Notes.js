@@ -1,4 +1,4 @@
-import { Typography, Card, Checkbox } from "tiny-ui";
+import { Typography, Card, Tag } from "tiny-ui";
 
 export default function Notes() {
   return (
@@ -32,6 +32,11 @@ export default function Notes() {
                   velit quod accusantium cum!
                 </small>
               </Typography.Paragraph>
+              <div className="mt-1">
+                <Tag color="red">
+                  <small>Importante</small>
+                </Tag>
+              </div>
             </Card.Content>
           </Card>
         </li>
@@ -95,7 +100,6 @@ export default function Notes() {
             </Card.Content>
           </Card>
         </li>
-
       </ul>
     </div>
   );
