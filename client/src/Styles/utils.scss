@@ -1,15 +1,42 @@
 @mixin margin($direction, $classname) {
   @for $i from 0 to 11 {
     .#{$classname}-#{$i} {
-      margin-#{$direction}: $i * 0.6rem !important;
+      margin-#{$direction}: $i * 0.5rem !important;
     }
   }
 }
 
-@mixin padding($direction, $classname) {
+@mixin padding($classname, $direction: null) {
+  $padding: if($direction, padding-#{$direction}, padding);
   @for $i from 0 to 11 {
     .#{$classname}-#{$i} {
-      padding-#{$direction}: $i * 0.6rem !important;
+      #{$padding}: $i * 0.5rem !important;
+    }
+  }
+}
+
+@mixin height-sizes($max: 11) {
+  @for $i from 1 to $max {
+    $classname: $i * 100;
+    .max-h-#{$classname} {
+      max-height: $classname * 1px;
+    }
+
+    .min-h-#{$classname} {
+      min-height: $classname * 1px;
+    }
+  }
+}
+
+@mixin sizes($max: 11) {
+  @for $i from 1 to $max {
+    $classname: $i * 10;
+    .w-#{$classname} {
+      width: $classname * 1%;
+    }
+
+    .h-#{$classname} {
+      height: $classname * 1%;
     }
   }
 }
@@ -36,13 +63,41 @@
   flex-direction: column;
 }
 
+.center-items {
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.block {
+  display: block;
+  width: 100%;
+}
+
+.w-100-fixed {
+  max-width: 100%;
+  min-width: 100%;
+}
+
+@include height-sizes();
+@include sizes();
 @include margin("top", "mt");
 @include margin("bottom", "mb");
 @include margin("left", "ms");
 @include margin("right", "me");
 
-@include padding("top", "pt");
-@include padding("bottom", "pb");
-@include padding("left", "ps");
-@include padding("right", "pe");
-
+@include padding("p");
+@include padding("pt", "top");
+@include padding("pb", "bottom");
+@include padding("ps", "left");
+@include padding("pe", "lerightft");

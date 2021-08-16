@@ -2,7 +2,7 @@ import { Typography, Icon, Card, Avatar } from "tiny-ui";
 
 export default function SummaryCard({ title, content, icon }) {
   return (
-    <Card>
+    <Card className="h-100">
       <Card.Content>
         <div className="center-v">
           <Avatar
