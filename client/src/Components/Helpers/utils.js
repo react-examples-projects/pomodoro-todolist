@@ -1,4 +1,5 @@
 import Async from "../Elements/Routers/LazyComponent";
+import uniqid from "uniqid";
 
 export const route = (component, path = "*", ...rest) => {
   return {
@@ -108,4 +109,16 @@ export function isNotValidFileType(mimeType) {
     "image/png",
   ];
   return !SUPPORTED_FORMATS.includes(mimeType);
+}
+
+export function formatTagTitles(title, color) {
+  const tagsMap = title
+    .split(",")
+    .map((title) => title.trim())
+    .filter((title) => title.length <= 20 && title.length > 0)
+    .map((title) => ({ title, color, id: uniqid() }));
+
+  if (tagsMap.length >= 6) tagsMap.length = 5;
+
+  return tagsMap;
 }

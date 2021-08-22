@@ -3,7 +3,7 @@ import SideNavbar from "./SideNavbar";
 
 export default function LayoutPage({ children }) {
   return (
-    <Layout style={{ height: "100vh" }}>
+    <Layout style={{ height: "100vh", maxWidth: "1500px", margin: "auto" }}>
       <Layout.Sidebar className="layout-sidebar">
         <SideNavbar />
       </Layout.Sidebar>

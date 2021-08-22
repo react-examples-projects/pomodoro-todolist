@@ -79,6 +79,10 @@
   display: flex;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .block {
   display: block;
   width: 100%;
@@ -87,6 +91,11 @@
 .w-100-fixed {
   max-width: 100%;
   min-width: 100%;
+}
+
+.textarea-sm {
+  font-size: 0.875rem;
+  line-height: 24px;
 }
 
 @include height-sizes();

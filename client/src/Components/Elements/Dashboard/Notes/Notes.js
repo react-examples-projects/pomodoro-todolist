@@ -8,14 +8,28 @@ import {
   Textarea,
 } from "tiny-ui";
 import NoteCard from "./NoteCard";
+
 import useNote from "../../../Hooks/Notes/useNote";
+import InputTag from "../../Components/InputTag";
+import { useState } from "react";
 
 export default function Notes() {
-  const { availables, notes, addNote, isVisibleModalNote, toggleModalNote } =
-    useNote();
+  const {
+    availables,
+    notes,
+    addNote,
+    removeNote,
+    isVisibleModalNote,
+    toggleModalNote,
+  } = useNote();
+  const [tags, setTags] = useState([]);
+
   const _addNote = (values) => {
-    console.log(values);
-    addNote(values);
+    addNote({ ...values, tags });
+  };
+
+  const onChangeTags = (tags) => {
+    setTags(tags);
   };
 
   return (
@@ -54,12 +68,11 @@ export default function Notes() {
             <Textarea
               placeholder="Describe bien tu tarea"
               className="w-100-fixed max-h-300 min-h-200"
+              limit={500}
             />
           </Form.Item>
 
-          <Form.Item label="Etiquetas" name="tags">
-            <Input placeholder="Escribe una etiqueta" />
-          </Form.Item>
+          <InputTag onChangeTags={onChangeTags} />
 
           <Button btnType="info" type="submit" block>
             Crear nota
@@ -79,8 +92,8 @@ export default function Notes() {
             >
               Agregar una nota
             </Button>
-            {notes.map((note, i) => (
-              <NoteCard {...note} key={i} />
+            {notes?.map((note) => (
+              <NoteCard key={note?.id} {...{ removeNote, ...note }} />
             ))}
           </>
         ) : (

@@ -1,13 +1,25 @@
-import { Typography, Card, Tag, Dropdown, Button, Menu, Icon } from "tiny-ui";
+import {
+  Typography,
+  Card,
+  Tag,
+  Dropdown,
+  Button,
+  Menu,
+  Icon,
+  Input,
+  Textarea,
+} from "tiny-ui";
+import useNote from "../../../Hooks/Notes/useNote";
+import InputTag from "../../Components/InputTag";
 
 export default function NoteCard({
   title = "Nota de prueba",
   content = "Recordar que debo de hacer algo",
-  tags = [
-    { title: "importante", color: "red" },
-    { title: "urgente", color: "orange" },
-  ],
+  id,
+  removeNote,
+  tags,
 }) {
+  const { isEditMode, toggleEditMote } = useNote();
   return (
     <li className="mb-2">
       <Card
@@ -16,26 +28,55 @@ export default function NoteCard({
         active
       >
         <Card.Content>
-          <Typography.Heading level={6}>{title}</Typography.Heading>
-          <Typography.Paragraph className="mb-0">
-            <small>{content}</small>
-          </Typography.Paragraph>
+          {isEditMode ? (
+            <Input
+              defaultValue={title}
+              className="mb-1"
+              size="sm"
+              style={{ maxWidth: "97%" }}
+            />
+          ) : (
+            <Typography.Heading level={6}>{title}</Typography.Heading>
+          )}
 
-          <div className="mt-1">
-            {tags.map((tag, i) => (
-              <Tag color={tag.color || null} key={i} closable>
-                <small>{tag.title}</small>
-              </Tag>
-            ))}
-          </div>
+          {isEditMode ? (
+            <Textarea
+              className="textarea-sm mb-1 w-100-fixed max-h-200"
+              limit={500}
+            >
+              {content}
+            </Textarea>
+          ) : (
+            <Typography.Paragraph className="mb-0">
+              <small>{content}</small>
+            </Typography.Paragraph>
+          )}
+
+          {isEditMode ? (
+            <InputTag defaultTags={tags} size="sm" />
+          ) : (
+            <div className="mt-1">
+              {tags?.map((tag, i) => (
+                <Tag
+                  color={tag?.color || null}
+                  key={i}
+                  className="mb-1"
+                  closable
+                >
+                  <small>{tag?.title}</small>
+                </Tag>
+              ))}
+            </div>
+          )}
+
           <Dropdown
             overlay={
               <Menu>
-                <Menu.Item>
+                <Menu.Item onClick={toggleEditMote}>
                   <Icon name="edit-file" size={13} className="me-1" />
                   <small>Editar</small>
                 </Menu.Item>
-                <Menu.Item>
+                <Menu.Item onClick={() => removeNote(id)}>
                   <Icon name="trash" size={13} className="me-1" />
                   <small>Eliminar</small>
                 </Menu.Item>
@@ -48,7 +89,7 @@ export default function NoteCard({
               round
               style={{
                 position: "absolute",
-                top: "8px",
+                top: "15px",
                 right: "3px",
                 minWidth: "2px",
                 padding: "3px",

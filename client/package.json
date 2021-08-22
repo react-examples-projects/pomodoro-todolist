@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.21.1",
+    "classnames": "^2.3.1",
     "node-sass": "^6.0.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -14,7 +15,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-spinners": "^0.11.0",
-    "tiny-ui": "0.0.94"
+    "tiny-ui": "0.0.94",
+    "uniqid": "^5.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
