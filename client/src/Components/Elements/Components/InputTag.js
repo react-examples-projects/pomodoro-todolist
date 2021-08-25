@@ -48,7 +48,12 @@ export default function InputTag({ onChangeTags, defaultTags, size }) {
           />
         </Col>
         <Col span={4}>
-          <Button type="button" onClick={addTag} disabled={isFullTag} size={small}>
+          <Button
+            type="button"
+            onClick={addTag}
+            disabled={isFullTag}
+            size={small}
+          >
             Añadir
           </Button>
         </Col>
@@ -59,22 +64,24 @@ export default function InputTag({ onChangeTags, defaultTags, size }) {
         </Col>
       </Row>
 
-      <div
-        className="mt-1 d-flex mb-1"
-        style={{ maxHeight: "118px", overflow: "scroll hidden" }}
-      >
-        {tags.map((tag) => (
-          <Tag
-            color={tag.color}
-            className="mb-1"
-            key={tag.id}
-            onClose={() => removeTag(tag.id)}
-            closable
-          >
-            <small>{tag.title}</small>
-          </Tag>
-        ))}
-      </div>
+      {tags?.length > 0 && (
+        <div
+          className="mt-1 d-flex mb-1"
+          style={{ maxHeight: "118px", overflow: "scroll hidden" }}
+        >
+          {tags.map((tag) => (
+            <Tag
+              color={tag.color}
+              className="mb-1"
+              key={tag.id}
+              onClose={() => removeTag(tag.id)}
+              closable
+            >
+              <small>{tag.title}</small>
+            </Tag>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

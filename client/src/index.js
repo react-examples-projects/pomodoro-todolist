@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ErrorBoundary } from "react-error-boundary";
 import UserProvider from "./Components/Context/User/UserProvider";
+import PomodoroProvider from "./Components/Context/Pomodoro/PomodoroProvider";
 
 import Routers from "./Components/Routers";
 import "tiny-ui/dist/styles/index.css";
@@ -26,7 +27,9 @@ ReactDOM.render(
     >
       <QueryClientProvider client={client}>
         <UserProvider>
-          <Routers />
+          <PomodoroProvider>
+            <Routers />
+          </PomodoroProvider>
         </UserProvider>
       </QueryClientProvider>
     </ErrorBoundary>

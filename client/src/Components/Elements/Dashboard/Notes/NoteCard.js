@@ -19,7 +19,16 @@ export default function NoteCard({
   removeNote,
   tags,
 }) {
-  const { isEditMode, toggleEditMote } = useNote();
+  const { isEditMode, toggleEditMote, editNote } = useNote();
+
+  const editNoteCard = () => {
+    const payload = {
+      title: "Editado!",
+    };
+
+    editNote({ id, payload });
+  };
+
   return (
     <li className="mb-2">
       <Card
@@ -43,9 +52,8 @@ export default function NoteCard({
             <Textarea
               className="textarea-sm mb-1 w-100-fixed max-h-200"
               limit={500}
-            >
-              {content}
-            </Textarea>
+              defaultValue={content}
+            />
           ) : (
             <Typography.Paragraph className="mb-0">
               <small>{content}</small>
@@ -53,20 +61,35 @@ export default function NoteCard({
           )}
 
           {isEditMode ? (
-            <InputTag defaultTags={tags} size="sm" />
+            <>
+              <InputTag defaultTags={tags} size="sm" />
+              <Button
+                btnType="success"
+                size="sm"
+                className="mt-1"
+                onClick={editNoteCard}
+              >
+                Guardar
+              </Button>
+              <Button
+                btnType="danger"
+                size="sm"
+                className="mt-1"
+                onClick={toggleEditMote}
+              >
+                Cancelar
+              </Button>
+            </>
           ) : (
-            <div className="mt-1">
-              {tags?.map((tag, i) => (
-                <Tag
-                  color={tag?.color || null}
-                  key={i}
-                  className="mb-1"
-                  closable
-                >
-                  <small>{tag?.title}</small>
-                </Tag>
-              ))}
-            </div>
+            tags?.length > 0 && (
+              <div className="mt-1">
+                {tags?.map((tag, i) => (
+                  <Tag color={tag?.color || null} key={i} className="mb-1">
+                    <small>{tag?.title}</small>
+                  </Tag>
+                ))}
+              </div>
+            )
           )}
 
           <Dropdown
@@ -74,7 +97,7 @@ export default function NoteCard({
               <Menu>
                 <Menu.Item onClick={toggleEditMote}>
                   <Icon name="edit-file" size={13} className="me-1" />
-                  <small>Editar</small>
+                  {isEditMode ? <small>Cancelar</small> : <small>Editar</small>}
                 </Menu.Item>
                 <Menu.Item onClick={() => removeNote(id)}>
                   <Icon name="trash" size={13} className="me-1" />
