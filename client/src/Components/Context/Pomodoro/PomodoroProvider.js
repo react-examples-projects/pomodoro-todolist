@@ -7,7 +7,13 @@ import pendings from "../../Store/Reducers/PendingsReducer";
 import importants from "../../Store/Reducers/ImportantsReducer";
 import completed from "../../Store/Reducers/CompletedReducer";
 import notes from "../../Store/Reducers/NotesReducer";
-import { setNotesAction } from "../../Store/Actions/NotesAction";
+import {
+  setNotesAction,
+  addNoteAction,
+  editNoteAction,
+  removeNoteAction,
+  removeAllNotesAction,
+} from "../../Store/Actions/NotesAction";
 
 export default function PomodoroProvider({ children }) {
   const [state, dispatch] = useReducer(
@@ -19,7 +25,33 @@ export default function PomodoroProvider({ children }) {
     dispatch(setNotesAction(payload));
   }, []);
 
-  const value = useMemo(() => ({ ...state, setNotes }), [state, setNotes]);
+  const addNote = useCallback((payload) => {
+    dispatch(addNoteAction(payload));
+  }, []);
+
+  const editNote = useCallback((payload) => {
+    dispatch(editNoteAction(payload));
+  }, []);
+
+  const removeNote = useCallback((payload) => {
+    dispatch(removeNoteAction(payload));
+  }, []);
+
+  const removeAllNotes = useCallback(() => {
+    dispatch(removeAllNotesAction());
+  }, []);
+
+  const value = useMemo(
+    () => ({
+      ...state,
+      setNotes,
+      addNote,
+      editNote,
+      removeNote,
+      removeAllNotes,
+    }),
+    [state, setNotes, addNote, editNote, removeNote, removeAllNotes]
+  );
 
   return (
     <PomodoroContext.Provider value={value}>

@@ -24,6 +24,7 @@ export default function InputTag({ onChangeTags, defaultTags, size }) {
   const removeTag = (id) => {
     const filterTags = tags.filter((tag) => tag.id !== id);
     setTags(filterTags);
+    onChangeTags?.(filterTags);
   };
 
   return (

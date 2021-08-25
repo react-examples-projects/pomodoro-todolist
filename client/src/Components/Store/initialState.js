@@ -3,7 +3,7 @@ const initialState = {
   completed: [],
   importants: [],
   categories: [],
-  notes: ["nota 1"],
+  notes: [],
 };
 
 export default initialState;

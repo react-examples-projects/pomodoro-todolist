@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Typography,
   Card,
@@ -19,14 +20,37 @@ export default function NoteCard({
   removeNote,
   tags,
 }) {
+  const [noteEdited, setNoteEdite] = useState({
+    title,
+    content,
+    tags,
+  });
+
   const { isEditMode, toggleEditMote, editNote } = useNote();
+
+  const onChangeTags = (tags) => {
+    setNoteEdite({ ...noteEdited, tags });
+  };
+
+  const onChangeNote = (e) => {
+    if (typeof e === "string") setNoteEdite({ ...noteEdited, content: e });
+    else {
+      setNoteEdite({
+        ...noteEdited,
+        [e.target.name]: e.target.value,
+      });
+    }
+  };
 
   const editNoteCard = () => {
     const payload = {
-      title: "Editado!",
+      id,
+      title: noteEdited.title,
+      content: noteEdited.content,
+      tags: noteEdited.tags,
     };
 
-    editNote({ id, payload });
+    editNote(payload);
   };
 
   return (
@@ -39,7 +63,9 @@ export default function NoteCard({
         <Card.Content>
           {isEditMode ? (
             <Input
-              defaultValue={title}
+              name="title"
+              onChange={onChangeNote}
+              defaultValue={noteEdited.title}
               className="mb-1"
               size="sm"
               style={{ maxWidth: "97%" }}
@@ -50,9 +76,11 @@ export default function NoteCard({
 
           {isEditMode ? (
             <Textarea
+              name="content"
+              onChange={onChangeNote}
               className="textarea-sm mb-1 w-100-fixed max-h-200"
               limit={500}
-              defaultValue={content}
+              defaultValue={noteEdited.content}
             />
           ) : (
             <Typography.Paragraph className="mb-0">
@@ -62,7 +90,11 @@ export default function NoteCard({
 
           {isEditMode ? (
             <>
-              <InputTag defaultTags={tags} size="sm" />
+              <InputTag
+                defaultTags={noteEdited.tags}
+                onChangeTags={onChangeTags}
+                size="sm"
+              />
               <Button
                 btnType="success"
                 size="sm"

@@ -1,4 +1,10 @@
-import { ADD_NOTE, EDIT_NOTE, REMOVE_NOTE, SET_NOTES } from "./Types/Types";
+import {
+  ADD_NOTE,
+  EDIT_NOTE,
+  REMOVE_NOTE,
+  SET_NOTES,
+  REMOVE_ALL_NOTES,
+} from "./Types/Types";
 
 export const addNoteAction = (payload) => {
   return {
@@ -18,6 +24,12 @@ export const removeNoteAction = (payload) => {
   return {
     type: REMOVE_NOTE,
     payload,
+  };
+};
+
+export const removeAllNotesAction = () => {
+  return {
+    type: REMOVE_ALL_NOTES,
   };
 };
 
