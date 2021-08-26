@@ -8,27 +8,16 @@ import {
   Textarea,
   PopConfirm,
 } from "tiny-ui";
-import NoteCard from "./NoteCard";
+import TaskCard from "./TaskCard";
 
-import useNote from "../../../Hooks/Notes/useNote";
 import InputTag from "../../Components/InputTag";
 import { useState } from "react";
 import ExportButton from "../../Buttons/ExportButton";
 
-export default function Notes() {
-  const {
-    availables,
-    notes,
-    addNote,
-    removeNote,
-    removeAllNotes,
-    isVisibleModalNote,
-    toggleModalNote,
-  } = useNote();
+export default function Tasks() {
   const [tags, setTags] = useState([]);
 
-  const _addNote = (values) => {
-    addNote({ ...values, tags });
+  const _addTask = (values) => {
     setTags([]);
   };
 
@@ -39,13 +28,13 @@ export default function Notes() {
   return (
     <div className="mt-3 ps-1">
       <Modal
-        visible={isVisibleModalNote}
-        header="Crear una nota"
+        // visible={isVisibleModalNote}
+        header="Crear una tarea"
         footer={null}
-        onConfirm={_addNote}
-        onCancel={toggleModalNote}
+        // onConfirm={_adNote}
+        // onCancel={toggleModalNote}
       >
-        <Form layout="vertical" onFinish={_addNote}>
+        <Form layout="vertical">
           <Form.Item
             label="Título"
             name="title"
@@ -70,7 +59,7 @@ export default function Notes() {
             ]}
           >
             <Textarea
-              placeholder="Describe bien tu nota"
+              placeholder="Describe bien tu tarea"
               className="w-100-fixed max-h-300 min-h-200"
               limit={500}
             />
@@ -79,12 +68,12 @@ export default function Notes() {
           <InputTag onChangeTags={onChangeTags} />
 
           <Button btnType="info" type="submit" block>
-            Crear nota
+            Crear tarea
           </Button>
         </Form>
       </Modal>
 
-      <Typography.Heading level={3}>Notas</Typography.Heading>
+      <Typography.Heading level={3}>Tareas</Typography.Heading>
       <ul className="mt-3 notes">
         {availables ? (
           <>
@@ -96,7 +85,7 @@ export default function Notes() {
                   className="mb-2"
                   onClick={toggleModalNote}
                 >
-                  Agregar una nota
+                  Agregar una tarea
                 </Button>
                 <PopConfirm
                   title="¿Seguro de eliminar todo?"
@@ -108,10 +97,10 @@ export default function Notes() {
                   </Button>
                 </PopConfirm>
               </div>
-              <ExportButton text="Exportar notas" file={notes} />
+              <ExportButton text="Exportar tareas" file={notes} />
             </div>
             {notes?.map((note) => (
-              <NoteCard key={note?.id} {...{ removeNote, ...note }} />
+              <TaskCard key={note?.id} {...{ removeNote, ...note }} />
             ))}
           </>
         ) : (
@@ -119,7 +108,7 @@ export default function Notes() {
             descStyle={{ textAlign: "center" }}
             description={
               <>
-                <span>No tienes notas creadas aún.</span>
+                <span>No tienes tareas creadas aún.</span>
                 <Button
                   btnType="info"
                   size="sm"
@@ -127,7 +116,7 @@ export default function Notes() {
                   onClick={toggleModalNote}
                   block
                 >
-                  Crear una nota
+                  Crear una tarea
                 </Button>
               </>
             }

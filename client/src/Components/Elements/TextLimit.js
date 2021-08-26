@@ -9,7 +9,7 @@ function TextLimit({ text = "", limit = 200, size = "md", ...props }) {
 
   return (
     <div {...props}>
-      <Typography.Paragraph className="mb-0 ease">
+      <Typography.Paragraph className="mb-0">
         {size === "sm" ? <small>{textContent}</small> : textContent}
       </Typography.Paragraph>
 

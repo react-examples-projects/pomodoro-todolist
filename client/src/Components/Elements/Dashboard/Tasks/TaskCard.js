@@ -10,41 +10,31 @@ import {
   Input,
   Textarea,
 } from "tiny-ui";
-import proptypes from "prop-types";
-import useNote from "../../../Hooks/Notes/useNote";
 import InputTag from "../../Components/InputTag";
 import TextLimit from "../../TextLimit";
 
-function NoteCard({
-  title,
-  content ,
-  id,
-  removeNote,
-  tags,
-}) {
-  const [noteEdited, setNoteEdited] = useState({
+export default function TaskCard({ title, content, id, tags }) {
+  const [taskEdited, setTaskEdited] = useState({
     title,
     content,
     tags,
   });
 
-  const { isEditMode, toggleEditMote, editNote } = useNote();
-
   const onChangeTags = (tags) => {
-    setNoteEdited({ ...noteEdited, tags });
+    setTaskEdited({ ...taskEdited, tags });
   };
 
-  const onChangeNote = (e) => {
-    if (typeof e === "string") setNoteEdited({ ...noteEdited, content: e });
+  const onChangeTask = (e) => {
+    if (typeof e === "string") setTaskEdited({ ...noteEdited, content: e });
     else {
-      setNoteEdited({
+      setTaskEdited({
         ...noteEdited,
         [e.target.name]: e.target.value,
       });
     }
   };
 
-  const editNoteCard = () => {
+  const editTaskCard = () => {
     const payload = {
       id,
       title: noteEdited.title,
@@ -66,8 +56,8 @@ function NoteCard({
           {isEditMode ? (
             <Input
               name="title"
-              onChange={onChangeNote}
-              defaultValue={noteEdited.title}
+              onChange={onChangeTask}
+              defaultValue={taskEdited.title}
               maxLength={100}
               className="mb-1"
               size="sm"
@@ -80,10 +70,10 @@ function NoteCard({
           {isEditMode ? (
             <Textarea
               name="content"
-              onChange={onChangeNote}
+              onChange={onChangeTask}
               className="textarea-sm mb-1 w-100-fixed max-h-200"
               limit={500}
-              defaultValue={noteEdited.content}
+              defaultValue={taskEdited.content}
             />
           ) : (
             <TextLimit text={content} size="sm" className="mb-0" />
@@ -92,7 +82,7 @@ function NoteCard({
           {isEditMode ? (
             <>
               <InputTag
-                defaultTags={noteEdited.tags}
+                defaultTags={taskEdited.tags}
                 onChangeTags={onChangeTags}
                 size="sm"
               />
@@ -100,7 +90,7 @@ function NoteCard({
                 btnType="success"
                 size="sm"
                 className="mt-1"
-                onClick={editNoteCard}
+                onClick={editTaskCard}
               >
                 Guardar
               </Button>
@@ -178,13 +168,3 @@ function NoteCard({
     </li>
   );
 }
-
-NoteCard.propTypes = {
-  title: proptypes.string.isRequired,
-  content: proptypes.string.isRequired,
-  id: proptypes.oneOfType([proptypes.number, proptypes.string]).isRequired,
-  removeNote: proptypes.func.isRequired,
-  tag: proptypes.arrayOf(proptypes.object),
-};
-
-export default NoteCard;
