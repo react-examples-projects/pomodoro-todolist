@@ -10,8 +10,10 @@ import {
   Layout,
   Input,
   InputPassword,
+  Message,
 } from "tiny-ui";
 import { Link, useLocation, useHistory } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Login() {
   const { state } = useLocation();
@@ -19,6 +21,12 @@ export default function Login() {
   const { setUser } = useCurrentUser();
   const login = useLogin();
   const initialValues = { email: state?.email || "", password: "" };
+
+  useEffect(() => {
+    if (login.isError) {
+      Message.error("Contraseña o correo inválidos");
+    }
+  }, [login.isError]);
 
   const handleSubmit = async (values) => {
     const res = await login.mutateAsync(values);

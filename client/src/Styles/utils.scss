@@ -1,7 +1,8 @@
-@mixin margin($direction, $classname) {
+@mixin margin($classname, $direction: null) {
+  $margin: if($direction, margin-#{$direction}, margin);
   @for $i from 0 to 11 {
     .#{$classname}-#{$i} {
-      margin-#{$direction}: $i * 0.5rem !important;
+      #{$margin}: $i * 0.5rem !important;
     }
   }
 }
@@ -11,6 +12,22 @@
   @for $i from 0 to 11 {
     .#{$classname}-#{$i} {
       #{$padding}: $i * 0.5rem !important;
+    }
+  }
+}
+
+@mixin propAuto($classname) {
+  $p: margin;
+  $config: (
+    "t": "top",
+    "b": "bottom",
+    "s": "left",
+    "e": "right",
+  );
+
+  @each $class, $direction in $config {
+    .#{$classname}#{$class}-auto {
+      #{$p}-#{$direction}: auto !important;
     }
   }
 }
@@ -100,13 +117,16 @@
 
 @include height-sizes();
 @include sizes();
-@include margin("top", "mt");
-@include margin("bottom", "mb");
-@include margin("left", "ms");
-@include margin("right", "me");
+
+@include propAuto("m");
+@include margin("m");
+@include margin("mt", "top");
+@include margin("mb", "bottom");
+@include margin("ms", "left");
+@include margin("me", "right");
 
 @include padding("p");
 @include padding("pt", "top");
 @include padding("pb", "bottom");
 @include padding("ps", "left");
-@include padding("pe", "lerightft");
+@include padding("pe", "right");

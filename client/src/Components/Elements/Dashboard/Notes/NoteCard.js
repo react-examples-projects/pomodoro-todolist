@@ -12,6 +12,7 @@ import {
 } from "tiny-ui";
 import useNote from "../../../Hooks/Notes/useNote";
 import InputTag from "../../Components/InputTag";
+import TextLimit from "../../TextLimit";
 
 export default function NoteCard({
   title = "Nota de prueba",
@@ -66,6 +67,7 @@ export default function NoteCard({
               name="title"
               onChange={onChangeNote}
               defaultValue={noteEdited.title}
+              maxLength={100}
               className="mb-1"
               size="sm"
               style={{ maxWidth: "97%" }}
@@ -83,9 +85,7 @@ export default function NoteCard({
               defaultValue={noteEdited.content}
             />
           ) : (
-            <Typography.Paragraph className="mb-0">
-              <small>{content}</small>
-            </Typography.Paragraph>
+            <TextLimit text={content} size="sm" className="mb-0" />
           )}
 
           {isEditMode ? (

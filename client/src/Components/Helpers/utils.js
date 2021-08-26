@@ -132,3 +132,14 @@ export function combineReducers(reducers) {
     return newState;
   };
 }
+
+export function exportFile(file, title = "pomodoro_todolist_file") {
+  const blob = new Blob([JSON.stringify(file, null, 2)], {
+    type: "application/json",
+  });
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = title;
+  link.click();
+}

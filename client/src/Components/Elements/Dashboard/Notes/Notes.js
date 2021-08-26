@@ -6,12 +6,14 @@ import {
   Form,
   Input,
   Textarea,
+  PopConfirm,
 } from "tiny-ui";
 import NoteCard from "./NoteCard";
 
 import useNote from "../../../Hooks/Notes/useNote";
 import InputTag from "../../Components/InputTag";
 import { useState } from "react";
+import ExportButton from "../../Buttons/ExportButton";
 
 export default function Notes() {
   const {
@@ -19,6 +21,7 @@ export default function Notes() {
     notes,
     addNote,
     removeNote,
+    removeAllNotes,
     isVisibleModalNote,
     toggleModalNote,
   } = useNote();
@@ -52,7 +55,7 @@ export default function Notes() {
               },
             ]}
           >
-            <Input placeholder="¡Soy un título!" />
+            <Input placeholder="¡Soy un título!" maxLength={100} />
           </Form.Item>
 
           <Form.Item
@@ -84,14 +87,28 @@ export default function Notes() {
       <ul className="mt-3 notes">
         {availables ? (
           <>
-            <Button
-              btnType="info"
-              size="sm"
-              className="mb-2"
-              onClick={toggleModalNote}
-            >
-              Agregar una nota
-            </Button>
+            <div className="d-flex" style={{ justifyContent: "space-between" }}>
+              <div>
+                <Button
+                  btnType="info"
+                  size="sm"
+                  className="mb-2"
+                  onClick={toggleModalNote}
+                >
+                  Agregar una nota
+                </Button>
+                <PopConfirm
+                  title="¿Seguro de eliminar todo?"
+                  confirmText="Sí"
+                  onConfirm={removeAllNotes}
+                >
+                  <Button btnType="danger" size="sm" className="mb-2">
+                    Eliminar todo
+                  </Button>
+                </PopConfirm>
+              </div>
+              <ExportButton text="Exportar notas" file={notes} />
+            </div>
             {notes?.map((note) => (
               <NoteCard key={note?.id} {...{ removeNote, ...note }} />
             ))}
