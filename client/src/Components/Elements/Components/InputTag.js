@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Input, Tag, Button, Row, Col } from "tiny-ui";
 import { formatTagTitles } from "../../Helpers/utils";
+import proptypes from "prop-types";
 
-export default function InputTag({ onChangeTags, defaultTags, size }) {
+function InputTag({ onChangeTags, defaultTags, size }) {
   const [tags, setTags] = useState(defaultTags || []);
   const [title, setTitle] = useState("");
   const [color, setColor] = useState("#a7a7a7");
@@ -86,3 +87,11 @@ export default function InputTag({ onChangeTags, defaultTags, size }) {
     </div>
   );
 }
+
+InputTag.propTypes = {
+  onChangeTags: proptypes.func,
+  defaultStatus: proptypes.arrayOf(proptypes.object),
+  size: proptypes.string,
+};
+
+export default InputTag;

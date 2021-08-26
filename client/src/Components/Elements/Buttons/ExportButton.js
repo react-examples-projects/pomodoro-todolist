@@ -1,12 +1,8 @@
 import { Button } from "tiny-ui";
 import { exportFile } from "../../Helpers/utils";
+import proptypes from "prop-types";
 
-export default function ExportButton({
-  children,
-  text = "Exportar datos",
-  file,
-  ...props
-}) {
+function ExportButton({ children, text = "Exportar datos", file, ...props }) {
   return (
     <Button
       btnType="ghost"
@@ -18,3 +14,10 @@ export default function ExportButton({
     </Button>
   );
 }
+
+ExportButton.propTypes = {
+  text: proptypes.string,
+  file: proptypes.arrayOf(proptypes.object).isRequired,
+};
+
+export default ExportButton;

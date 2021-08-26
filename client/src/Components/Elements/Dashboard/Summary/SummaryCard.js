@@ -1,6 +1,7 @@
 import { Typography, Icon, Card, Avatar } from "tiny-ui";
+import proptypes from "prop-types";
 
-export default function SummaryCard({ title, content, icon }) {
+function SummaryCard({ title, content, icon }) {
   return (
     <Card className="h-100">
       <Card.Content>
@@ -15,7 +16,6 @@ export default function SummaryCard({ title, content, icon }) {
             size={80}
           />
 
-          
           <Typography.Heading level={5} align="center">
             {title}
           </Typography.Heading>
@@ -25,3 +25,11 @@ export default function SummaryCard({ title, content, icon }) {
     </Card>
   );
 }
+
+SummaryCard.propTypes = {
+  title: proptypes.string.isRequired,
+  content: proptypes.string.isRequired,
+  icon: proptypes.string.isRequired,
+};
+
+export default SummaryCard;

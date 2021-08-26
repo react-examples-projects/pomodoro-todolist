@@ -1,12 +1,7 @@
 import { Button, Typography } from "tiny-ui";
 import useToggle from "../Hooks/Utils/useToggle";
-
-export default function TextLimit({
-  text = String.prototype,
-  limit = 200,
-  size = "md",
-  ...props
-}) {
+import proptypes from "prop-types";
+function TextLimit({ text = "", limit = 200, size = "md", ...props }) {
   const [isVisible, toggleIsVisible] = useToggle();
   const isLong = text.length >= limit;
   const textShort = isLong ? text.substring(0, limit) + "..." : text;
@@ -19,10 +14,18 @@ export default function TextLimit({
       </Typography.Paragraph>
 
       {isLong && (
-        <Button btnType="link" size="sm" onClick={toggleIsVisible} className="p-0">
-          {isVisible ? "Ocultar" : "Ver más..."}
+        <Button btnType="link" onClick={toggleIsVisible} className="p-0">
+          <small>{isVisible ? "Ocultar" : "Ver más..."}</small>
         </Button>
       )}
     </div>
   );
 }
+
+TextLimit.propTypes = {
+  text: proptypes.string.isRequired,
+  limit: proptypes.number,
+  size: proptypes.string,
+};
+
+export default TextLimit;

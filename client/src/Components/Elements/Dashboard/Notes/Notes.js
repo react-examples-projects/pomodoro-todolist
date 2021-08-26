@@ -29,6 +29,7 @@ export default function Notes() {
 
   const _addNote = (values) => {
     addNote({ ...values, tags });
+    setTags([]);
   };
 
   const onChangeTags = (tags) => {

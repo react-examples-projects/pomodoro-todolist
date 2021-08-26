@@ -10,11 +10,12 @@ import {
   Input,
   Textarea,
 } from "tiny-ui";
+import proptypes from "prop-types";
 import useNote from "../../../Hooks/Notes/useNote";
 import InputTag from "../../Components/InputTag";
 import TextLimit from "../../TextLimit";
 
-export default function NoteCard({
+function NoteCard({
   title = "Nota de prueba",
   content = "Recordar que debo de hacer algo",
   id,
@@ -177,3 +178,13 @@ export default function NoteCard({
     </li>
   );
 }
+
+NoteCard.propTypes = {
+  title: proptypes.string.isRequired,
+  content: proptypes.string.isRequired,
+  id: proptypes.oneOfType([proptypes.number, proptypes.string]).isRequired,
+  removeNote: proptypes.func.isRequired,
+  tag: proptypes.arrayOf(proptypes.object),
+};
+
+export default NoteCard;
