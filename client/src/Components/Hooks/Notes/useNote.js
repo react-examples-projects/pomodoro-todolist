@@ -4,11 +4,9 @@ import uniqid from "uniqid";
 import usePomodoro from "../Context/usePomodoro";
 
 export default function useNote() {
-  const { notes, addNote, removeNote, editNote, removeAllNotes } =
-    usePomodoro();
-
+  const { notes, addNote, removeNote, editNote, removeAllNotes } = usePomodoro();
   const [isVisibleModalNote, toggleModalNote] = useToggle();
-  const [isEditMode, toggleEditMote] = useToggle(false);
+  const [isEditMode, toggleEditMode] = useToggle(false);
   const amountNotes = notes.length;
   const availables = amountNotes > 0;
 
@@ -21,7 +19,7 @@ export default function useNote() {
 
   const _editNote = (payload) => {
     editNote(payload);
-    toggleEditMote();
+    toggleEditMode();
   };
 
   return {
@@ -33,7 +31,7 @@ export default function useNote() {
     amountNotes,
     availables,
     toggleModalNote,
-    toggleEditMote,
+    toggleEditMode,
     isVisibleModalNote,
     isEditMode,
   };

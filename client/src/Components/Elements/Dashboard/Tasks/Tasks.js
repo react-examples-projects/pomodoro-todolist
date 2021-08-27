@@ -13,28 +13,40 @@ import TaskCard from "./TaskCard";
 import InputTag from "../../Components/InputTag";
 import { useState } from "react";
 import ExportButton from "../../Buttons/ExportButton";
+import useTasks from "../../../Hooks/Tasks/useTasks";
 
 export default function Tasks() {
   const [tags, setTags] = useState([]);
+  const {
+    tasks,
+    addTask,
+    removeAllTasks,
+    availables,
+    isVisibleModalTask,
+    toggleModalTask,
+    removeTask,
+  } = useTasks();
 
   const _addTask = (values) => {
+    console.log("dwedwedw")
+    addTask({ ...values, tags });
     setTags([]);
   };
 
   const onChangeTags = (tags) => {
     setTags(tags);
   };
-
+       
   return (
     <div className="mt-3 ps-1">
       <Modal
-        // visible={isVisibleModalNote}
+        visible={isVisibleModalTask}
         header="Crear una tarea"
         footer={null}
-        // onConfirm={_adNote}
-        // onCancel={toggleModalNote}
+        onConfirm={_addTask}
+        onCancel={toggleModalTask}
       >
-        <Form layout="vertical">
+        <Form layout="vertical" onFinish={_addTask}>
           <Form.Item
             label="Título"
             name="title"
@@ -83,24 +95,24 @@ export default function Tasks() {
                   btnType="info"
                   size="sm"
                   className="mb-2"
-                  onClick={toggleModalNote}
+                  onClick={toggleModalTask}
                 >
                   Agregar una tarea
                 </Button>
                 <PopConfirm
                   title="¿Seguro de eliminar todo?"
                   confirmText="Sí"
-                  onConfirm={removeAllNotes}
+                  onConfirm={removeAllTasks}
                 >
                   <Button btnType="danger" size="sm" className="mb-2">
                     Eliminar todo
                   </Button>
                 </PopConfirm>
               </div>
-              <ExportButton text="Exportar tareas" file={notes} />
+              <ExportButton text="Exportar tareas" file={tasks} />
             </div>
-            {notes?.map((note) => (
-              <TaskCard key={note?.id} {...{ removeNote, ...note }} />
+            {tasks?.map((task) => (
+              <TaskCard key={task?.id} {...{ removeTask, ...task }} />
             ))}
           </>
         ) : (
@@ -113,7 +125,7 @@ export default function Tasks() {
                   btnType="info"
                   size="sm"
                   className="mt-2"
-                  onClick={toggleModalNote}
+                  onClick={toggleModalTask}
                   block
                 >
                   Crear una tarea

@@ -3,10 +3,9 @@ import PomodoroContext from "./PomodoroContext";
 import { combineReducers } from "../../Helpers/utils";
 import initialState from "../../Store/initialState";
 // reducers
-import pendings from "../../Store/Reducers/PendingsReducer";
-import importants from "../../Store/Reducers/ImportantsReducer";
-import completed from "../../Store/Reducers/CompletedReducer";
 import notes from "../../Store/Reducers/NotesReducer";
+import tasks from "../../Store/Reducers/TasksReducer";
+
 import {
   setNotesAction,
   addNoteAction,
@@ -15,9 +14,17 @@ import {
   removeAllNotesAction,
 } from "../../Store/Actions/NotesAction";
 
+import {
+  setTasksAction,
+  addTaskAction,
+  editTaskAction,
+  removeTaskAction,
+  removeAllTasksAction,
+} from "../../Store/Actions/TasksAction";
+
 export default function PomodoroProvider({ children }) {
   const [state, dispatch] = useReducer(
-    combineReducers({ pendings, importants, completed, notes }),
+    combineReducers({ notes, tasks }),
     initialState
   );
 
@@ -41,6 +48,26 @@ export default function PomodoroProvider({ children }) {
     dispatch(removeAllNotesAction());
   }, []);
 
+  const setTasks = useCallback((payload) => {
+    dispatch(setTasksAction(payload));
+  }, []);
+
+  const addTask = useCallback((payload) => {
+    dispatch(addTaskAction(payload));
+  }, []);
+
+  const editTask = useCallback((payload) => {
+    dispatch(editTaskAction(payload));
+  }, []);
+
+  const removeTask = useCallback((payload) => {
+    dispatch(removeTaskAction(payload));
+  }, []);
+
+  const removeAllTasks = useCallback(() => {
+    dispatch(removeAllTasksAction());
+  }, []);
+
   const value = useMemo(
     () => ({
       ...state,
@@ -49,8 +76,26 @@ export default function PomodoroProvider({ children }) {
       editNote,
       removeNote,
       removeAllNotes,
+
+      setTasks,
+      addTask,
+      editTask,
+      removeTask,
+      removeAllTasks,
     }),
-    [state, setNotes, addNote, editNote, removeNote, removeAllNotes]
+    [
+      state,
+      setNotes,
+      addNote,
+      editNote,
+      removeNote,
+      removeAllNotes,
+      setTasks,
+      addTask,
+      editTask,
+      removeTask,
+      removeAllTasks,
+    ]
   );
 
   return (

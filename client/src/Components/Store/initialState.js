@@ -1,8 +1,5 @@
 const initialState = {
-  pendings: [],
-  completed: [],
-  importants: [],
-  categories: [],
+  tasks: [],
   notes: [],
 };
 

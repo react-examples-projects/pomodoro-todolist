@@ -28,7 +28,7 @@ function NoteCard({
     tags,
   });
 
-  const { isEditMode, toggleEditMote, editNote } = useNote();
+  const { isEditMode, toggleEditMode, editNote } = useNote();
 
   const onChangeTags = (tags) => {
     setNoteEdited({ ...noteEdited, tags });
@@ -108,7 +108,7 @@ function NoteCard({
                 btnType="danger"
                 size="sm"
                 className="mt-1"
-                onClick={toggleEditMote}
+                onClick={toggleEditMode}
               >
                 Cancelar
               </Button>
@@ -128,7 +128,7 @@ function NoteCard({
           <Dropdown
             overlay={
               <Menu>
-                <Menu.Item onClick={toggleEditMote}>
+                <Menu.Item onClick={toggleEditMode}>
                   <Icon name="edit-file" size={13} className="me-1" />
                   {isEditMode ? <small>Cancelar</small> : <small>Editar</small>}
                 </Menu.Item>

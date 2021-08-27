@@ -10,6 +10,8 @@ import {
   Input,
   Textarea,
 } from "tiny-ui";
+import useTasks from "../../../Hooks/Tasks/useTasks";
+
 import InputTag from "../../Components/InputTag";
 import TextLimit from "../../TextLimit";
 
@@ -19,16 +21,16 @@ export default function TaskCard({ title, content, id, tags }) {
     content,
     tags,
   });
-
+  const { editTask, isEditMode, removeTask, toggleEditMode } = useTasks();
   const onChangeTags = (tags) => {
     setTaskEdited({ ...taskEdited, tags });
   };
 
   const onChangeTask = (e) => {
-    if (typeof e === "string") setTaskEdited({ ...noteEdited, content: e });
+    if (typeof e === "string") setTaskEdited({ ...taskEdited, content: e });
     else {
       setTaskEdited({
-        ...noteEdited,
+        ...taskEdited,
         [e.target.name]: e.target.value,
       });
     }
@@ -37,12 +39,12 @@ export default function TaskCard({ title, content, id, tags }) {
   const editTaskCard = () => {
     const payload = {
       id,
-      title: noteEdited.title,
-      content: noteEdited.content,
-      tags: noteEdited.tags,
+      title: taskEdited.title,
+      content: taskEdited.content,
+      tags: taskEdited.tags,
     };
 
-    editNote(payload);
+    editTask(payload);
   };
 
   return (
@@ -98,7 +100,7 @@ export default function TaskCard({ title, content, id, tags }) {
                 btnType="danger"
                 size="sm"
                 className="mt-1"
-                onClick={toggleEditMote}
+                onClick={toggleEditMode}
               >
                 Cancelar
               </Button>
@@ -118,11 +120,11 @@ export default function TaskCard({ title, content, id, tags }) {
           <Dropdown
             overlay={
               <Menu>
-                <Menu.Item onClick={toggleEditMote}>
+                <Menu.Item onClick={toggleEditMode}>
                   <Icon name="edit-file" size={13} className="me-1" />
                   {isEditMode ? <small>Cancelar</small> : <small>Editar</small>}
                 </Menu.Item>
-                <Menu.Item onClick={() => removeNote(id)}>
+                <Menu.Item onClick={() => removeTask(id)}>
                   <Icon name="trash" size={13} className="me-1" />
                   <small>Eliminar</small>
                 </Menu.Item>
