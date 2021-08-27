@@ -78,7 +78,7 @@ export default function Notes() {
 
           <InputTag onChangeTags={onChangeTags} />
 
-          <Button btnType="info" type="submit" block>
+          <Button btnType="info" type="submit" className="mt-1" block>
             Crear nota
           </Button>
         </Form>

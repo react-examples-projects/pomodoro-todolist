@@ -7,6 +7,9 @@ import {
   Input,
   Textarea,
   PopConfirm,
+  InputNumber,
+  Row,
+  Col,
 } from "tiny-ui";
 import TaskCard from "./TaskCard";
 
@@ -28,7 +31,7 @@ export default function Tasks() {
   } = useTasks();
 
   const _addTask = (values) => {
-    console.log("dwedwedw")
+    values.totalTime = values.pomodoros * values.minutes;
     addTask({ ...values, tags });
     setTags([]);
   };
@@ -36,7 +39,7 @@ export default function Tasks() {
   const onChangeTags = (tags) => {
     setTags(tags);
   };
-       
+
   return (
     <div className="mt-3 ps-1">
       <Modal
@@ -76,10 +79,35 @@ export default function Tasks() {
               limit={500}
             />
           </Form.Item>
+          <Row gutter={10}>
+            <Col span={12}>
+              <Form.Item
+                label="Minutos"
+                name="minutes"
+                rules={[
+                  { message: "Los minuto son obligatorios", required: true },
+                ]}
+              >
+                <InputNumber defaultValue={25} min={5} max={60} />
+              </Form.Item>
+            </Col>
+
+            <Col span={12}>
+              <Form.Item
+                label="Pomodoros"
+                name="pomodoros"
+                rules={[
+                  { message: "Los pomodoros son obligatorios", required: true },
+                ]}
+              >
+                <InputNumber defaultValue={4} min={1} max={10} />
+              </Form.Item>
+            </Col>
+          </Row>
 
           <InputTag onChangeTags={onChangeTags} />
 
-          <Button btnType="info" type="submit" block>
+          <Button btnType="info" type="submit" className="mt-1" block>
             Crear tarea
           </Button>
         </Form>

@@ -10,18 +10,22 @@ import {
   Input,
   Textarea,
 } from "tiny-ui";
-import useTasks from "../../../Hooks/Tasks/useTasks";
+import { FiClock } from "react-icons/fi";
 
+import useTasks from "../../../Hooks/Tasks/useTasks";
 import InputTag from "../../Components/InputTag";
 import TextLimit from "../../TextLimit";
+import { formatTime } from "../../../Helpers/utils";
 
-export default function TaskCard({ title, content, id, tags }) {
+export default function TaskCard({ title, content, id, tags, totalTime }) {
   const [taskEdited, setTaskEdited] = useState({
     title,
     content,
     tags,
   });
   const { editTask, isEditMode, removeTask, toggleEditMode } = useTasks();
+  const totalTimeFormat = formatTime(totalTime);
+
   const onChangeTags = (tags) => {
     setTaskEdited({ ...taskEdited, tags });
   };
@@ -80,6 +84,13 @@ export default function TaskCard({ title, content, id, tags }) {
           ) : (
             <TextLimit text={content} size="sm" className="mb-0" />
           )}
+
+          <Tag
+            className="mt-1"
+            style={{ display: "inline-flex", alignItems: "center" }}
+          >
+            <FiClock style={{ marginRight: "5px" }} /> {totalTimeFormat}
+          </Tag>
 
           {isEditMode ? (
             <>

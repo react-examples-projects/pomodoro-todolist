@@ -68,7 +68,7 @@ function InputTag({ onChangeTags, defaultTags, size }) {
 
       {tags?.length > 0 && (
         <div
-          className="mt-1 d-flex mb-1"
+          className="mt-1 d-flex"
           style={{ maxHeight: "118px", overflow: "scroll hidden" }}
         >
           {tags.map((tag) => (

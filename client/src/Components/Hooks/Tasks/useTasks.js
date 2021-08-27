@@ -4,7 +4,7 @@ import uniqid from "uniqid";
 import usePomodoro from "../Context/usePomodoro";
 
 export default function useTasks() {
-  const { tasks, addTask, removeTask, editTask, removeAllTask } = usePomodoro();
+  const { tasks, addTask, removeTask, editTask, removeAllTasks } = usePomodoro();
   const [isVisibleModalTask, toggleModalTask] = useToggle();
   const [isEditMode, toggleEditMode] = useToggle(false);
   const amountTask = tasks.length;
@@ -25,7 +25,7 @@ export default function useTasks() {
   return {
     tasks,
     addTask: _addTask,
-    removeAllTask,
+    removeAllTasks,
     removeTask,
     editTask: _editTask,
     amountTask,
