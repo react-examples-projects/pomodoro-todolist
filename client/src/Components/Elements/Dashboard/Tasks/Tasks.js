@@ -21,6 +21,13 @@ import ExportButton from "../../Buttons/ExportButton";
 import useTasks from "../../../Hooks/Tasks/useTasks";
 
 export default function Tasks() {
+  const initialValues = {
+    title: "",
+    content: "",
+    minutes: 25,
+    pomodoros: 4,
+    category: "Secundario",
+  };
   const [tags, setTags] = useState([]);
   const {
     tasks,
@@ -51,7 +58,11 @@ export default function Tasks() {
         onCancel={toggleModalTask}
         centered
       >
-        <Form layout="vertical" onFinish={_addTask}>
+        <Form
+          layout="vertical"
+          onFinish={_addTask}
+          initialValues={initialValues}
+        >
           <Form.Item
             label="Título"
             name="title"
@@ -81,7 +92,7 @@ export default function Tasks() {
               limit={500}
             />
           </Form.Item>
-          
+
           <Row gutter={5}>
             <Col span={12}>
               <Form.Item
@@ -119,7 +130,7 @@ export default function Tasks() {
             ]}
           >
             <NativeSelect style={{ width: "100%" }}>
-              <NativeSelect.Option>Secundario</NativeSelect.Option>
+              <NativeSelect.Option selected>Secundario</NativeSelect.Option>
               <NativeSelect.Option>Importantes</NativeSelect.Option>
             </NativeSelect>
           </Form.Item>

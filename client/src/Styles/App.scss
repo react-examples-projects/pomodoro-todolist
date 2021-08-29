@@ -78,6 +78,18 @@ ul {
   }
 }
 
+.layout-menu-user {
+  &::before {
+    display: none !important;
+  }
+
+  > li {
+    border-radius: 4px;
+    text-transform: capitalize;
+    border-right: 0 !important;
+  }
+}
+
 .cards-list {
   max-height: 800px;
   padding: 3px;

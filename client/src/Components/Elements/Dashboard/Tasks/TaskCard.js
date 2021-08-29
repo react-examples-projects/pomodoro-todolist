@@ -19,6 +19,7 @@ import useTasks from "../../../Hooks/Tasks/useTasks";
 import InputTag from "../../Components/InputTag";
 import TextLimit from "../../TextLimit";
 import { formatTime } from "../../../Helpers/utils";
+import NativeSelect from "tiny-ui/lib/native-select/native-select";
 
 export default function TaskCard({
   title,
@@ -51,6 +52,10 @@ export default function TaskCard({
 
   const onChangePomodoros = (pomodoros) => {
     setTaskEdited({ ...taskEdited, pomodoros });
+  };
+
+  const onChangeCategory = (e) => {
+    setTaskEdited({ ...taskEdited, category: e.target.value });
   };
 
   const onChangeTask = (e) => {
@@ -154,14 +159,46 @@ export default function TaskCard({
             </Tag>
           )}
 
-          <Tag
-            style={{ display: "inline-flex", alignItems: "center" }}
-            className="mt-1"
-            aria-label="Categoría"
-          >
-            <Icon name="tags" style={{ marginRight: "5px" }} />
-            {taskEdited.category}
-          </Tag>
+          {isEditMode ? (
+            <Row gutter={10} className="mt-1 center-y">
+              <Col span={6}>
+                <Tag
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    width: "100%",
+                    justifyContent: "center",
+                  }}
+                  className="mt-1"
+                  aria-label="Categoría"
+                >
+                  <Icon name="tags" style={{ marginRight: "5px" }} />
+                  {taskEdited.category}
+                </Tag>
+              </Col>
+
+              <Col span={18} className="mt-1 center-y">
+                <NativeSelect
+                  size="sm"
+                  style={{ width: "100%" }}
+                  onChange={onChangeCategory}
+                  defaultValue={category}
+                >
+                  <NativeSelect.Option>Secundario</NativeSelect.Option>
+                  <NativeSelect.Option>Importantes</NativeSelect.Option>
+                </NativeSelect>
+              </Col>
+            </Row>
+          ) : (
+            <Tag
+              style={{ display: "inline-flex", alignItems: "center" }}
+              className="mt-1"
+              aria-label="Categoría"
+            >
+              <Icon name="tags" style={{ marginRight: "5px" }} />
+              {taskEdited.category}
+            </Tag>
+          )}
 
           {isEditMode ? (
             <>
