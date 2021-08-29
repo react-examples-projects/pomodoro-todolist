@@ -7,6 +7,7 @@ import {
   Input,
   Textarea,
   PopConfirm,
+  Icon,
 } from "tiny-ui";
 import NoteCard from "./NoteCard";
 
@@ -44,6 +45,7 @@ export default function Notes() {
         footer={null}
         onConfirm={_addNote}
         onCancel={toggleModalNote}
+        centered
       >
         <Form layout="vertical" onFinish={_addNote}>
           <Form.Item
@@ -85,7 +87,7 @@ export default function Notes() {
       </Modal>
 
       <Typography.Heading level={3}>Notas</Typography.Heading>
-      <ul className="mt-3 notes">
+      <ul className="mt-3 cards-list">
         {availables ? (
           <>
             <div className="d-flex" style={{ justifyContent: "space-between" }}>
@@ -94,6 +96,7 @@ export default function Notes() {
                   btnType="info"
                   size="sm"
                   className="mb-2"
+                  icon={<Icon name="add-list" />}
                   onClick={toggleModalNote}
                 >
                   Agregar una nota
@@ -103,7 +106,12 @@ export default function Notes() {
                   confirmText="Sí"
                   onConfirm={removeAllNotes}
                 >
-                  <Button btnType="danger" size="sm" className="mb-2">
+                  <Button
+                    btnType="danger"
+                    size="sm"
+                    icon={<Icon name="trash" />}
+                    className="mb-2"
+                  >
                     Eliminar todo
                   </Button>
                 </PopConfirm>

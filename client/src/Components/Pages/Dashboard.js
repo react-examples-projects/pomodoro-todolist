@@ -8,7 +8,7 @@ export default function Dashboard() {
   return (
     <LayoutPage>
       <Summary />
-      <Row>
+      <Row gutter={10}>
         <Col span={12}>
           <Notes />
         </Col>

@@ -3,7 +3,7 @@ import { Input, Tag, Button, Row, Col } from "tiny-ui";
 import { formatTagTitles } from "../../Helpers/utils";
 import proptypes from "prop-types";
 
-function InputTag({ onChangeTags, defaultTags, size }) {
+function InputTag({ onChangeTags, defaultTags, size, ...props }) {
   const [tags, setTags] = useState(defaultTags || []);
   const [title, setTitle] = useState("");
   const [color, setColor] = useState("#a7a7a7");
@@ -29,7 +29,7 @@ function InputTag({ onChangeTags, defaultTags, size }) {
   };
 
   return (
-    <div>
+    <div {...props}>
       <Row gutter={3}>
         <Col span={16}>
           <Input

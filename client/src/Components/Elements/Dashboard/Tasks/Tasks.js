@@ -8,6 +8,8 @@ import {
   Textarea,
   PopConfirm,
   InputNumber,
+  NativeSelect,
+  Icon,
   Row,
   Col,
 } from "tiny-ui";
@@ -31,7 +33,6 @@ export default function Tasks() {
   } = useTasks();
 
   const _addTask = (values) => {
-    values.totalTime = values.pomodoros * values.minutes;
     addTask({ ...values, tags });
     setTags([]);
   };
@@ -48,6 +49,7 @@ export default function Tasks() {
         footer={null}
         onConfirm={_addTask}
         onCancel={toggleModalTask}
+        centered
       >
         <Form layout="vertical" onFinish={_addTask}>
           <Form.Item
@@ -79,7 +81,8 @@ export default function Tasks() {
               limit={500}
             />
           </Form.Item>
-          <Row gutter={10}>
+          
+          <Row gutter={5}>
             <Col span={12}>
               <Form.Item
                 label="Minutos"
@@ -88,7 +91,7 @@ export default function Tasks() {
                   { message: "Los minuto son obligatorios", required: true },
                 ]}
               >
-                <InputNumber defaultValue={25} min={5} max={60} />
+                <InputNumber defaultValue={25} min={1} />
               </Form.Item>
             </Col>
 
@@ -100,10 +103,26 @@ export default function Tasks() {
                   { message: "Los pomodoros son obligatorios", required: true },
                 ]}
               >
-                <InputNumber defaultValue={4} min={1} max={10} />
+                <InputNumber defaultValue={4} min={1} />
               </Form.Item>
             </Col>
           </Row>
+
+          <Form.Item
+            label="Categoría"
+            name="category"
+            rules={[
+              {
+                required: true,
+                message: "La categoría es obligatoria",
+              },
+            ]}
+          >
+            <NativeSelect style={{ width: "100%" }}>
+              <NativeSelect.Option>Secundario</NativeSelect.Option>
+              <NativeSelect.Option>Importantes</NativeSelect.Option>
+            </NativeSelect>
+          </Form.Item>
 
           <InputTag onChangeTags={onChangeTags} />
 
@@ -114,7 +133,7 @@ export default function Tasks() {
       </Modal>
 
       <Typography.Heading level={3}>Tareas</Typography.Heading>
-      <ul className="mt-3 notes">
+      <ul className="mt-3 cards-list">
         {availables ? (
           <>
             <div className="d-flex" style={{ justifyContent: "space-between" }}>
@@ -123,6 +142,7 @@ export default function Tasks() {
                   btnType="info"
                   size="sm"
                   className="mb-2"
+                  icon={<Icon name="add-list" />}
                   onClick={toggleModalTask}
                 >
                   Agregar una tarea
@@ -132,7 +152,12 @@ export default function Tasks() {
                   confirmText="Sí"
                   onConfirm={removeAllTasks}
                 >
-                  <Button btnType="danger" size="sm" className="mb-2">
+                  <Button
+                    btnType="danger"
+                    size="sm"
+                    icon={<Icon name="trash" />}
+                    className="mb-2"
+                  >
                     Eliminar todo
                   </Button>
                 </PopConfirm>

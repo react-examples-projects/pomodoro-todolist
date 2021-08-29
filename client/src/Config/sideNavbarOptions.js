@@ -1,19 +1,14 @@
 const options = [
   {
-    title: "tareas",
+    title: "Inicio",
     icon: "todo-list",
   },
   {
-    title: "pendientes",
-    icon: "attention",
-  },
-  {
-    title: "terminadas",
-    icon: "approval",
-  },
-  {
     title: "importantes",
-    icon: "medal",
+    icon: "attention",
+  },{
+    title: "Secundarios",
+    icon: "idea",
   },
   {
     title: "categorias",

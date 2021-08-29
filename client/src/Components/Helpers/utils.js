@@ -145,17 +145,12 @@ export function exportFile(file, title = "pomodoro_todolist_file") {
 }
 
 export function formatTime(minutes) {
-  //const totalTimeFormat = minutes >= 60 ? minutes / 60 + "h" : minutes + "m";
   let hours = 0;
   while (minutes >= 60) {
     hours++;
     minutes -= 60;
   }
-  if (hours > 0 && minutes > 0) {
-    return `${hours}h ${minutes}m`;
-  }
-
+  if (hours > 0 && minutes > 0) return `${hours}h ${minutes}m`;
   if (hours > 0) return hours + "h";
-
   return `${minutes}m`;
 }

@@ -7,8 +7,8 @@ export default function useTasks() {
   const { tasks, addTask, removeTask, editTask, removeAllTasks } = usePomodoro();
   const [isVisibleModalTask, toggleModalTask] = useToggle();
   const [isEditMode, toggleEditMode] = useToggle(false);
-  const amountTask = tasks.length;
-  const availables = amountTask > 0;
+  const amountTasks = tasks.length;
+  const availables = amountTasks > 0;
 
   const _addTask = (task) => {
     task.id = uniqid();
@@ -28,7 +28,7 @@ export default function useTasks() {
     removeAllTasks,
     removeTask,
     editTask: _editTask,
-    amountTask,
+    amountTasks,
     availables,
     toggleModalTask,
     toggleEditMode,

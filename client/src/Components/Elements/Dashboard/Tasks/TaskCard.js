@@ -9,25 +9,48 @@ import {
   Icon,
   Input,
   Textarea,
+  InputNumber,
+  Row,
+  Col,
 } from "tiny-ui";
-import { FiClock } from "react-icons/fi";
+import { FiClock, FiPlay } from "react-icons/fi";
 
 import useTasks from "../../../Hooks/Tasks/useTasks";
 import InputTag from "../../Components/InputTag";
 import TextLimit from "../../TextLimit";
 import { formatTime } from "../../../Helpers/utils";
 
-export default function TaskCard({ title, content, id, tags, totalTime }) {
+export default function TaskCard({
+  title,
+  content,
+  id,
+  tags,
+  minutes,
+  pomodoros,
+  category,
+}) {
   const [taskEdited, setTaskEdited] = useState({
     title,
     content,
     tags,
+    pomodoros,
+    minutes,
+    category,
   });
   const { editTask, isEditMode, removeTask, toggleEditMode } = useTasks();
-  const totalTimeFormat = formatTime(totalTime);
+  const totalTimeFormat = formatTime(pomodoros * minutes);
+  const totalTimeEdit = formatTime(taskEdited.pomodoros * taskEdited.minutes);
 
   const onChangeTags = (tags) => {
     setTaskEdited({ ...taskEdited, tags });
+  };
+
+  const onChangeMinutes = (minutes) => {
+    setTaskEdited({ ...taskEdited, minutes });
+  };
+
+  const onChangePomodoros = (pomodoros) => {
+    setTaskEdited({ ...taskEdited, pomodoros });
   };
 
   const onChangeTask = (e) => {
@@ -46,6 +69,8 @@ export default function TaskCard({ title, content, id, tags, totalTime }) {
       title: taskEdited.title,
       content: taskEdited.content,
       tags: taskEdited.tags,
+      pomodoros: taskEdited.pomodoros,
+      minutes: taskEdited.minutes,
     };
 
     editTask(payload);
@@ -85,11 +110,57 @@ export default function TaskCard({ title, content, id, tags, totalTime }) {
             <TextLimit text={content} size="sm" className="mb-0" />
           )}
 
+          {isEditMode ? (
+            <Row gutter={10} className="mt-1 center-y">
+              <Col span={6}>
+                <Tag
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    width: "100%",
+                    justifyContent: "center",
+                  }}
+                  aria-label="Tiempo de pomodoro"
+                >
+                  <FiClock style={{ marginRight: "5px" }} /> {totalTimeEdit}
+                </Tag>
+              </Col>
+
+              <Col span={9}>
+                <InputNumber
+                  defaultValue={minutes}
+                  size="sm"
+                  onChange={onChangeMinutes}
+                  min={1}
+                />
+              </Col>
+
+              <Col span={9}>
+                <InputNumber
+                  defaultValue={pomodoros}
+                  size="sm"
+                  onChange={onChangePomodoros}
+                  min={1}
+                />
+              </Col>
+            </Row>
+          ) : (
+            <Tag
+              className="mt-1"
+              style={{ display: "inline-flex", alignItems: "center" }}
+              aria-label="Tiempo de pomodoro"
+            >
+              <FiClock style={{ marginRight: "5px" }} /> {totalTimeFormat}
+            </Tag>
+          )}
+
           <Tag
-            className="mt-1"
             style={{ display: "inline-flex", alignItems: "center" }}
+            className="mt-1"
+            aria-label="Categoría"
           >
-            <FiClock style={{ marginRight: "5px" }} /> {totalTimeFormat}
+            <Icon name="tags" style={{ marginRight: "5px" }} />
+            {taskEdited.category}
           </Tag>
 
           {isEditMode ? (
@@ -97,6 +168,7 @@ export default function TaskCard({ title, content, id, tags, totalTime }) {
               <InputTag
                 defaultTags={taskEdited.tags}
                 onChangeTags={onChangeTags}
+                className="mt-1"
                 size="sm"
               />
               <Button
@@ -138,6 +210,11 @@ export default function TaskCard({ title, content, id, tags, totalTime }) {
                 <Menu.Item onClick={() => removeTask(id)}>
                   <Icon name="trash" size={13} className="me-1" />
                   <small>Eliminar</small>
+                </Menu.Item>
+
+                <Menu.Item className="center-y">
+                  <FiPlay className="me-1" />
+                  <small>Iniciar</small>
                 </Menu.Item>
               </Menu>
             }
