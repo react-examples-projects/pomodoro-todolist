@@ -1,5 +1,5 @@
 const { hashPassword } = require("../helpers/utils");
-class UserController {
+class UserService {
   constructor() {
     this.UserModel = require("../models/User");
     this.optionsUpdate = { new: true };
@@ -52,4 +52,4 @@ class UserController {
   }
 }
 
-module.exports = new UserController();
+module.exports = new UserService();
