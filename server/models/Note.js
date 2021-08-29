@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, Types } = require("mongoose");
 
 const NoteSchema = new Schema({
   title: {
@@ -20,6 +20,7 @@ const NoteSchema = new Schema({
       id: String,
     },
   ],
+  user_id: { type: Types.ObjectId, ref: "User" },
 });
 
 module.exports = model("Note", NoteSchema);
