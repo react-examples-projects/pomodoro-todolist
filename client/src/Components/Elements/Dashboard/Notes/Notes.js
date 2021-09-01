@@ -8,13 +8,16 @@ import {
   Textarea,
   PopConfirm,
   Icon,
+  Result,
 } from "tiny-ui";
 import NoteCard from "./NoteCard";
+import MoonLoader from "react-spinners/MoonLoader";
 
 import useNote from "../../../Hooks/Notes/useNote";
 import InputTag from "../../Components/InputTag";
 import { useState } from "react";
 import ExportButton from "../../Buttons/ExportButton";
+import { getErrorValidation } from "../../../Helpers/utils";
 
 export default function Notes() {
   const {
@@ -25,6 +28,7 @@ export default function Notes() {
     removeAllNotes,
     isVisibleModalNote,
     toggleModalNote,
+    getNotesQuery,
   } = useNote();
   const [tags, setTags] = useState([]);
 
@@ -88,7 +92,26 @@ export default function Notes() {
 
       <Typography.Heading level={3}>Notas</Typography.Heading>
       <ul className="mt-3 cards-list">
-        {availables ? (
+        {getNotesQuery.isError ? (
+          <Result
+            status="error"
+            title="Error al solicitar las notas"
+            subtitle={getErrorValidation(getNotesQuery)}
+            extra={[
+              <Button
+                btnType="info"
+                key="console"
+                onClick={getNotesQuery.refetch}
+              >
+                Volver a intentar
+              </Button>,
+            ]}
+          />
+        ) : getNotesQuery.isLoading ? (
+          <div style={{ height: "50px" }} className="center-y center-h">
+            <MoonLoader color="#000" size={30} loading={true} />
+          </div>
+        ) : availables ? (
           <>
             <div className="d-flex" style={{ justifyContent: "space-between" }}>
               <div>
@@ -119,7 +142,7 @@ export default function Notes() {
               <ExportButton text="Exportar notas" file={notes} />
             </div>
             {notes?.map((note) => (
-              <NoteCard key={note?.id} {...{ removeNote, ...note }} />
+              <NoteCard key={note?._id} {...{ removeNote, ...note }} />
             ))}
           </>
         ) : (

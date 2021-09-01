@@ -81,6 +81,7 @@ export function getErrorValidation(
     objError?.data?.[0] ||
     objError?.message ||
     mutationRequest?.data?.message ||
+    mutationRequest?.error?.toString() ||
     defaultError
   );
 }

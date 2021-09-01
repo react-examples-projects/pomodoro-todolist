@@ -1,4 +1,11 @@
-import { api, login, signup, perfilPhoto, userInfo } from "../../Config/api";
+import {
+  api,
+  login,
+  signup,
+  perfilPhoto,
+  userInfo,
+  note,
+} from "../../Config/api";
 import { getToken } from "./token";
 import axios from "axios";
 
@@ -52,5 +59,15 @@ export async function setPerfilPhoto(payload) {
  */
 export async function getUserInfo() {
   const res = await instance.get(userInfo);
+  return res?.data?.data;
+}
+
+export async function getNotes() {
+  const res = await instance.get(note);
+  return res?.data?.data;
+}
+
+export async function editNote({ _id, ...args }) {
+  const res = await instance.put(note + `${_id}`, args);
   return res?.data?.data;
 }

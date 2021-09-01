@@ -18,7 +18,7 @@ import TextLimit from "../../TextLimit";
 function NoteCard({
   title,
   content ,
-  id,
+  _id,
   removeNote,
   tags,
 }) {
@@ -46,7 +46,7 @@ function NoteCard({
 
   const editNoteCard = () => {
     const payload = {
-      id,
+      _id,
       title: noteEdited.title,
       content: noteEdited.content,
       tags: noteEdited.tags,
@@ -132,7 +132,7 @@ function NoteCard({
                   <Icon name="edit-file" size={13} className="me-1" />
                   {isEditMode ? <small>Cancelar</small> : <small>Editar</small>}
                 </Menu.Item>
-                <Menu.Item onClick={() => removeNote(id)}>
+                <Menu.Item onClick={() => removeNote(_id)}>
                   <Icon name="trash" size={13} className="me-1" />
                   <small>Eliminar</small>
                 </Menu.Item>
@@ -182,7 +182,7 @@ function NoteCard({
 NoteCard.propTypes = {
   title: proptypes.string.isRequired,
   content: proptypes.string.isRequired,
-  id: proptypes.oneOfType([proptypes.number, proptypes.string]).isRequired,
+  _id: proptypes.oneOfType([proptypes.number, proptypes.string]).isRequired,
   removeNote: proptypes.func.isRequired,
   tag: proptypes.arrayOf(proptypes.object),
 };

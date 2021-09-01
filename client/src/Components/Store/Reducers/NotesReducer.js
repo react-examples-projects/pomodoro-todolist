@@ -15,13 +15,13 @@ export default function NotesReducer(state, { type, payload }) {
       return [...state, payload];
 
     case REMOVE_NOTE: {
-      const newNotes = state.filter((note) => note.id !== payload);
+      const newNotes = state.filter((note) => note._id !== payload);
       return newNotes;
     }
 
     case EDIT_NOTE: {
       const newNotes = state.map((note) => {
-        if (payload.id === note.id) {
+        if (payload._id === note._id) {
           note = { ...note, ...payload };
         }
         return note;
