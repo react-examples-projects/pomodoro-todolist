@@ -2,7 +2,13 @@ import { Message } from "tiny-ui";
 import useToggle from "../Utils/useToggle";
 import usePomodoro from "../Context/usePomodoro";
 import { useMutation, useQuery } from "react-query";
-import { getNotes, createNote, deleteNote } from "../../Helpers/api";
+import {
+  getNotes,
+  createNote,
+  deleteNote,
+  updateNote,
+  deleteAllNotes,
+} from "../../Helpers/api";
 import { useEffect } from "react";
 import { existsToken } from "../../Helpers/token";
 
@@ -16,6 +22,8 @@ export default function useNote() {
   const getNotesQuery = useQuery("notes", getNotes, { enabled: existsToken() });
   const addNoteMutation = useMutation((payload) => createNote(payload));
   const removeNoteMutation = useMutation((id) => deleteNote(id));
+  const editNoteMutation = useMutation((payload) => updateNote(payload));
+  const removeAllNotesMutation = useMutation(deleteAllNotes);
 
   const _addNote = async (note) => {
     const noteData = await addNoteMutation.mutateAsync(note);
@@ -24,9 +32,11 @@ export default function useNote() {
     Message.success("Se creo la nota");
   };
 
-  const _editNote = (payload) => {
-    editNote(payload);
+  const _editNote = async (payload) => {
+    const noteData = await editNoteMutation.mutateAsync(payload);
+    editNote(noteData);
     toggleEditMode();
+    Message.success("Se editó la nota");
   };
 
   const _removeNote = async (id) => {
@@ -35,8 +45,14 @@ export default function useNote() {
     Message.success("Se eliminó la nota");
   };
 
+  const _removeAllNotes = async () => {
+    await removeAllNotesMutation.mutateAsync();
+    removeAllNotes();
+  };
+
   useEffect(() => {
     if (getNotesQuery.data && !availables) {
+      getNotesQuery.refetch();
       setNotes(getNotesQuery.data);
     }
   }, [getNotesQuery.data, setNotes, availables]);
@@ -44,7 +60,7 @@ export default function useNote() {
   return {
     notes,
     addNote: _addNote,
-    removeAllNotes,
+    removeAllNotes: _removeAllNotes,
     removeNote: _removeNote,
     editNote: _editNote,
     amountNotes,
@@ -56,5 +72,8 @@ export default function useNote() {
     // query mutations
     getNotesQuery,
     addNoteMutation,
+    removeNoteMutation,
+    editNoteMutation,
+    removeAllNotesMutation,
   };
 }

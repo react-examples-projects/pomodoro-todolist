@@ -77,7 +77,12 @@ export async function deleteNote(id) {
   return res?.data?.data;
 }
 
-export async function editNote({ _id, ...args }) {
-  const res = await instance.put(note + `${_id}`, args);
+export async function deleteAllNotes() {
+  const res = await instance.delete(`${note}/all`);
+  return res?.data?.data;
+}
+
+export async function updateNote({ _id, ...args }) {
+  const res = await instance.put(`${note}/${_id}`, args);
   return res?.data?.data;
 }

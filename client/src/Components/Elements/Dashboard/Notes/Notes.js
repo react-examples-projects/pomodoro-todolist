@@ -9,6 +9,7 @@ import {
   PopConfirm,
   Icon,
   Result,
+  Loader,
 } from "tiny-ui";
 import NoteCard from "./NoteCard";
 import MoonLoader from "react-spinners/MoonLoader";
@@ -25,13 +26,13 @@ export default function Notes() {
     availables,
     notes,
     addNote,
-    removeNote,
     removeAllNotes,
     isVisibleModalNote,
     toggleModalNote,
     // mutations or queries
     getNotesQuery,
     addNoteMutation,
+    removeAllNotesMutation,
   } = useNote();
   const [tags, setTags] = useState([]);
 
@@ -100,86 +101,99 @@ export default function Notes() {
           <ErrorText
             className="mt-1"
             isVisible={addNoteMutation.isError}
-            text={getErrorValidation(addNoteMutation)}
+            text={
+              "Error al crear la nota " + getErrorValidation(addNoteMutation)
+            }
           />
         </Form>
       </Modal>
 
       <Typography.Heading level={3}>Notas</Typography.Heading>
-      <ul className="mt-3 cards-list">
-        {getNotesQuery.isError ? (
-          <Result
-            status="error"
-            title="Error al solicitar las notas"
-            subtitle={getErrorValidation(getNotesQuery)}
-            extra={[
-              <Button
-                btnType="info"
-                key="console"
-                onClick={getNotesQuery.refetch}
-              >
-                Volver a intentar
-              </Button>,
-            ]}
-          />
-        ) : getNotesQuery.isLoading ? (
-          <div style={{ height: "50px" }} className="center-y center-h">
-            <MoonLoader color="#000" size={30} loading={true} />
-          </div>
-        ) : availables ? (
-          <>
-            <div className="d-flex" style={{ justifyContent: "space-between" }}>
-              <div>
+      <ErrorText
+        isVisible={removeAllNotesMutation.isError}
+        text={
+          "Error al eliminar todo " + getErrorValidation(removeAllNotesMutation)
+        }
+      />
+      <Loader tip="Eliminando..." loading={removeAllNotesMutation.isLoading}>
+        <ul className="mt-3 cards-list">
+          {getNotesQuery.isError ? (
+            <Result
+              status="error"
+              title="Error al solicitar las notas"
+              subtitle={getErrorValidation(getNotesQuery)}
+              extra={[
                 <Button
                   btnType="info"
-                  size="sm"
-                  className="mb-2"
-                  icon={<Icon name="add-list" />}
-                  onClick={toggleModalNote}
+                  key="console"
+                  onClick={getNotesQuery.refetch}
                 >
-                  Agregar una nota
-                </Button>
-                <PopConfirm
-                  title="¿Seguro de eliminar todo?"
-                  confirmText="Sí"
-                  onConfirm={removeAllNotes}
-                >
-                  <Button
-                    btnType="danger"
-                    size="sm"
-                    icon={<Icon name="trash" />}
-                    className="mb-2"
-                  >
-                    Eliminar todo
-                  </Button>
-                </PopConfirm>
-              </div>
-              <ExportButton text="Exportar notas" file={notes} />
+                  Volver a intentar
+                </Button>,
+              ]}
+            />
+          ) : getNotesQuery.isLoading ? (
+            <div style={{ height: "50px" }} className="center-y center-h">
+              <MoonLoader color="#000" size={30} loading={true} />
             </div>
-            {notes?.map((note) => (
-              <NoteCard key={note?._id} {...{ removeNote, ...note }} />
-            ))}
-          </>
-        ) : (
-          <Empty
-            descStyle={{ textAlign: "center" }}
-            description={
-              <>
-                <span>No tienes notas creadas aún.</span>
-                <Button
-                  btnType="info"
-                  size="sm"
-                  className="mt-2"
-                  onClick={toggleModalNote}
-                  block
-                >
-                  Crear una nota
-                </Button>
-              </>
-            }
-          />
-        )}
-      </ul>
+          ) : availables ? (
+            <>
+              <div
+                className="d-flex"
+                style={{ justifyContent: "space-between" }}
+              >
+                <div>
+                  <Button
+                    btnType="info"
+                    size="sm"
+                    className="mb-2"
+                    icon={<Icon name="add-list" />}
+                    onClick={toggleModalNote}
+                  >
+                    Agregar una nota
+                  </Button>
+                  <PopConfirm
+                    title="¿Seguro de eliminar todo?"
+                    confirmText="Sí"
+                    onConfirm={removeAllNotes}
+                  >
+                    <Button
+                      btnType="danger"
+                      size="sm"
+                      icon={<Icon name="trash" />}
+                      className="mb-2"
+                    >
+                      Eliminar todo
+                    </Button>
+                  </PopConfirm>
+                </div>
+                <ExportButton text="Exportar notas" file={notes} />
+              </div>
+              {notes?.map((note) => (
+                <NoteCard key={note?._id} {...note} />
+              ))}
+            </>
+          ) : (
+            <Empty
+              descStyle={{ textAlign: "center" }}
+              description={
+                <>
+                  <span>No tienes notas creadas aún.</span>
+                  <Button
+                    btnType="info"
+                    size="sm"
+                    className="mt-2"
+                    onClick={toggleModalNote}
+                    block
+                  >
+                    Crear una nota
+                  </Button>
+                </>
+              }
+            />
+          )}
+        </ul>
+      </Loader>
     </div>
   );
 }

@@ -17,6 +17,11 @@ class NoteService {
     return note;
   }
 
+  async removeAllNotes() {
+    const notes = await this.NoteModel.deleteMany({});
+    return notes;
+  }
+
   async updateNote({ id, ...payload }) {
     const note = await this.NoteModel.findByIdAndUpdate(id, payload, {
       new: true,

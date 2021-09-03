@@ -31,6 +31,15 @@ class NoteController {
     }
   }
 
+  async removeAllNotes(req, res, text) {
+    try {
+      const data = await noteService.removeAllNotes();
+      success(res, data);
+    } catch (err) {
+      next(err);
+    }
+  }
+
   async updateNote(req, res, next) {
     try {
       const { id } = req.params;

@@ -12,6 +12,7 @@ const {
 router.get("/", noteController.getNotes);
 router.post("/", validate(createNoteSchema), noteController.createNote);
 router.put("/:id", validate(updateNoteSchema), noteController.updateNote);
+router.delete("/all", noteController.removeAllNotes);
 router.delete("/:id", validate(removeNoteSchema), noteController.removeNote);
 
 module.exports = router;
