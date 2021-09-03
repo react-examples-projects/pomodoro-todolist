@@ -2,6 +2,7 @@ import { Message } from "tiny-ui";
 import useToggle from "../Utils/useToggle";
 import usePomodoro from "../Context/usePomodoro";
 import { useMutation, useQuery } from "react-query";
+import { useEffect } from "react";
 import {
   getNotes,
   createNote,
@@ -9,7 +10,6 @@ import {
   updateNote,
   deleteAllNotes,
 } from "../../Helpers/api";
-import { useEffect } from "react";
 import { existsToken } from "../../Helpers/token";
 
 export default function useNote() {
@@ -51,14 +51,12 @@ export default function useNote() {
   };
 
   useEffect(() => {
-    if (getNotesQuery.data && !availables) {
-      getNotesQuery.refetch();
-      setNotes(getNotesQuery.data);
-    }
-  }, [getNotesQuery.data, setNotes, availables]);
+    if (getNotesQuery.data && !availables) setNotes(getNotesQuery.data);
+  }, [getNotesQuery.data, availables, setNotes]);
 
   return {
     notes,
+    setNotes,
     addNote: _addNote,
     removeAllNotes: _removeAllNotes,
     removeNote: _removeNote,

@@ -115,7 +115,11 @@ export default function Notes() {
           "Error al eliminar todo " + getErrorValidation(removeAllNotesMutation)
         }
       />
-      <Loader tip="Eliminando..." loading={removeAllNotesMutation.isLoading}>
+      <Loader
+        tip="Eliminando..."
+        loading={removeAllNotesMutation.isLoading}
+        style={{ width: "100%" }}
+      >
         <ul className="mt-3 cards-list">
           {getNotesQuery.isError ? (
             <Result
