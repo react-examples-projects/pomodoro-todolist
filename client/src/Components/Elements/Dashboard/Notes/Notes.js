@@ -18,6 +18,7 @@ import InputTag from "../../Components/InputTag";
 import { useState } from "react";
 import ExportButton from "../../Buttons/ExportButton";
 import { getErrorValidation } from "../../../Helpers/utils";
+import ErrorText from "../../ErrorText";
 
 export default function Notes() {
   const {
@@ -28,7 +29,9 @@ export default function Notes() {
     removeAllNotes,
     isVisibleModalNote,
     toggleModalNote,
+    // mutations or queries
     getNotesQuery,
+    addNoteMutation,
   } = useNote();
   const [tags, setTags] = useState([]);
 
@@ -84,9 +87,21 @@ export default function Notes() {
 
           <InputTag onChangeTags={onChangeTags} />
 
-          <Button btnType="info" type="submit" className="mt-1" block>
+          <Button
+            btnType="info"
+            type="submit"
+            className="mt-1"
+            loading={addNoteMutation.isLoading}
+            block
+          >
             Crear nota
           </Button>
+
+          <ErrorText
+            className="mt-1"
+            isVisible={addNoteMutation.isError}
+            text={getErrorValidation(addNoteMutation)}
+          />
         </Form>
       </Modal>
 

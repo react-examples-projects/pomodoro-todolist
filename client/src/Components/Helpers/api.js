@@ -72,6 +72,11 @@ export async function createNote(payload) {
   return res?.data?.data;
 }
 
+export async function deleteNote(id) {
+  const res = await instance.delete(`${note}/${id}`);
+  return res?.data?.data;
+}
+
 export async function editNote({ _id, ...args }) {
   const res = await instance.put(note + `${_id}`, args);
   return res?.data?.data;

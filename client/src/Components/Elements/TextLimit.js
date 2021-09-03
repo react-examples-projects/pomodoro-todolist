@@ -10,7 +10,19 @@ function TextLimit({ text = "", limit = 200, size = "md", ...props }) {
   return (
     <div {...props}>
       <Typography.Paragraph className="mb-0">
-        {size === "sm" ? <small>{textContent}</small> : textContent}
+        {size === "sm" ? (
+          <small
+            style={{
+              display: "block",
+              margin: "1rem 0",
+              whiteSpace: "pre-line",
+            }}
+          >
+            {textContent}
+          </small>
+        ) : (
+          textContent
+        )}
       </Typography.Paragraph>
 
       {isLong && (

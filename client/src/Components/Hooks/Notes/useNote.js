@@ -2,7 +2,7 @@ import { Message } from "tiny-ui";
 import useToggle from "../Utils/useToggle";
 import usePomodoro from "../Context/usePomodoro";
 import { useMutation, useQuery } from "react-query";
-import { getNotes, createNote } from "../../Helpers/api";
+import { getNotes, createNote, deleteNote } from "../../Helpers/api";
 import { useEffect } from "react";
 import { existsToken } from "../../Helpers/token";
 
@@ -15,6 +15,7 @@ export default function useNote() {
   const availables = amountNotes > 0;
   const getNotesQuery = useQuery("notes", getNotes, { enabled: existsToken() });
   const addNoteMutation = useMutation((payload) => createNote(payload));
+  const removeNoteMutation = useMutation((id) => deleteNote(id));
 
   const _addNote = async (note) => {
     const noteData = await addNoteMutation.mutateAsync(note);
@@ -28,17 +29,23 @@ export default function useNote() {
     toggleEditMode();
   };
 
+  const _removeNote = async (id) => {
+    await removeNoteMutation.mutateAsync(id);
+    removeNote(id);
+    Message.success("Se eliminó la nota");
+  };
+
   useEffect(() => {
     if (getNotesQuery.data && !availables) {
       setNotes(getNotesQuery.data);
     }
-  }, [getNotesQuery.data, setNotes]);
+  }, [getNotesQuery.data, setNotes, availables]);
 
   return {
     notes,
     addNote: _addNote,
     removeAllNotes,
-    removeNote,
+    removeNote: _removeNote,
     editNote: _editNote,
     amountNotes,
     availables,
@@ -48,5 +55,6 @@ export default function useNote() {
     isEditMode,
     // query mutations
     getNotesQuery,
+    addNoteMutation,
   };
 }
