@@ -1,9 +1,8 @@
 import { Message } from "tiny-ui";
 import useToggle from "../Utils/useToggle";
-import uniqid from "uniqid";
 import usePomodoro from "../Context/usePomodoro";
-import { useQuery } from "react-query";
-import { getNotes } from "../../Helpers/api";
+import { useMutation, useQuery } from "react-query";
+import { getNotes, createNote } from "../../Helpers/api";
 import { useEffect } from "react";
 import { existsToken } from "../../Helpers/token";
 
@@ -15,10 +14,11 @@ export default function useNote() {
   const amountNotes = notes.length;
   const availables = amountNotes > 0;
   const getNotesQuery = useQuery("notes", getNotes, { enabled: existsToken() });
+  const addNoteMutation = useMutation((payload) => createNote(payload));
 
-  const _addNote = (note) => {
-    note.id = uniqid();
-    addNote(note);
+  const _addNote = async (note) => {
+    const noteData = await addNoteMutation.mutateAsync(note);
+    addNote(noteData);
     toggleModalNote();
     Message.success("Se creo la nota");
   };
@@ -29,7 +29,7 @@ export default function useNote() {
   };
 
   useEffect(() => {
-    if (getNotesQuery.data) {
+    if (getNotesQuery.data && !availables) {
       setNotes(getNotesQuery.data);
     }
   }, [getNotesQuery.data, setNotes]);

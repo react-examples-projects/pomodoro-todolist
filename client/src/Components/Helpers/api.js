@@ -67,6 +67,11 @@ export async function getNotes() {
   return res?.data?.data;
 }
 
+export async function createNote(payload) {
+  const res = await instance.post(note, payload);
+  return res?.data?.data;
+}
+
 export async function editNote({ _id, ...args }) {
   const res = await instance.put(note + `${_id}`, args);
   return res?.data?.data;
