@@ -13,6 +13,7 @@ import "./Styles/utils.scss";
 const client = new QueryClient({
   defaultOptions: {
     queries: {
+      notifyOnChangePropsExclusions: ["isStale"],
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       retry: 0,

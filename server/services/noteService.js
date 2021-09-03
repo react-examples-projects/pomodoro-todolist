@@ -3,8 +3,8 @@ class NoteService {
     this.NoteModel = require("../models/Note");
   }
 
-  async getNotes() {
-    return await this.NoteModel.find({});
+  async getNotes(user_id) {
+    return await this.NoteModel.find({ user_id });
   }
 
   async createNote(payload) {
@@ -17,8 +17,8 @@ class NoteService {
     return note;
   }
 
-  async removeAllNotes() {
-    const notes = await this.NoteModel.deleteMany({});
+  async removeAllNotes(user_id) {
+    const notes = await this.NoteModel.deleteMany({ user_id });
     return notes;
   }
 

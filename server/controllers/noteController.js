@@ -4,7 +4,7 @@ const noteService = require("../services/noteService");
 class NoteController {
   async getNotes(req, res, next) {
     try {
-      const data = await noteService.getNotes();
+      const data = await noteService.getNotes(req.user._id);
       success(res, data);
     } catch (err) {
       next(err);
@@ -14,7 +14,12 @@ class NoteController {
   async createNote(req, res, next) {
     try {
       const { title, content, tags } = req.body;
-      const data = await noteService.createNote({ title, content, tags });
+      const data = await noteService.createNote({
+        title,
+        content,
+        tags,
+        user_id: req.user._id,
+      });
       success(res, data, 201);
     } catch (err) {
       next(err);
@@ -33,7 +38,7 @@ class NoteController {
 
   async removeAllNotes(req, res, text) {
     try {
-      const data = await noteService.removeAllNotes();
+      const data = await noteService.removeAllNotes(req.user._id);
       success(res, data);
     } catch (err) {
       next(err);
@@ -44,7 +49,13 @@ class NoteController {
     try {
       const { id } = req.params;
       const { title, content, tags } = req.body;
-      const data = await noteService.updateNote({ id, title, content, tags });
+      const data = await noteService.updateNote({
+        id,
+        title,
+        content,
+        tags,
+        user_id: req.user._id,
+      });
       success(res, data);
     } catch (err) {
       next(err);
