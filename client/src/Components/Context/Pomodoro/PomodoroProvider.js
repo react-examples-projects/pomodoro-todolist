@@ -28,7 +28,6 @@ export default function PomodoroProvider({ children }) {
     combineReducers({ notes, tasks }),
     initialState
   );
-
   const setNotes = useCallback((payload) => {
     dispatch(setNotesAction(payload));
   }, []);

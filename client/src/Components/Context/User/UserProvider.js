@@ -10,6 +10,7 @@ export default function UserProvider({ children }) {
   );
 
   const logout = useCallback(() => {
+    console.log("se llamo a logout");
     removeToken();
     setUserInfo(null);
   }, []);

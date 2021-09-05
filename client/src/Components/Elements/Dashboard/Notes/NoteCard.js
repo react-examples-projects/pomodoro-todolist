@@ -209,7 +209,6 @@ NoteCard.propTypes = {
   title: proptypes.string.isRequired,
   content: proptypes.string.isRequired,
   _id: proptypes.oneOfType([proptypes.number, proptypes.string]).isRequired,
-  removeNote: proptypes.func.isRequired,
   tag: proptypes.arrayOf(proptypes.object),
 };
 

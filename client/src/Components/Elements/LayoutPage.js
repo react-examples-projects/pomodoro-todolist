@@ -18,6 +18,7 @@ export default function LayoutPage({ children }) {
           placement="left-start"
           trigger="click"
           title={name}
+          style={{ textTransform: "capitalize" }}
           content={
             <Menu mode="inline" className="layout-menu-user">
               <Menu.Item>Cambiar contraseña</Menu.Item>
