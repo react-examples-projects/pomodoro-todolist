@@ -19,7 +19,9 @@ export default function useNote() {
   const [isEditMode, toggleEditMode] = useToggle(false);
   const amountNotes = notes.length;
   const availables = amountNotes > 0;
-  const getNotesQuery = useQuery("notes", getNotes, { enabled: existsToken() });
+  const getNotesQuery = useQuery("notes", getNotes, {
+    enabled: existsToken(),
+  });
   const addNoteMutation = useMutation((payload) => createNote(payload));
   const removeNoteMutation = useMutation((id) => deleteNote(id));
   const editNoteMutation = useMutation((payload) => updateNote(payload));

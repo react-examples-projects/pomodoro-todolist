@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { getUserInfo } from "../../Helpers/api";
-import { existsToken, getToken } from "../../Helpers/token";
+import { existsToken } from "../../Helpers/token";
 import useCurrentUser from "./useCurrentUser";
 
 export default function useUserInfo() {
-  const token = getToken();
   const { user, setUser, logout } = useCurrentUser();
-  const { data, isError, ...args } = useQuery(["user", token], getUserInfo, {
+  const { data, isError, ...args } = useQuery("user", getUserInfo, {
     enabled: existsToken(),
   });
 
