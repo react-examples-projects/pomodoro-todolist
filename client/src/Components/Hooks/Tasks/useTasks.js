@@ -4,7 +4,7 @@ import uniqid from "uniqid";
 import usePomodoro from "../Context/usePomodoro";
 import { useMutation } from "react-query";
 import { useEffect } from "react";
-import { getNotes } from "../../Helpers/api";
+import { getTasks, createTask } from "../../Helpers/api";
 
 export default function useTasks() {
   const { tasks, setTasks, addTask, removeTask, editTask, removeAllTasks } =
@@ -13,9 +13,12 @@ export default function useTasks() {
   const [isEditMode, toggleEditMode] = useToggle(false);
   const amountTasks = tasks.length;
   const availables = amountTasks > 0;
-  const getTaskQuery = useMutation(() => getNotes());
+  const getTaskQuery = useMutation(() => getTasks());
+  const addTaskMutation = useMutation((payload) => createTask(payload));
+
   const _addTask = (task) => {
     task.id = uniqid();
+    addTaskMutation.mutateAsync(task);
     addTask(task);
     toggleModalTask();
     Message.success("Se creo la tarea");
