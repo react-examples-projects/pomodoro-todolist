@@ -35,4 +35,4 @@ const TaskSchema = new Schema({
   user_id: { type: Types.ObjectId, ref: "User" },
 });
 
-module.exports = model("Note", TaskSchema);
+module.exports = model("Task", TaskSchema);

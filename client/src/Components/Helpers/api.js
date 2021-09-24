@@ -5,6 +5,7 @@ import {
   perfilPhoto,
   userInfo,
   note,
+  task,
 } from "../../Config/api";
 import { getToken } from "./token";
 import axios from "axios";
@@ -84,5 +85,30 @@ export async function deleteAllNotes() {
 
 export async function updateNote({ _id, ...args }) {
   const res = await instance.put(`${note}/${_id}`, args);
+  return res?.data?.data;
+}
+
+export async function getTasks() {
+  const res = await instance.get(task);
+  return res?.data?.data;
+}
+
+export async function createTask(payload) {
+  const res = await instance.post(task, payload);
+  return res?.data?.data;
+}
+
+export async function deleteTask(id) {
+  const res = await instance.delete(`${task}/${id}`);
+  return res?.data?.data;
+}
+
+export async function deleteAllTasks() {
+  const res = await instance.delete(`${task}/all`);
+  return res?.data?.data;
+}
+
+export async function updateTask({ _id, ...args }) {
+  const res = await instance.put(`${task}/${_id}`, args);
   return res?.data?.data;
 }

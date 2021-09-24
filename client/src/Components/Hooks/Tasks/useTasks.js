@@ -2,14 +2,18 @@ import { Message } from "tiny-ui";
 import useToggle from "../Utils/useToggle";
 import uniqid from "uniqid";
 import usePomodoro from "../Context/usePomodoro";
+import { useMutation } from "react-query";
+import { useEffect } from "react";
+import { getNotes } from "../../Helpers/api";
 
 export default function useTasks() {
-  const { tasks, addTask, removeTask, editTask, removeAllTasks } = usePomodoro();
+  const { tasks, setTasks, addTask, removeTask, editTask, removeAllTasks } =
+    usePomodoro();
   const [isVisibleModalTask, toggleModalTask] = useToggle();
   const [isEditMode, toggleEditMode] = useToggle(false);
   const amountTasks = tasks.length;
   const availables = amountTasks > 0;
-
+  const getTaskQuery = useMutation(() => getNotes());
   const _addTask = (task) => {
     task.id = uniqid();
     addTask(task);
@@ -21,6 +25,14 @@ export default function useTasks() {
     editTask(payload);
     toggleEditMode();
   };
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const data = await getTaskQuery.mutateAsync();
+      setTasks(data);
+    };
+    if (!tasks?.length) fetchTasks();
+  }, [setTasks]);
 
   return {
     tasks,

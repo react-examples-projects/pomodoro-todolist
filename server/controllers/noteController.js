@@ -1,4 +1,4 @@
-const { success, error } = require("../helpers/httpResponses");
+const { success } = require("../helpers/httpResponses");
 const noteService = require("../services/noteService");
 
 class NoteController {
@@ -36,7 +36,7 @@ class NoteController {
     }
   }
 
-  async removeAllNotes(req, res, text) {
+  async removeAllNotes(req, res, next) {
     try {
       const data = await noteService.removeAllNotes(req.user._id);
       success(res, data);
