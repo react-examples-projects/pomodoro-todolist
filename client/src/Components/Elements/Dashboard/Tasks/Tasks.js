@@ -22,6 +22,7 @@ import { useState } from "react";
 import { getErrorValidation } from "../../../Helpers/utils";
 import ExportButton from "../../Buttons/ExportButton";
 import useTasks from "../../../Hooks/Tasks/useTasks";
+import ErrorText from "../../ErrorText";
 
 export default function Tasks() {
   const initialValues = {
@@ -36,11 +37,13 @@ export default function Tasks() {
     tasks,
     getTaskQuery,
     addTask,
+    addTaskMutation,
     removeAllTasks,
     availables,
     isVisibleModalTask,
     toggleModalTask,
     removeTask,
+    removeAllTasksMutation,
   } = useTasks();
 
   const _addTask = (values) => {
@@ -141,88 +144,118 @@ export default function Tasks() {
 
           <InputTag onChangeTags={onChangeTags} />
 
-          <Button btnType="info" type="submit" className="mt-1" block>
+          <Button
+            btnType="info"
+            type="submit"
+            className="mt-1"
+            loading={addTaskMutation.isLoading}
+            block
+          >
             Crear tarea
           </Button>
+
+          <ErrorText
+            className="mt-1"
+            isVisible={addTaskMutation.isError}
+            text={
+              "Error al crear la tarea " + getErrorValidation(addTaskMutation)
+            }
+          />
         </Form>
       </Modal>
 
       <Typography.Heading level={3}>Tareas</Typography.Heading>
-      <ul className="mt-3 cards-list">
-        {getTaskQuery.isError ? (
-          <Result
-            status="error"
-            title="Error al solicitar las notas"
-            subtitle={getErrorValidation(getTaskQuery)}
-            extra={[
-              <Button
-                btnType="info"
-                key="console"
-                onClick={getTaskQuery.refetch}
-              >
-                Volver a intentar
-              </Button>,
-            ]}
-          />
-        ) : getTaskQuery.isLoading ? (
-          <div style={{ height: "50px" }} className="center-y center-h">
-            <MoonLoader color="#000" size={30} loading={true} />
-          </div>
-        ) : availables ? (
-          <>
-            <div className="d-flex" style={{ justifyContent: "space-between" }}>
-              <div>
-                <Button
-                  btnType="info"
-                  size="sm"
-                  className="mb-2"
-                  icon={<Icon name="add-list" />}
-                  onClick={toggleModalTask}
-                >
-                  Agregar una tarea
-                </Button>
-                <PopConfirm
-                  title="¿Seguro de eliminar todo?"
-                  confirmText="Sí"
-                  onConfirm={removeAllTasks}
-                >
-                  <Button
-                    btnType="danger"
-                    size="sm"
-                    icon={<Icon name="trash" />}
-                    className="mb-2"
-                  >
-                    Eliminar todo
-                  </Button>
-                </PopConfirm>
-              </div>
-              <ExportButton text="Exportar tareas" file={tasks} />
-            </div>
+      <ErrorText
+        isVisible={removeAllTasksMutation.isError}
+        text={
+          "Error al eliminar todo " + getErrorValidation(removeAllTasksMutation)
+        }
+      />
 
-            {tasks?.map((task) => (
-              <TaskCard key={task?.id} {...{ removeTask, ...task }} />
-            ))}
-          </>
-        ) : (
-          <Empty
-            descStyle={{ textAlign: "center" }}
-            description={
-              <>
-                <span>No tienes tareas creadas aún.</span>
+      <Loader
+        tip="Eliminando..."
+        loading={removeAllTasksMutation.isLoading}
+        style={{ width: "100%" }}
+      >
+        <ul className="mt-3 cards-list">
+          {getTaskQuery.isError ? (
+            <Result
+              status="error"
+              title="Error al solicitar las notas"
+              subtitle={getErrorValidation(getTaskQuery)}
+              extra={[
                 <Button
                   btnType="info"
-                  size="sm"
-                  className="mt-2"
-                  onClick={toggleModalTask}
-                  block
+                  key="console"
+                  onClick={getTaskQuery.refetch}
                 >
-                  Crear una tarea
-                </Button>
-              </>
-            }
-          />
-        )}
-      </ul>
+                  Volver a intentar
+                </Button>,
+              ]}
+            />
+          ) : getTaskQuery.isLoading ? (
+            <div style={{ height: "50px" }} className="center-y center-h">
+              <MoonLoader color="#000" size={30} loading={true} />
+            </div>
+          ) : availables ? (
+            <>
+              <div
+                className="d-flex"
+                style={{ justifyContent: "space-between" }}
+              >
+                <div>
+                  <Button
+                    btnType="info"
+                    size="sm"
+                    className="mb-2"
+                    icon={<Icon name="add-list" />}
+                    onClick={toggleModalTask}
+                  >
+                    Agregar una tarea
+                  </Button>
+                  <PopConfirm
+                    title="¿Seguro de eliminar todo?"
+                    confirmText="Sí"
+                    onConfirm={removeAllTasks}
+                  >
+                    <Button
+                      btnType="danger"
+                      size="sm"
+                      icon={<Icon name="trash" />}
+                      className="mb-2"
+                    >
+                      Eliminar todo
+                    </Button>
+                  </PopConfirm>
+                </div>
+                <ExportButton text="Exportar tareas" file={tasks} />
+              </div>
+
+              {tasks?.map((task) => (
+                <TaskCard key={task?._id} {...{ removeTask, ...task }} />
+              ))}
+            </>
+          ) : (
+            <Empty
+              descStyle={{ textAlign: "center" }}
+              description={
+                <>
+                  <span>No tienes tareas creadas aún.</span>
+                  <Button
+                    btnType="info"
+                    size="sm"
+                    className="mt-2"
+                    onClick={toggleModalTask}
+                    block
+                  >
+                    Crear una tarea
+                  </Button>
+                </>
+              }
+            />
+          )}
+        </ul>
+      </Loader>
     </div>
   );
 }

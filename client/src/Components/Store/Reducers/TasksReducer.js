@@ -15,13 +15,13 @@ export default function TasksReducer(state, { type, payload }) {
       return [...state, payload];
 
     case REMOVE_TASK: {
-      const newtasks = state.filter((task) => task.id !== payload);
+      const newtasks = state.filter((task) => task._id !== payload);
       return newtasks;
     }
 
     case EDIT_TASK: {
       const newtasks = state.map((task) => {
-        if (payload.id === task.id) {
+        if (payload._id === task._id) {
           task = { ...task, ...payload };
         }
         return task;

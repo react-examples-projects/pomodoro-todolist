@@ -1,10 +1,15 @@
 import { Message } from "tiny-ui";
 import useToggle from "../Utils/useToggle";
-import uniqid from "uniqid";
 import usePomodoro from "../Context/usePomodoro";
 import { useMutation } from "react-query";
 import { useEffect } from "react";
-import { getTasks, createTask } from "../../Helpers/api";
+import {
+  getTasks,
+  createTask,
+  deleteTask,
+  updateTask,
+  deleteAllTasks,
+} from "../../Helpers/api";
 
 export default function useTasks() {
   const { tasks, setTasks, addTask, removeTask, editTask, removeAllTasks } =
@@ -15,33 +20,48 @@ export default function useTasks() {
   const availables = amountTasks > 0;
   const getTaskQuery = useMutation(() => getTasks());
   const addTaskMutation = useMutation((payload) => createTask(payload));
+  const removeTaskMutation = useMutation((id) => deleteTask(id));
+  const editTaskMutation = useMutation((payload) => updateTask(payload));
+  const removeAllTasksMutation = useMutation(deleteAllTasks);
 
-  const _addTask = (task) => {
-    task.id = uniqid();
-    addTaskMutation.mutateAsync(task);
-    addTask(task);
+  const _addTask = async (task) => {
+    const taskData = await addTaskMutation.mutateAsync(task);
+    addTask(taskData);
     toggleModalTask();
     Message.success("Se creo la tarea");
   };
 
-  const _editTask = (payload) => {
-    editTask(payload);
+  const _editTask = async (payload) => {
+    const taskData = await editTaskMutation.mutateAsync(payload);
+    editTask(taskData);
     toggleEditMode();
+    Message.success("Se editó la tarea");
+  };
+
+  const _removeTask = async (id) => {
+    await removeTaskMutation.mutateAsync(id);
+    removeTask(id);
+    Message.success("Se eliminó la tarea");
+  };
+
+  const _removeAllTask = async () => {
+    await removeAllTasksMutation.mutateAsync();
+    removeAllTasks();
   };
 
   useEffect(() => {
     const fetchTasks = async () => {
       const data = await getTaskQuery.mutateAsync();
       setTasks(data);
-    }; 
+    };
     if (!tasks?.length) fetchTasks();
   }, [setTasks, tasks?.length]);
 
   return {
     tasks,
     addTask: _addTask,
-    removeAllTasks,
-    removeTask,
+    removeAllTasks: _removeAllTask,
+    removeTask: _removeTask,
     editTask: _editTask,
     amountTasks,
     availables,
@@ -53,5 +73,8 @@ export default function useTasks() {
     // mutations
     getTaskQuery,
     addTaskMutation,
+    removeTaskMutation,
+    editTaskMutation,
+    removeAllTasksMutation,
   };
 }
