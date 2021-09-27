@@ -56,7 +56,7 @@ export default function useNote() {
     };
 
     if (!notes?.length) fetchNotes();
-  }, [setNotes]);
+  }, [setNotes, notes?.length]);
 
   return {
     notes,

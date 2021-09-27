@@ -33,9 +33,9 @@ export default function useTasks() {
     const fetchTasks = async () => {
       const data = await getTaskQuery.mutateAsync();
       setTasks(data);
-    };
+    }; 
     if (!tasks?.length) fetchTasks();
-  }, [setTasks]);
+  }, [setTasks, tasks?.length]);
 
   return {
     tasks,
@@ -49,5 +49,9 @@ export default function useTasks() {
     toggleEditMode,
     isVisibleModalTask,
     isEditMode,
+
+    // mutations
+    getTaskQuery,
+    addTaskMutation,
   };
 }

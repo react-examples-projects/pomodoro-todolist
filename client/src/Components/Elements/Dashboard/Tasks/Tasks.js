@@ -12,11 +12,14 @@ import {
   Icon,
   Row,
   Col,
+  Result,
+  Loader,
 } from "tiny-ui";
 import TaskCard from "./TaskCard";
-
+import MoonLoader from "react-spinners/MoonLoader";
 import InputTag from "../../Components/InputTag";
 import { useState } from "react";
+import { getErrorValidation } from "../../../Helpers/utils";
 import ExportButton from "../../Buttons/ExportButton";
 import useTasks from "../../../Hooks/Tasks/useTasks";
 
@@ -31,6 +34,7 @@ export default function Tasks() {
   const [tags, setTags] = useState([]);
   const {
     tasks,
+    getTaskQuery,
     addTask,
     removeAllTasks,
     availables,
@@ -145,7 +149,26 @@ export default function Tasks() {
 
       <Typography.Heading level={3}>Tareas</Typography.Heading>
       <ul className="mt-3 cards-list">
-        {availables ? (
+        {getTaskQuery.isError ? (
+          <Result
+            status="error"
+            title="Error al solicitar las notas"
+            subtitle={getErrorValidation(getTaskQuery)}
+            extra={[
+              <Button
+                btnType="info"
+                key="console"
+                onClick={getTaskQuery.refetch}
+              >
+                Volver a intentar
+              </Button>,
+            ]}
+          />
+        ) : getTaskQuery.isLoading ? (
+          <div style={{ height: "50px" }} className="center-y center-h">
+            <MoonLoader color="#000" size={30} loading={true} />
+          </div>
+        ) : availables ? (
           <>
             <div className="d-flex" style={{ justifyContent: "space-between" }}>
               <div>
@@ -175,6 +198,7 @@ export default function Tasks() {
               </div>
               <ExportButton text="Exportar tareas" file={tasks} />
             </div>
+
             {tasks?.map((task) => (
               <TaskCard key={task?.id} {...{ removeTask, ...task }} />
             ))}
