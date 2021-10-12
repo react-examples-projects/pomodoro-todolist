@@ -28,7 +28,7 @@ export default function Summary() {
         <Col span="8">
           <SummaryCard
             title="Importantes"
-            content="Tareas importantes 5 que posees en tu cuenta"
+            content={`Tareas importantes ${tasks.importantTasksCount} que posees en tu cuenta`}
             icon="medal"
           />
         </Col>

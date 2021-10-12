@@ -76,6 +76,21 @@ ul {
     border-radius: 4px;
     text-transform: capitalize;
   }
+  > li,
+  a {
+    color: inherit !important;
+    text-decoration: none;
+
+    &:hover {
+      color: #4d2d86 !important;
+    }
+  }
+
+  a {
+    display: block;
+    width: 100%;
+    padding: 0.2rem 0;
+  }
 }
 
 .layout-menu-user {

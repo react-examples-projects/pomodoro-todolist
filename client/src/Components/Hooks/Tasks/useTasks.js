@@ -23,6 +23,9 @@ export default function useTasks() {
   const removeTaskMutation = useMutation((id) => deleteTask(id));
   const editTaskMutation = useMutation((payload) => updateTask(payload));
   const removeAllTasksMutation = useMutation(deleteAllTasks);
+  const importantTasksCount = tasks.filter(
+    (task) => task.category === "Importantes"
+  ).length;
 
   const _addTask = async (task) => {
     const taskData = await addTaskMutation.mutateAsync(task);
@@ -55,10 +58,12 @@ export default function useTasks() {
       setTasks(data);
     };
     if (!tasks?.length) fetchTasks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setTasks, tasks?.length]);
 
   return {
     tasks,
+    importantTasksCount,
     addTask: _addTask,
     removeAllTasks: _removeAllTask,
     removeTask: _removeTask,

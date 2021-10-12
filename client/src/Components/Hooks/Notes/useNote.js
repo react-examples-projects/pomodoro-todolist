@@ -56,6 +56,7 @@ export default function useNote() {
     };
 
     if (!notes?.length) fetchNotes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setNotes, notes?.length]);
 
   return {
