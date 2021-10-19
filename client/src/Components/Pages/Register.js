@@ -23,7 +23,6 @@ export default function Register() {
 
   const handleSubmit = async (values) => {
     const res = await signup.mutateAsync(values);
-    console.log(res);
     if (res.ok) push("/login", { email: res?.data?.email });
   };
 

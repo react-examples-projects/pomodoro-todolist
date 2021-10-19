@@ -228,7 +228,7 @@ export default function Tasks() {
                     </Button>
                   </PopConfirm>
                 </div>
-                <ExportButton text="Exportar tareas" file={tasks} />
+                <ExportButton text="Exportar tareas" file={tasks}  titleFile="tasks_pomodoro"/>
               </div>
 
               {tasks?.map((task) => (

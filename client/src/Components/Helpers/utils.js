@@ -155,3 +155,12 @@ export function formatTime(minutes) {
   if (hours > 0) return hours + "h";
   return `${minutes}m`;
 }
+
+export function readFile(file) {
+  const fr = new FileReader();
+  return new Promise((resolve, reject) => {
+    fr.onload = () => resolve(fr.result);
+    fr.onerror = reject;
+    fr.readAsText(file);
+  });
+}

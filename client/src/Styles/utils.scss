@@ -69,6 +69,12 @@
   border-radius: 4px !important;
 }
 
+
+.flex-inline-column{
+  display: inline-flex;
+  flex-direction: column;
+}
+
 .center-y {
   display: flex;
   align-items: center;
@@ -95,6 +101,10 @@
 
 .d-block {
   display: block;
+}
+
+.d-none {
+  display: none;
 }
 
 .d-flex {

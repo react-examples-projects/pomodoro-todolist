@@ -68,13 +68,30 @@ ul {
   margin-top: 1.5rem;
 }
 
+.layout-menu-item-active {
+  background: #4e2d8610;
+  border-radius: 4px;
+}
+
 .layout-menu {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  list-style: none;
+  margin: 0;
   height: 100%;
   padding-right: 0.4rem;
 
   > li {
     border-radius: 4px;
     text-transform: capitalize;
+    transition: background 0.2s ease-in;
+    &:hover {
+      background: #4e2d8610;
+    }
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
   }
   > li,
   a {
@@ -89,7 +106,7 @@ ul {
   a {
     display: block;
     width: 100%;
-    padding: 0.2rem 0;
+    padding: 1.5rem 1rem;
   }
 }
 

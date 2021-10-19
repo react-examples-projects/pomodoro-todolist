@@ -171,7 +171,11 @@ export default function Notes() {
                     </Button>
                   </PopConfirm>
                 </div>
-                <ExportButton text="Exportar notas" file={notes} />
+                <ExportButton
+                  text="Exportar notas"
+                  file={notes}
+                  titleFile="notes_pomodoro"
+                />
               </div>
               {notes?.map((note) => (
                 <NoteCard key={note?._id} {...note} />

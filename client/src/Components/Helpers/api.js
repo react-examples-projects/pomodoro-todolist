@@ -6,6 +6,7 @@ import {
   userInfo,
   note,
   task,
+  importData as importDataApi,
 } from "../../Config/api";
 import { getToken } from "./token";
 import axios from "axios";
@@ -111,4 +112,9 @@ export async function deleteAllTasks() {
 export async function updateTask({ _id, ...args }) {
   const res = await instance.put(`${task}/${_id}`, args);
   return res?.data?.data;
+}
+
+export async function importData(payload, type) {
+  const res = await instance.post(importDataApi, { data: payload, type });
+  return res?.data;
 }

@@ -2,12 +2,18 @@ import { Button, Icon } from "tiny-ui";
 import { exportFile } from "../../Helpers/utils";
 import proptypes from "prop-types";
 
-function ExportButton({ children, text = "Exportar datos", file, ...props }) {
+function ExportButton({
+  children,
+  text = "Exportar datos",
+  titleFile,
+  file,
+  ...props
+}) {
   return (
     <Button
       btnType="ghost"
       size="sm"
-      onClick={() => exportFile(file)}
+      onClick={() => exportFile(file, titleFile)}
       {...props}
     >
       <Icon name="archive" style={{ marginRight: "5px" }} />

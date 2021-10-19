@@ -7,4 +7,5 @@ export const changePassword = "/user/password";
 export const perfilPhoto = "/user/perfil-photo";
 export const note = "/note";
 export const task = "/task";
+export const importData = "/import";
 export const recaptchKey = "6Le_BFAUAAAAAIuL8CTLqHOsLC8bto8XS-l3MuTf";
