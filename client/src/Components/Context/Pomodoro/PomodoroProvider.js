@@ -6,6 +6,7 @@ import initialState from "../../Store/initialState";
 // reducers
 import notes from "../../Store/Reducers/NotesReducer";
 import tasks from "../../Store/Reducers/TasksReducer";
+import currentTask from "../../Store/Reducers/StartTaskReducer";
 
 import {
   setNotesAction,
@@ -23,9 +24,15 @@ import {
   removeAllTasksAction,
 } from "../../Store/Actions/TasksAction";
 
+import {
+  startTaskAction,
+  stopTaskAction,
+  pauseTaskAction,
+} from "../../Store/Actions/StartTaskAction";
+
 export default function PomodoroProvider({ children }) {
   const [state, dispatch] = useReducer(
-    combineReducers({ notes, tasks }),
+    combineReducers({ notes, tasks, currentTask }),
     initialState
   );
   const setNotes = useCallback((payload) => {
@@ -68,6 +75,18 @@ export default function PomodoroProvider({ children }) {
     dispatch(removeAllTasksAction());
   }, []);
 
+  const startTask = useCallback((payload) => {
+    dispatch(startTaskAction(payload));
+  }, []);
+
+  const stopTask = useCallback(() => {
+    dispatch(stopTaskAction());
+  }, []);
+
+  const pauseTask = useCallback(() => {
+    dispatch(pauseTaskAction());
+  }, []);
+
   const value = useMemo(
     () => ({
       ...state,
@@ -82,6 +101,10 @@ export default function PomodoroProvider({ children }) {
       editTask,
       removeTask,
       removeAllTasks,
+
+      startTask,
+      stopTask,
+      pauseTask,
     }),
     [
       state,
@@ -95,6 +118,9 @@ export default function PomodoroProvider({ children }) {
       editTask,
       removeTask,
       removeAllTasks,
+      startTask,
+      stopTask,
+      pauseTask,
     ]
   );
 

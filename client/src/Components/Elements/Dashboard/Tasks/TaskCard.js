@@ -15,9 +15,10 @@ import {
   Loader,
 } from "tiny-ui";
 import proptypes from "prop-types";
-import { FiClock, FiPlay } from "react-icons/fi";
+import { FiClock, FiPlay, FiStopCircle } from "react-icons/fi";
 
 import useTasks from "../../../Hooks/Tasks/useTasks";
+import usePomodoro from "../../../Hooks/Context/usePomodoro";
 import InputTag from "../../Components/InputTag";
 import TextLimit from "../../TextLimit";
 import { formatTime } from "../../../Helpers/utils";
@@ -41,9 +42,13 @@ function TaskCard({ title, content, _id, tags, minutes, pomodoros, category }) {
     editTaskMutation,
   } = useTasks();
 
+  const { startTask, stopTask, pauseTask, currentTask } = usePomodoro();
+
   const tipText = editTaskMutation.isLoading ? "Editando..." : "Eliminando...";
   const totalTimeFormat = formatTime(pomodoros * minutes);
   const totalTimeEdit = formatTime(taskEdited.pomodoros * taskEdited.minutes);
+
+  const thisCardIsActive = currentTask && currentTask._id === _id;
 
   const onChangeTags = (tags) => {
     setTaskEdited({ ...taskEdited, tags });
@@ -83,6 +88,14 @@ function TaskCard({ title, content, _id, tags, minutes, pomodoros, category }) {
     };
 
     editTask(payload);
+  };
+
+  const startTaskOnClick = () => {
+    startTask({ _id, title, content, tags, minutes, pomodoros });
+  };
+
+  const stopTaskOnClick = () => {
+    stopTask();
   };
 
   return (
@@ -262,9 +275,23 @@ function TaskCard({ title, content, _id, tags, minutes, pomodoros, category }) {
                     <small>Eliminar</small>
                   </Menu.Item>
 
-                  <Menu.Item className="center-y">
-                    <FiPlay className="me-1" />
-                    <small>Iniciar</small>
+                  <Menu.Item
+                    className="center-y"
+                    onClick={
+                      thisCardIsActive ? stopTaskOnClick : startTaskOnClick
+                    }
+                  >
+                    {thisCardIsActive ? (
+                      <>
+                        <FiStopCircle className="me-1" />
+                        <small>Finalizar</small>
+                      </>
+                    ) : (
+                      <>
+                        <FiPlay className="me-1" />
+                        <small>Iniciar</small>
+                      </>
+                    )}
                   </Menu.Item>
                 </Menu>
               }
@@ -316,7 +343,7 @@ TaskCard.propTypes = {
   _id: proptypes.oneOfType([proptypes.number, proptypes.string]).isRequired,
   tags: proptypes.arrayOf(proptypes.object),
   minutes: proptypes.number.isRequired,
-  pomodoros: proptypes.number.isRequired,
+  pomodoros: proptypes.number.isRequired,   
   category: proptypes.string.isRequired,
 };
 

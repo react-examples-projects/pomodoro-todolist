@@ -9,4 +9,7 @@ export const EDIT_NOTE = "EDIT_NOTE";
 export const REMOVE_NOTE = "REMOVE_NOTE";
 export const REMOVE_ALL_NOTES = "REMOVE_ALL_NOTES";
 export const SET_NOTES = "SET_NOTES";
- 
+
+export const START_A_TASK = "START_A_TASK";
+export const STOP_A_TASK = "STOP_A_TASK";
+export const PAUSE_A_TASK = "PAUSE_A_TASK";
