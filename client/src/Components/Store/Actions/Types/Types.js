@@ -12,4 +12,3 @@ export const SET_NOTES = "SET_NOTES";
 
 export const START_A_TASK = "START_A_TASK";
 export const STOP_A_TASK = "STOP_A_TASK";
-export const PAUSE_A_TASK = "PAUSE_A_TASK";

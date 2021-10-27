@@ -14,7 +14,7 @@ function TextLimit({ text = "", limit = 200, size = "md", ...props }) {
           <small
             style={{
               display: "block",
-              margin: "1rem 0",
+              margin: "0.5rem 0 0 0",
               whiteSpace: "pre-line",
             }}
           >

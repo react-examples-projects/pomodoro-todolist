@@ -164,3 +164,11 @@ export function readFile(file) {
     fr.readAsText(file);
   });
 }
+
+export function minutesToSeconds(minutes) {
+  return minutes * 60;
+}
+
+export function saveTime(time) {
+  localStorage.setItem("time", time);
+}

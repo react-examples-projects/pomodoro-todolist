@@ -27,7 +27,6 @@ import {
 import {
   startTaskAction,
   stopTaskAction,
-  pauseTaskAction,
 } from "../../Store/Actions/StartTaskAction";
 
 export default function PomodoroProvider({ children }) {
@@ -83,10 +82,6 @@ export default function PomodoroProvider({ children }) {
     dispatch(stopTaskAction());
   }, []);
 
-  const pauseTask = useCallback(() => {
-    dispatch(pauseTaskAction());
-  }, []);
-
   const value = useMemo(
     () => ({
       ...state,
@@ -104,7 +99,6 @@ export default function PomodoroProvider({ children }) {
 
       startTask,
       stopTask,
-      pauseTask,
     }),
     [
       state,
@@ -120,7 +114,6 @@ export default function PomodoroProvider({ children }) {
       removeAllTasks,
       startTask,
       stopTask,
-      pauseTask,
     ]
   );
 

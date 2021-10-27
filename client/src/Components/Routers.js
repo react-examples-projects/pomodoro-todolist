@@ -3,14 +3,9 @@ import PrivateRoute from "./Elements/Routers/PrivateRoute";
 import RedirectRoute from "./Elements/Routers/RedirectRoute";
 import PublicRoute from "./Elements/Routers/PublicRoute";
 import routers from "../Config/routers";
-import usePomodoro from "./Hooks/Context/usePomodoro";
-import { Card, Button, Countdown, Divider } from "tiny-ui";
+import CountDown from "./Elements/Components/CountDown";
 
 export default function Routers() {
-  const { currentTask, stopTask } = usePomodoro();
-  const seconds = currentTask?.minutes * currentTask?.pomodoros * 60;
-  const deadline = new Date(Date.now() + 1000 * 60 * 60 * 0 + 1000 * seconds);
-
   return (
     <>
       <BrowserRouter>
@@ -24,37 +19,8 @@ export default function Routers() {
           })}
         </Switch>
       </BrowserRouter>
-      {currentTask && (
-        <div className="currentTask">
-          <Card
-            active
-            title={currentTask.title}
-            extra={
-              <Button size="sm" btnType="ghost" onClick={stopTask}>
-                Finalizar
-              </Button>
-            }
-          >
-            <Card.Content>
-              {currentTask.content}
-              <Divider />
-              <Countdown
-                millisec
-                value={deadline}
-                onFinish={() => console.log("done")}
-              >
-                {(val) => (
-                  <div className="mt-1">
-                    <span className="me-1">{val.hour}h</span>
-                    <span className="me-1">{val.min}min</span>
-                    <span className="me-1">{val.sec}s</span>
-                  </div>
-                )}
-              </Countdown>
-            </Card.Content>
-          </Card>
-        </div>
-      )}
+
+      <CountDown />
     </>
   );
 }

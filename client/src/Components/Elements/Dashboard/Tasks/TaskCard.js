@@ -42,7 +42,7 @@ function TaskCard({ title, content, _id, tags, minutes, pomodoros, category }) {
     editTaskMutation,
   } = useTasks();
 
-  const { startTask, stopTask, pauseTask, currentTask } = usePomodoro();
+  const { startTask, stopTask, currentTask } = usePomodoro();
 
   const tipText = editTaskMutation.isLoading ? "Editando..." : "Eliminando...";
   const totalTimeFormat = formatTime(pomodoros * minutes);

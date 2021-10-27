@@ -1,4 +1,4 @@
-import { START_A_TASK, STOP_A_TASK, PAUSE_A_TASK } from "./Types/Types";
+import { START_A_TASK, STOP_A_TASK } from "./Types/Types";
 
 export const startTaskAction = (payload) => {
   return {
@@ -10,11 +10,5 @@ export const startTaskAction = (payload) => {
 export const stopTaskAction = () => {
   return {
     type: STOP_A_TASK,
-  };
-};
-
-export const pauseTaskAction = () => {
-  return {
-    type: PAUSE_A_TASK,
   };
 };
