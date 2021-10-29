@@ -4,14 +4,18 @@ import { FiPause, FiPlay } from "react-icons/fi";
 import Countdown2 from "react-countdown";
 import React from "react";
 import { minutesToSeconds, saveTime } from "../../Helpers/utils";
+import { FiStopCircle, FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { useRef, useState } from "react";
+import cls from "classnames";
 
 export default function CountDown() {
+  const [isMinimized, setMinimized] = useState(false);
   const { currentTask, stopTask } = usePomodoro();
   const seconds = minutesToSeconds(
     currentTask?.minutes * currentTask?.pomodoros
   );
   const deadline = new Date(Date.now() + 1000 * 60 * 60 * 0 + 1000 * seconds);
-  const countDownRef = React.useRef(null);
+  const countDownRef = useRef(null);
 
   const renderer = ({ hours, minutes, seconds, completed }) => {
     return (
@@ -34,20 +38,42 @@ export default function CountDown() {
     );
   };
 
+  const toggleMinimizeTask = () => {
+    setMinimized(!isMinimized);
+  };
+
   const onTick = ({ minutes, seconds }) => {
     const totalSeconds = minutesToSeconds(minutes) + seconds;
     saveTime(totalSeconds);
   };
 
   return currentTask ? (
-    <div className="currentTask">
+    <div
+      className={cls("currentTask", { "currentTask-isMinimized": isMinimized })}
+    >
       <Card
         active
         title={currentTask.title}
         extra={
-          <Button size="sm" btnType="ghost" onClick={stopTask}>
-            Finalizar
-          </Button>
+          <div>
+            <Button size="sm" btnType="ghost" onClick={stopTask}>
+              <FiStopCircle className="me-1" />
+              Finalizar
+            </Button>
+            <Button size="sm" btnType="ghost" onClick={toggleMinimizeTask}>
+              {isMinimized ? (
+                <>
+                  <FiChevronUp className="me-1" />
+                  Expandir
+                </>
+              ) : (
+                <>
+                  <FiChevronDown className="me-1" />
+                  Minimizar
+                </>
+              )}
+            </Button>
+          </div>
         }
       >
         <Card.Content>

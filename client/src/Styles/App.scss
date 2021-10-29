@@ -133,6 +133,11 @@ ul {
   bottom: 0;
   left: 0;
   width: 100%;
+  transition: 0.2s bottom ease;
+
+  &.currentTask-isMinimized {
+    bottom: -8rem;
+  }
 }
 
 .fadeIn {
