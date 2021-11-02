@@ -5,21 +5,24 @@ import Countdown2 from "react-countdown";
 import React from "react";
 import { minutesToSeconds, saveTime } from "../../Helpers/utils";
 import { FiStopCircle, FiChevronDown, FiChevronUp } from "react-icons/fi";
-import { useRef, useState } from "react";
-import cls from "classnames";
+import { useRef } from "react";
+import alert from "../../../Assets/alert.mp3";
 
 export default function CountDown() {
-  const [isMinimized, setMinimized] = useState(false);
+  let isMinimized = false;
   const { currentTask, stopTask } = usePomodoro();
   const seconds = minutesToSeconds(
     currentTask?.minutes * currentTask?.pomodoros
   );
   const deadline = new Date(Date.now() + 1000 * 60 * 60 * 0 + 1000 * seconds);
   const countDownRef = useRef(null);
+  const countDownNodeRef = useRef(null);
+  const countDownCardContentNode = useRef(null);
 
   const renderer = ({ hours, minutes, seconds, completed }) => {
     return (
-      <span style={{ fontSize: "16px" }} className="d-block mt-2">
+      <span style={{ fontSize: "16px" }} className="d-block">
+        {completed && <audio src={alert} className="d-none" autoPlay />}
         {hours}h {minutes}m {seconds}s
         <div className="center-y mt-1">
           {countDownRef.current?.isPaused() ? (
@@ -39,7 +42,10 @@ export default function CountDown() {
   };
 
   const toggleMinimizeTask = () => {
-    setMinimized(!isMinimized);
+    // es necesario para que el componente no se resetee el estado
+    countDownNodeRef.current?.classList.toggle("currentTask-isMinimized");
+    countDownCardContentNode.current?.classList.toggle("d-none");
+    isMinimized = !isMinimized;
   };
 
   const onTick = ({ minutes, seconds }) => {
@@ -48,9 +54,7 @@ export default function CountDown() {
   };
 
   return currentTask ? (
-    <div
-      className={cls("currentTask", { "currentTask-isMinimized": isMinimized })}
-    >
+    <div ref={countDownNodeRef} className="currentTask">
       <Card
         active
         title={currentTask.title}
@@ -77,7 +81,8 @@ export default function CountDown() {
         }
       >
         <Card.Content>
-          {currentTask.content}
+          <div ref={countDownCardContentNode}>{currentTask.content}</div>
+
           <br />
           <Countdown2
             date={deadline}
