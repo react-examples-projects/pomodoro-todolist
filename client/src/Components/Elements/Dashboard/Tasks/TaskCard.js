@@ -99,7 +99,7 @@ function TaskCard({ title, content, _id, tags, minutes, pomodoros, category }) {
   };
 
   return (
-    <li className="mb-2">
+    <div className="mb-2">
       <Loader
         tip={tipText}
         loading={removeTaskMutation.isLoading || editTaskMutation.isLoading}
@@ -333,7 +333,7 @@ function TaskCard({ title, content, _id, tags, minutes, pomodoros, category }) {
           </Card.Content>
         </Card>
       </Loader>
-    </li>
+    </div>
   );
 }
 

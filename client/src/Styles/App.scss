@@ -137,6 +137,26 @@ ul {
 
   &.currentTask-isMinimized {
     bottom: -7rem;
+
+    .pomodoro-time {
+      position: relative;
+      background: #c93535;
+      padding: 0.1rem 0.5rem;
+      border-radius: 4px;
+      top: -6.7rem;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+    }
+  }
+}
+
+.masonry {
+  columns: 3;
+
+  > .masonry-item {
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 }
 

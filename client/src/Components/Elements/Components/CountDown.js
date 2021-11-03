@@ -4,9 +4,11 @@ import { FiPause, FiPlay } from "react-icons/fi";
 import Countdown2 from "react-countdown";
 import React from "react";
 import { minutesToSeconds, saveTime } from "../../Helpers/utils";
-import { FiStopCircle, FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { FiStopCircle } from "react-icons/fi";
 import { useRef } from "react";
 import alert from "../../../Assets/alert.mp3";
+
+import MinimizeButton from "./MinimizeButton";
 
 export default function CountDown() {
   let isMinimized = false;
@@ -23,7 +25,10 @@ export default function CountDown() {
     return (
       <span style={{ fontSize: "16px" }} className="d-block">
         {completed && <audio src={alert} className="d-none" autoPlay />}
-        {hours}h {minutes}m {seconds}s
+        <span className="pomodoro-time">
+          {hours}h {minutes}m {seconds}s
+        </span>
+
         <div className="center-y mt-1">
           {countDownRef.current?.isPaused() ? (
             <Button onClick={countDownRef.current?.start} size="sm">
@@ -64,19 +69,7 @@ export default function CountDown() {
               <FiStopCircle className="me-1" />
               Finalizar
             </Button>
-            <Button size="sm" btnType="ghost" onClick={toggleMinimizeTask}>
-              {isMinimized ? (
-                <>
-                  <FiChevronUp className="me-1" />
-                  Expandir
-                </>
-              ) : (
-                <>
-                  <FiChevronDown className="me-1" />
-                  Minimizar
-                </>
-              )}
-            </Button>
+            <MinimizeButton onClick={toggleMinimizeTask} />
           </div>
         }
       >
@@ -89,6 +82,7 @@ export default function CountDown() {
             renderer={renderer}
             ref={countDownRef}
             onTick={onTick}
+            autoStart={true}
           />
         </Card.Content>
       </Card>
