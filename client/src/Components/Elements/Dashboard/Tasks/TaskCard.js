@@ -24,7 +24,7 @@ import TextLimit from "../../TextLimit";
 import { formatTime } from "../../../Helpers/utils";
 import NativeSelect from "tiny-ui/lib/native-select/native-select";
 
-function TaskCard({ title, content, _id, tags, minutes, pomodoros, category }) {
+function TaskCard({ title, content, _id, tags, minutes, pomodoros, category, ...args }) {
   const [taskEdited, setTaskEdited] = useState({
     title,
     content,
@@ -99,7 +99,7 @@ function TaskCard({ title, content, _id, tags, minutes, pomodoros, category }) {
   };
 
   return (
-    <div className="mb-2">
+    <div className="mb-2" {...args}>
       <Loader
         tip={tipText}
         loading={removeTaskMutation.isLoading || editTaskMutation.isLoading}

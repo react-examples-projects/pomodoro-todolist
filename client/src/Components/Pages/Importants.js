@@ -1,7 +1,8 @@
 import LayoutPage from "../Elements/LayoutPage";
-import { Typography} from "tiny-ui";
+import { Typography } from "tiny-ui";
 import TaskCard from "../Elements/Dashboard/Tasks/TaskCard";
 import useImportantTasks from "../Hooks/Tasks/useImportantTasks";
+import Container from "../Elements/MansoryLayout/Masonry";
 
 export default function Importants() {
   const tasks = useImportantTasks();
@@ -14,13 +15,13 @@ export default function Importants() {
         puedes gestionarlas como en el panel de usuario.
       </Typography.Paragraph>
 
-      <div className="masonry">
+      <Container>
         {tasks?.map((task) => (
-          <div className="masonry-item">
-            <TaskCard key={task?._id} {...task} />
-          </div>
+          <Container.Column>
+            <TaskCard key={task?._id} {...task} className="mb-0"/>
+          </Container.Column>
         ))}
-      </div>
+      </Container>
     </LayoutPage>
   );
 }

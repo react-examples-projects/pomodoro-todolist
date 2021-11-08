@@ -15,11 +15,6 @@ const options = [
     href: "/secondaries",
   },
   {
-    title: "categorias",
-    icon: "hierarchy",
-    href: "/categories",
-  },
-  {
     title: "importar",
     icon: "archive",
     href: "/import",

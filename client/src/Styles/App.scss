@@ -151,15 +151,6 @@ ul {
   }
 }
 
-.masonry {
-  columns: 3;
-
-  > .masonry-item {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-}
-
 .fadeIn {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;

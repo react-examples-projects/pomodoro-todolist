@@ -17,6 +17,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-spinners": "^0.11.0",
+    "styled-components": "^5.3.3",
     "tiny-ui": "0.0.94",
     "uniqid": "^5.4.0"
   },
