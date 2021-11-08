@@ -1,9 +1,61 @@
+$dark-mode-color: rgb(23, 25, 35);
+$dark-mode-color2: #0c0d12;
+$dark-mode-color-font: rgb(181, 181, 189);
+$scrollbar-thumb-color: rgb(196, 196, 196);
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+body[data-theme="dark"] {
+  * {
+    color: $dark-mode-color-font !important;
+  }
+
+  color: $dark-mode-color-font;
+  background-color: $dark-mode-color;
+
+  .ty-layout-sidebar,
+  .ty-card,
+  .ty-modal__header,
+  .ty-input__input,
+  .ty-textarea,
+  .ty-btn_default {
+    background-color: $dark-mode-color2;
+    border-color: transparent;
+  }
+
+  .ty-layout-content,
+  .ty-layout-header,
+  .ty-modal__body {
+    background-color: $dark-mode-color;
+  }
+
+  .ty-btn:not(.ty-btn_ghost) span {
+    color: #000 !important;
+    i:not(.ty-btn_ghost) {
+      color: #000 !important;
+    }
+  }
+
+  .ty-btn_ghost:hover {
+    > span {
+      color: #000 !important;
+    }
+    i {
+      color: #000 !important;
+    }
+  }
+
+  .ty-btn.ty-btn_default {
+    > span {
+      color: $dark-mode-color-font !important;
+    }
+  }
 }
 
 ::-webkit-scrollbar {
@@ -16,7 +68,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(196, 196, 196);
+  background: $scrollbar-thumb-color;
   border-radius: 4px;
 }
 
@@ -43,7 +95,7 @@ ul {
   padding: 1.5rem;
   height: 100%;
   max-width: 100% !important;
-  width: 250px !important;
+  width: 230px !important;
 
   > div:nth-child(1) {
     position: fixed;
@@ -66,6 +118,7 @@ ul {
 
 .layout-content {
   margin-top: 1.5rem;
+  padding-left: 1.5rem;
 }
 
 .layout-menu-item-active {
