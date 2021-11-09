@@ -12,6 +12,22 @@ $scrollbar-thumb-color: rgb(196, 196, 196);
 }
 
 body[data-theme="dark"] {
+  @mixin dark-mode-layout-menu-item() {
+    background: #2193b0;
+    background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);
+    background: linear-gradient(to right, #6dd5ed, #2193b0);
+    color: #fff !important;
+    i {
+      color: #fff !important;
+    }
+    > a {
+      color: #fff !important;
+      i {
+        color: #fff !important;
+      }
+    }
+  }
+
   * {
     color: $dark-mode-color-font !important;
   }
@@ -24,9 +40,25 @@ body[data-theme="dark"] {
   .ty-modal__header,
   .ty-input__input,
   .ty-textarea,
-  .ty-btn_default {
+  .ty-btn_default,
+  .ty-input-number__input,
+  .ty-select-native,
+  .ty-menu,
+  .ty-popover__title,
+  .ty-popover__content {
     background-color: $dark-mode-color2;
-    border-color: transparent;
+    border-color: $dark-mode-color-font;
+  }
+
+  .ty-menu {
+    .ty-menu-item {
+      &:hover small,
+      &:hover i,
+      &:hover > svg {
+        color: #000 !important;
+        stroke: #000;
+      }
+    }
   }
 
   .ty-layout-content,
@@ -37,7 +69,7 @@ body[data-theme="dark"] {
 
   .ty-btn:not(.ty-btn_ghost) span {
     color: #000 !important;
-    i:not(.ty-btn_ghost) {
+    i {
       color: #000 !important;
     }
   }
@@ -45,15 +77,37 @@ body[data-theme="dark"] {
   .ty-btn_ghost:hover {
     > span {
       color: #000 !important;
-    }
-    i {
-      color: #000 !important;
+      i {
+        color: #000 !important;
+      }
+
+      svg {
+        stroke: #000;
+      }
     }
   }
 
   .ty-btn.ty-btn_default {
     > span {
       color: $dark-mode-color-font !important;
+
+      > i {
+        color: $dark-mode-color-font !important;
+      }
+    }
+  }
+
+  .ty-tag {
+    background-color: $dark-mode-color;
+  }
+
+  .layout-menu {
+    > li:hover {
+      @include dark-mode-layout-menu-item();
+    }
+
+    .layout-menu-item-active {
+      @include dark-mode-layout-menu-item();
     }
   }
 }

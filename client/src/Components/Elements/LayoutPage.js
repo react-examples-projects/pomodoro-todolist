@@ -8,12 +8,19 @@ export default function LayoutPage({ children }) {
   } = useCurrentUser();
 
   return (
-    <Layout style={{ height: "100vh", maxWidth: "1500px", margin: "auto" }}>
+    <Layout
+      style={{
+        height: "100vh",
+        maxWidth: "1500px",
+        margin: "auto",
+        overflow: "hidden",
+      }}
+    >
       <Layout.Sidebar className="layout-sidebar">
         <SideNavbar />
       </Layout.Sidebar>
 
-      <Layout>
+      <Layout style={{ overflow: "hidden scroll" }}>
         <Popover
           placement="left-start"
           trigger="click"
