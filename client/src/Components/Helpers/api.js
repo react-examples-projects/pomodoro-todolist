@@ -4,6 +4,7 @@ import {
   signup,
   perfilPhoto,
   userInfo,
+  userPassword,
   note,
   task,
   importData as importDataApi,
@@ -61,6 +62,11 @@ export async function setPerfilPhoto(payload) {
  */
 export async function getUserInfo() {
   const res = await instance.get(userInfo);
+  return res?.data?.data;
+}
+
+export async function setUserPassword(payload) {
+  const res = await instance.patch(userPassword, payload);
   return res?.data?.data;
 }
 

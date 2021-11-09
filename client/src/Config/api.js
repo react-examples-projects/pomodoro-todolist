@@ -3,6 +3,7 @@ export const api = host + "api/";
 export const login = "/auth/login";
 export const signup = "/auth/signup";
 export const userInfo = "/user/user";
+export const userPassword = "/user/password";
 export const changePassword = "/user/password";
 export const perfilPhoto = "/user/perfil-photo";
 export const note = "/note";

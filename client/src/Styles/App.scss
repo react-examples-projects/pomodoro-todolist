@@ -101,12 +101,14 @@ body[data-theme="dark"] {
     background-color: $dark-mode-color;
   }
 
-  .layout-menu {
+  .layout-menu,
+  .layout-menu-user {
     > li:hover {
       @include dark-mode-layout-menu-item();
     }
 
-    .layout-menu-item-active {
+    .layout-menu-item-active,
+    .ty-menu-item_active {
       @include dark-mode-layout-menu-item();
     }
   }
