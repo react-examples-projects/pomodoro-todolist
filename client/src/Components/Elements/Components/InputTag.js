@@ -90,7 +90,7 @@ function InputTag({ onChangeTags, defaultTags, size, ...props }) {
 
 InputTag.propTypes = {
   onChangeTags: proptypes.func,
-  defaultStatus: proptypes.arrayOf(proptypes.object),
+  defaultTags: proptypes.arrayOf(proptypes.object),
   size: proptypes.string,
 };
 

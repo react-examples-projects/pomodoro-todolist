@@ -42,6 +42,7 @@ function ImportButton({
 
 ImportButton.propTypes = {
   text: proptypes.string,
+  onSelect: proptypes.func.isRequired,
 };
 
 export default ImportButton;

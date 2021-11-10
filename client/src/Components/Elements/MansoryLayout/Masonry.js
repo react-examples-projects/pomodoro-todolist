@@ -50,12 +50,12 @@ const Item = styled.div`
 
 const Container = ({ children, ...args }) => {
   const [columns, setColumns] = useState([]);
-  const isTablet = useMediaQuery("max-width:720px");
-  const isMobile = useMediaQuery("max-width:560px");
+  const isTablet = useMediaQuery("max-width:980px");
+  const isMobile = useMediaQuery("max-width:820px");
 
   useEffect(() => {
     let indexColumn = 0;
-    const COLUMNS_COUNT = 3;
+    const COLUMNS_COUNT = isTablet ? (isMobile ? 1 : 2) : 3;
     const columns = [];
 
     for (let i = 0; i < COLUMNS_COUNT; i++) {

@@ -17,8 +17,8 @@ export default function Secondaries() {
 
       <Container>
         {tasks?.map((task) => (
-          <Container.Column>
-            <TaskCard key={task?._id} {...task} className="mb-0"/>
+          <Container.Column key={task?._id}>
+            <TaskCard {...task} className="mb-0"/>
           </Container.Column>
         ))}
       </Container>

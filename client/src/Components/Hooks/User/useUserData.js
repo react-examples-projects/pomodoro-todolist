@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { setUserPassword } from "../../Helpers/api";
+import { setUserPassword, setPerfilPhoto } from "../../Helpers/api";
 import useToggle from "../Utils/useToggle";
 
 export default function useUserData() {
@@ -11,7 +11,9 @@ export default function useUserData() {
     setUserPassword(payload)
   );
 
-  
+  const setUserPerfilPhotoMutation = useMutation((payload) =>
+    setPerfilPhoto(payload)
+  );
 
   return {
     // modal flags
@@ -26,5 +28,6 @@ export default function useUserData() {
 
     // mutations
     setUserPasswordMutation,
+    setUserPerfilPhotoMutation,
   };
 }

@@ -7,7 +7,7 @@ const {
   passwordChangeValidation,
 } = require("../../helpers/validations/validations");
 
-router.post(
+router.patch(
   "/perfil-photo",
   validate(perfilPhotoSchemaValidation),
   userController.perfilPhoto

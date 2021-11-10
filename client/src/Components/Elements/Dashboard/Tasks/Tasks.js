@@ -42,7 +42,6 @@ export default function Tasks() {
     availables,
     isVisibleModalTask,
     toggleModalTask,
-    removeTask,
     removeAllTasksMutation,
   } = useTasks();
 
@@ -232,7 +231,7 @@ export default function Tasks() {
               </div>
 
               {tasks?.map((task) => (
-                <TaskCard key={task?._id} {...{ removeTask, ...task }} />
+                <TaskCard key={task?._id} {...task } />
               ))}
             </>
           ) : (

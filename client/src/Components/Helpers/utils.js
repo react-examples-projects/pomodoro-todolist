@@ -65,6 +65,20 @@ export function toFormData(form, params) {
   return fd;
 }
 
+export function toFormDataObj(params) {
+  const fd = new FormData();
+  for (const [v, k] of Object.entries(params)) {
+    if (Array.isArray(k)) {
+      for (let item of k) {
+        fd.append(`${v}[]`, item);
+      }
+    } else {
+      fd.append(v, k);
+    }
+  }
+  return fd;
+}
+
 /**
  * It get the error that backend sends to client
  * @param {Response} mutationRequest The request response made by `useMutation`, `useQuery` or `axios.method`
@@ -171,4 +185,12 @@ export function minutesToSeconds(minutes) {
 
 export function saveTime(time) {
   localStorage.setItem("time", time);
+}
+
+export function getTheme() {
+  return document.body.getAttribute("data-theme") || "light";
+}
+
+export function setTheme(theme = "light") {
+  document.body.setAttribute("data-theme", theme);
 }

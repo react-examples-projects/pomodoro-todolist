@@ -2,8 +2,9 @@ import { Route, Redirect } from "react-router-dom";
 import { existsToken } from "../../Helpers/token";
 import LoaderPage from "../Loaders/LoaderPage";
 import useUserInfo from "../../Hooks/User/useUserInfo";
+import PropTypes from "prop-types";
 
-export default function RedirectRoute({ component: Component, ...rest }) {
+function RedirectRoute({ component: Component, ...rest }) {
   const { user, isLoading } = useUserInfo();
 
   if (isLoading) return <LoaderPage />;
@@ -21,3 +22,13 @@ export default function RedirectRoute({ component: Component, ...rest }) {
     />
   );
 }
+
+RedirectRoute.propTypes = {
+  component: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.elementType,
+    PropTypes.node,
+  ]).isRequired,
+};
+
+export default RedirectRoute;

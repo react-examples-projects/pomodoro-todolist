@@ -52,7 +52,7 @@ export async function signupUser(payload) {
  * @returns {Object} the profile image information
  */
 export async function setPerfilPhoto(payload) {
-  const res = await instance.post(perfilPhoto, payload);
+  const res = await instance.patch(perfilPhoto, payload);
   return res?.data?.data;
 }
 

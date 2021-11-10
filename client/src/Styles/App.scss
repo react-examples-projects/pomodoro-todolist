@@ -29,11 +29,22 @@ body[data-theme="dark"] {
   }
 
   * {
-    color: $dark-mode-color-font !important;
+    color: $dark-mode-color-font;
+  }
+
+  .ty-popover__inner{
+    box-shadow: 0 0 .335rem rgba(255, 255, 255, 0.219),
   }
 
   color: $dark-mode-color-font;
   background-color: $dark-mode-color;
+
+  .loader-page {
+    background-color: $dark-mode-color;
+  }
+  .ty-popover__title {
+    color: $dark-mode-color-font;
+  }
 
   .ty-layout-sidebar,
   .ty-card,
@@ -133,6 +144,19 @@ ul {
   list-style: none;
 }
 
+#toggle-menu {
+  margin-right: auto;
+  display: block;
+}
+
+.ty-popup__arrow {
+  &::before {
+    background-color: $dark-mode-color2 !important;
+  }
+
+  left: 175px !important;
+}
+
 .loader-page {
   width: 100%;
   height: 100%;
@@ -160,6 +184,21 @@ ul {
 
   .layout-nav {
     height: 85%;
+    padding-right: 1rem;
+
+    .layout-menu {
+      margin-top: 4rem;
+    }
+  }
+
+  @media screen and (max-width: 990px) {
+    position: fixed;
+    z-index: 999;
+    left: -17rem;
+
+    #toggle-menu:checked ~ & {
+      left: 0;
+    }
   }
 }
 
@@ -170,6 +209,8 @@ ul {
 .layout-header {
   display: flex;
   align-items: center;
+  width: 100%;
+  position: relative;
 }
 
 .layout-content {
@@ -199,7 +240,7 @@ ul {
       background: #4e2d8610;
     }
     &:not(:last-child) {
-      margin-bottom: 5px;
+      margin-bottom: 7px;
     }
   }
   > li,
@@ -215,7 +256,7 @@ ul {
   a {
     display: block;
     width: 100%;
-    padding: 1.5rem 1rem;
+    padding: 1.4rem 1rem;
   }
 }
 
@@ -229,6 +270,11 @@ ul {
     text-transform: capitalize;
     border-right: 0 !important;
   }
+}
+
+.input-file-photo-user {
+  padding: 7px;
+  height: auto;
 }
 
 .cards-list {
