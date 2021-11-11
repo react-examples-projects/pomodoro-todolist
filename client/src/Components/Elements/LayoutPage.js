@@ -52,12 +52,12 @@ export default function LayoutPage({ children }) {
 
   return (
     <>
-      {/* <input
+      <input
         type="checkbox"
         name="toggle-menu"
         id="toggle-menu"
         className="d-none"
-      /> */}
+      />
       <Modal
         visible={isOpenModalPassword}
         header="Cambiar clave"
@@ -179,7 +179,7 @@ export default function LayoutPage({ children }) {
         <Layout style={{ overflow: "hidden scroll" }}>
           <Layout.Header className="layout-header mt-3 pe-3 ms-auto">
             <Popover
-              placement="bottom-middle"
+              placement="bottom-end"
               trigger="click"
               title={name}
               style={{ textTransform: "capitalize" }}
@@ -195,11 +195,13 @@ export default function LayoutPage({ children }) {
                 </Menu>
               }
             >
-              <Avatar
-                src={perfil_photo}
-                title={name}
-                style={{ cursor: "pointer", marginLeft: "auto" }}
-              />
+              <div style={{ cursor: "pointer", marginLeft: "auto" }}>
+                <Avatar
+                  src={perfil_photo}
+                  title={name}
+                  
+                />
+              </div>
             </Popover>
           </Layout.Header>
           <Layout.Content className="layout-content me-3 pb-6">
