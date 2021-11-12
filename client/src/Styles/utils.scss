@@ -16,6 +16,17 @@
   }
 }
 
+@mixin mediaPadding($classname, $direction, $sizeScreen, $mediaPx) {
+  $padding: if($direction, padding-#{$direction}, padding);
+  @media screen and (max-width: ($mediaPx + 1px)) {
+    @for $i from 0 to 11 {
+      .#{$classname}-#{$sizeScreen}-#{$i} {
+        #{$padding}: $i * 0.5rem !important;
+      }
+    }
+  }
+}
+
 @mixin propAuto($classname) {
   $p: margin;
   $config: (
@@ -69,8 +80,7 @@
   border-radius: 4px !important;
 }
 
-
-.flex-inline-column{
+.flex-inline-column {
   display: inline-flex;
   flex-direction: column;
 }
@@ -145,3 +155,8 @@
 @include padding("pb", "bottom");
 @include padding("ps", "left");
 @include padding("pe", "right");
+@include mediaPadding("p", null, "sm", 600);
+@include mediaPadding("pt", "top", "sm", 600);
+@include mediaPadding("pb", "bottom", "sm", 600);
+@include mediaPadding("ps", "left", "sm", 600);
+@include mediaPadding("pe", "right", "sm", 600);

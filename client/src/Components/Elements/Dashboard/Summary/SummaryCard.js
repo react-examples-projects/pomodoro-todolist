@@ -1,9 +1,9 @@
 import { Typography, Icon, Card, Avatar } from "tiny-ui";
 import proptypes from "prop-types";
 
-function SummaryCard({ title, content, icon }) {
+function SummaryCard({ title, content, icon, ...args }) {
   return (
-    <Card className="h-100">
+    <Card className="h-100" {...args }>
       <Card.Content>
         <div className="center-v">
           <Avatar

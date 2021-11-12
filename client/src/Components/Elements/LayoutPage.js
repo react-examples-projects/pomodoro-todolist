@@ -1,5 +1,16 @@
-import { Layout, Avatar, Popover, Menu, Image } from "tiny-ui";
-import { Button, Modal, Form, Input, Loader } from "tiny-ui";
+import {
+  Layout,
+  Avatar,
+  Popover,
+  Menu,
+  Image,
+  Button,
+  Modal,
+  Form,
+  Input,
+  Loader,
+} from "tiny-ui";
+
 import ErrorText from "./ErrorText";
 import useCurrentUser from "../Hooks/User/useCurrentUser";
 import useUserData from "../Hooks/User/useUserData";
@@ -10,6 +21,7 @@ import {
   toFormDataObj,
 } from "../Helpers/utils";
 import { useState } from "react";
+import { BiMenu } from "react-icons/bi";
 
 export default function LayoutPage({ children }) {
   const [imgPreview, setImgPreview] = useState("");
@@ -52,12 +64,6 @@ export default function LayoutPage({ children }) {
 
   return (
     <>
-      <input
-        type="checkbox"
-        name="toggle-menu"
-        id="toggle-menu"
-        className="d-none"
-      />
       <Modal
         visible={isOpenModalPassword}
         header="Cambiar clave"
@@ -172,6 +178,10 @@ export default function LayoutPage({ children }) {
           overflow: "hidden",
         }}
       >
+        <label htmlFor="toggle-menu">
+          <BiMenu />
+        </label>
+        <input type="checkbox" name="toggle-menu" id="toggle-menu" />
         <Layout.Sidebar className="layout-sidebar">
           <SideNavbar />
         </Layout.Sidebar>
@@ -196,11 +206,7 @@ export default function LayoutPage({ children }) {
               }
             >
               <div style={{ cursor: "pointer", marginLeft: "auto" }}>
-                <Avatar
-                  src={perfil_photo}
-                  title={name}
-                  
-                />
+                <Avatar src={perfil_photo} title={name} />
               </div>
             </Popover>
           </Layout.Header>

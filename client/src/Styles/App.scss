@@ -32,8 +32,8 @@ body[data-theme="dark"] {
     color: $dark-mode-color-font;
   }
 
-  .ty-popover__inner{
-    box-shadow: 0 0 .335rem rgba(255, 255, 255, 0.219),
+  .ty-popover__inner {
+    box-shadow: 0 0 0.335rem rgba(255, 255, 255, 0.219);
   }
 
   color: $dark-mode-color-font;
@@ -144,9 +144,28 @@ ul {
   list-style: none;
 }
 
+label {
+  display: none;
+  padding: 0.8rem;
+  position: absolute;
+  z-index: 9999;
+  cursor: pointer;
+  background: $dark-mode-color;
+
+  label:focus {
+    box-shadow: 0 0 0.135rem #fff;
+  }
+  svg {
+    font-size: 3rem;
+  }
+
+  @media screen and (max-width: 990px) {
+    display: block;
+  }
+}
+
 #toggle-menu {
-  margin-right: auto;
-  display: block;
+  display: none;
 }
 
 .ty-popup__arrow {
@@ -195,6 +214,10 @@ ul {
     position: fixed;
     z-index: 999;
     left: -17rem;
+
+    .layout-title {
+      margin-top: 3.5rem;
+    }
 
     #toggle-menu:checked ~ & {
       left: 0;
