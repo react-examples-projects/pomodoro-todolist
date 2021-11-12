@@ -3,11 +3,15 @@ import { Card, Button } from "tiny-ui";
 import { FiPause, FiPlay } from "react-icons/fi";
 import Countdown2 from "react-countdown";
 import React from "react";
-import { minutesToSeconds, saveTime } from "../../Helpers/utils";
+import {
+  minutesToSeconds,
+  saveTime,
+  getTextSubstring,
+} from "../../Helpers/utils";
 import { FiStopCircle } from "react-icons/fi";
 import { useRef } from "react";
 import alert from "../../../Assets/alert.mp3";
-
+import TextLimit from "../TextLimit";
 import MinimizeButton from "./MinimizeButton";
 
 export default function CountDown() {
@@ -16,6 +20,8 @@ export default function CountDown() {
   const seconds = minutesToSeconds(
     currentTask?.minutes * currentTask?.pomodoros
   );
+  const title = getTextSubstring(currentTask?.title, 20);
+
   const deadline = new Date(Date.now() + 1000 * 60 * 60 * 0 + 1000 * seconds);
   const countDownRef = useRef(null);
   const countDownNodeRef = useRef(null);
@@ -62,7 +68,7 @@ export default function CountDown() {
     <div ref={countDownNodeRef} className="currentTask">
       <Card
         active
-        title={currentTask.title}
+        title={title}
         extra={
           <div>
             <Button size="sm" btnType="ghost" onClick={stopTask}>
@@ -73,8 +79,10 @@ export default function CountDown() {
           </div>
         }
       >
-        <Card.Content>
-          <div ref={countDownCardContentNode}>{currentTask.content}</div>
+        <Card.Content style={{ padding: ".5rem" }}>
+          <div ref={countDownCardContentNode}>
+            <TextLimit limit={70} text={currentTask.content} />
+          </div>
 
           <br />
           <Countdown2

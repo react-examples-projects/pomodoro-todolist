@@ -210,7 +210,7 @@ export default function LayoutPage({ children }) {
               </div>
             </Popover>
           </Layout.Header>
-          <Layout.Content className="layout-content me-3 pb-6">
+          <Layout.Content className="layout-content me-3 pb-6 ps-sm-2 pe-sm-1 me-sm-1">
             <main className="fadeIn">{children}</main>
           </Layout.Content>
         </Layout>

@@ -7,6 +7,18 @@
   }
 }
 
+@mixin mediaMargin($classname, $direction, $sizeScreen, $mediaPx) {
+  $margin: if($direction, margin-#{$direction}, margin);
+  @media screen and (max-width: ($mediaPx + 1px)) {
+    @for $i from 0 to 11 {
+      .#{$classname}-#{$sizeScreen}-#{$i} {
+        #{$margin}: $i * 0.5rem !important;
+      }
+    }
+  }
+}
+
+
 @mixin padding($classname, $direction: null) {
   $padding: if($direction, padding-#{$direction}, padding);
   @for $i from 0 to 11 {
@@ -149,6 +161,11 @@
 @include margin("mb", "bottom");
 @include margin("ms", "left");
 @include margin("me", "right");
+@include mediaMargin("m", null, "sm", 600);
+@include mediaMargin("mt", "top", "sm", 600);
+@include mediaMargin("mb", "bottom", "sm", 600);
+@include mediaMargin("ms", "left", "sm", 600);
+@include mediaMargin("me", "right", "sm", 600);
 
 @include padding("p");
 @include padding("pt", "top");

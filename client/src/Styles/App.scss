@@ -32,6 +32,10 @@ body[data-theme="dark"] {
     color: $dark-mode-color-font;
   }
 
+  .text-limit {
+    color: #1890ff !important;
+  }
+
   .ty-popover__inner {
     box-shadow: 0 0 0.335rem rgba(255, 255, 255, 0.219);
   }

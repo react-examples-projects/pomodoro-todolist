@@ -194,3 +194,9 @@ export function getTheme() {
 export function setTheme(theme = "light") {
   document.body.setAttribute("data-theme", theme);
 }
+
+export function getTextSubstring(text = "", maxLength) {
+  const isLong = text.length >= maxLength;
+  const textShort = isLong ? text.substring(0, maxLength) + "..." : text;
+  return textShort;
+}
