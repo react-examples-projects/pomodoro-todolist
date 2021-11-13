@@ -227,6 +227,12 @@ label {
       left: 0;
     }
   }
+
+  @media screen and (max-width: 600px) {
+    .layout-title {
+      margin-top: 6rem !important;
+    }
+  }
 }
 
 .layout-title {
@@ -285,6 +291,14 @@ label {
     width: 100%;
     padding: 1.4rem 1rem;
   }
+
+  @media screen and (max-width: 600px) {
+    margin-top: 2rem !important;
+
+    a {
+      padding: 0.8rem;
+    }
+  }
 }
 
 .layout-menu-user {
@@ -310,6 +324,11 @@ label {
   overflow-y: auto;
 }
 
+.ty-card__header {
+  display: flex;
+  align-items: center;
+}
+
 .currentTask {
   position: fixed;
   bottom: 0;
@@ -318,7 +337,7 @@ label {
   transition: 0.2s bottom ease;
 
   &.currentTask-isMinimized {
-    bottom: -7rem;
+    bottom: -5.8rem;
 
     .pomodoro-time {
       position: relative;
@@ -329,6 +348,14 @@ label {
       font-size: 12px;
       font-weight: bold;
       color: #fff;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .countdown-controls {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
     }
   }
 }

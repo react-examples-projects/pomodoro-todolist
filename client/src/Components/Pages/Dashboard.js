@@ -9,10 +9,10 @@ export default function Dashboard() {
     <LayoutPage>
       <Summary />
       <Row gutter={10}>
-        <Col span={12} className="ty-col-md-24">
+        <Col span={12} className="ty-col-md-24 p-sm-0">
           <Notes />
         </Col>
-        <Col span={12} className="ty-col-md-24">
+        <Col span={12} className="ty-col-md-24 p-sm-0">
           <Tasks />
         </Col>
       </Row>

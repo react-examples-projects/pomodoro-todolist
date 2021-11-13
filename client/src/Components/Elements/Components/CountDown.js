@@ -13,6 +13,7 @@ import { useRef } from "react";
 import alert from "../../../Assets/alert.mp3";
 import TextLimit from "../TextLimit";
 import MinimizeButton from "./MinimizeButton";
+import useMediaQuery from "../../Hooks/Utils/useMediaQuery";
 
 export default function CountDown() {
   let isMinimized = false;
@@ -20,8 +21,11 @@ export default function CountDown() {
   const seconds = minutesToSeconds(
     currentTask?.minutes * currentTask?.pomodoros
   );
-  const title = getTextSubstring(currentTask?.title, 20);
-
+  const isMobile = useMediaQuery("max-width: 850px") ? 30 : 200;
+  const MAX_LENGTH = useMediaQuery("min-width:870px and max-width: 1080px")
+    ? 70
+    : isMobile;
+  const title = getTextSubstring(currentTask?.title, MAX_LENGTH);
   const deadline = new Date(Date.now() + 1000 * 60 * 60 * 0 + 1000 * seconds);
   const countDownRef = useRef(null);
   const countDownNodeRef = useRef(null);
@@ -70,7 +74,7 @@ export default function CountDown() {
         active
         title={title}
         extra={
-          <div>
+          <div className="countdown-controls">
             <Button size="sm" btnType="ghost" onClick={stopTask}>
               <FiStopCircle className="me-1" />
               Finalizar

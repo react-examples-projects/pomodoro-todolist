@@ -176,7 +176,7 @@ export default function Tasks() {
         loading={removeAllTasksMutation.isLoading}
         style={{ width: "100%" }}
       >
-        <ul className="mt-3 cards-list">
+        <ul className="mt-3 cards-list p-sm-0">
           {getTaskQuery.isError ? (
             <Result
               status="error"
