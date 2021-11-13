@@ -26,6 +26,10 @@ import { BiMenu } from "react-icons/bi";
 export default function LayoutPage({ children }) {
   const [imgPreview, setImgPreview] = useState("");
   const [imgFile, setImgFile] = useState(null);
+  const {
+    user: { perfil_photo, name },
+    setPerfilPhoto,
+  } = useCurrentUser();
 
   const {
     isOpenModalPassword,
@@ -47,7 +51,8 @@ export default function LayoutPage({ children }) {
 
   const changePerfilPhoto = async () => {
     const payload = toFormDataObj({ perfil_photo: imgFile });
-    await setUserPerfilPhotoMutation.mutateAsync(payload);
+    const data = await setUserPerfilPhotoMutation.mutateAsync(payload);
+    setPerfilPhoto(data.url);
   };
 
   const changePassword = async ({ password, passwordConfirm }) => {
@@ -57,10 +62,6 @@ export default function LayoutPage({ children }) {
     await setUserPasswordMutation.mutateAsync({ password, passwordConfirm });
     toggleModalPassword();
   };
-
-  const {
-    user: { perfil_photo, name },
-  } = useCurrentUser();
 
   return (
     <>
@@ -178,7 +179,7 @@ export default function LayoutPage({ children }) {
           overflow: "hidden",
         }}
       >
-        <label htmlFor="toggle-menu">
+        <label htmlFor="toggle-menu" className="toggler-label">
           <BiMenu />
         </label>
         <input type="checkbox" name="toggle-menu" id="toggle-menu" />

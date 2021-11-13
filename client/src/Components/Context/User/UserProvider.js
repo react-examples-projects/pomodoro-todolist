@@ -11,8 +11,11 @@ export default function UserProvider({ children }) {
     []
   );
 
+  const setPerfilPhoto = (perfil_photo) => {
+    setUser({ perfil_photo });
+  };
+
   const logout = useCallback(() => {
-    console.log("se llamo a logout");
     removeToken();
     setUserInfo(null);
     queryClient.removeQueries();
@@ -22,6 +25,7 @@ export default function UserProvider({ children }) {
     user,
     setUser,
     logout,
+    setPerfilPhoto,
   };
 
   return <UserContext.Provider value={value} children={children} />;

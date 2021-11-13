@@ -19,7 +19,7 @@ import TaskCard from "./TaskCard";
 import MoonLoader from "react-spinners/MoonLoader";
 import InputTag from "../../Components/InputTag";
 import { useState } from "react";
-import { getErrorValidation } from "../../../Helpers/utils";
+import { getErrorValidation, getTheme } from "../../../Helpers/utils";
 import ExportButton from "../../Buttons/ExportButton";
 import useTasks from "../../../Hooks/Tasks/useTasks";
 import ErrorText from "../../ErrorText";
@@ -44,7 +44,7 @@ export default function Tasks() {
     toggleModalTask,
     removeAllTasksMutation,
   } = useTasks();
-
+  const colorLoader = getTheme() === "dark" ? "#fff" : "#000";
   const _addTask = (values) => {
     addTask({ ...values, tags });
     setTags([]);
@@ -194,7 +194,7 @@ export default function Tasks() {
             />
           ) : getTaskQuery.isLoading ? (
             <div style={{ height: "50px" }} className="center-y center-h">
-              <MoonLoader color="#000" size={30} loading={true} />
+              <MoonLoader color={colorLoader} size={30} loading={true} />
             </div>
           ) : availables ? (
             <>
@@ -227,11 +227,15 @@ export default function Tasks() {
                     </Button>
                   </PopConfirm>
                 </div>
-                <ExportButton text="Exportar tareas" file={tasks}  titleFile="tasks_pomodoro"/>
+                <ExportButton
+                  text="Exportar tareas"
+                  file={tasks}
+                  titleFile="tasks_pomodoro"
+                />
               </div>
 
               {tasks?.map((task) => (
-                <TaskCard key={task?._id} {...task } />
+                <TaskCard key={task?._id} {...task} />
               ))}
             </>
           ) : (

@@ -18,7 +18,7 @@ import useNote from "../../../Hooks/Notes/useNote";
 import InputTag from "../../Components/InputTag";
 import { useState } from "react";
 import ExportButton from "../../Buttons/ExportButton";
-import { getErrorValidation } from "../../../Helpers/utils";
+import { getErrorValidation, getTheme } from "../../../Helpers/utils";
 import ErrorText from "../../ErrorText";
 
 export default function Notes() {
@@ -35,6 +35,7 @@ export default function Notes() {
     removeAllNotesMutation,
   } = useNote();
   const [tags, setTags] = useState([]);
+  const colorLoader = getTheme() === "dark" ? "#fff" : "#000";
 
   const _addNote = (values) => {
     addNote({ ...values, tags });
@@ -138,7 +139,7 @@ export default function Notes() {
             />
           ) : getNotesQuery.isLoading ? (
             <div style={{ height: "50px" }} className="center-y center-h">
-              <MoonLoader color="#000" size={30} loading={true} />
+              <MoonLoader color={colorLoader} size={30} loading={true} />
             </div>
           ) : availables ? (
             <>
