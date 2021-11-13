@@ -199,7 +199,7 @@ export default function Tasks() {
           ) : availables ? (
             <>
               <div
-                className="d-flex"
+                className="d-flex resource-controls"
                 style={{ justifyContent: "space-between" }}
               >
                 <div>

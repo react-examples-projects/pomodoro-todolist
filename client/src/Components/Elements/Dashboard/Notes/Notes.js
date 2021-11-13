@@ -143,7 +143,7 @@ export default function Notes() {
           ) : availables ? (
             <>
               <div
-                className="d-flex"
+                className="d-flex resource-controls"
                 style={{ justifyContent: "space-between" }}
               >
                 <div>
