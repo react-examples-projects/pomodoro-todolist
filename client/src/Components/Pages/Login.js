@@ -13,7 +13,10 @@ import {
   Message,
 } from "tiny-ui";
 import { Link, useLocation, useHistory } from "react-router-dom";
+import ErrorText from "../Elements/ErrorText";
+
 import { useEffect } from "react";
+import { getErrorValidation } from "../Helpers/utils";
 
 export default function Login() {
   const { state } = useLocation();
@@ -87,6 +90,12 @@ export default function Login() {
           >
             Iniciar
           </Button>
+
+          <ErrorText
+            isVisible={login.isError}
+            text={getErrorValidation(login)}
+          />
+
           <Link to="/signup" title="Si no tienes cuenta, ¡creala en segundos!">
             <Button btnType="link" block>
               Crea tu cuenta

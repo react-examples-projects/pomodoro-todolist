@@ -4,8 +4,6 @@ const MongoClient = mongodb.MongoClient;
 const OPTIONS = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
 };
 
 module.exports = {
