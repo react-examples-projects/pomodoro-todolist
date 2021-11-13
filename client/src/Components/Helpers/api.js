@@ -7,6 +7,7 @@ import {
   userPassword,
   note,
   task,
+  changeName,
   importData as importDataApi,
 } from "../../Config/api";
 import { getToken } from "./token";
@@ -67,6 +68,11 @@ export async function getUserInfo() {
 
 export async function setUserPassword(payload) {
   const res = await instance.patch(userPassword, payload);
+  return res?.data?.data;
+}
+
+export async function changeUserName(payload) {
+  const res = await instance.patch(changeName, payload);
   return res?.data?.data;
 }
 

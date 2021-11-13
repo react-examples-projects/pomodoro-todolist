@@ -75,6 +75,16 @@ const passwordChangeValidation = yup.object({
   }),
 });
 
+const nameChangeValidation = yup.object({
+  body: yup.object({
+    name: yup
+      .string()
+      .min(4, "Mínimo 6 carácteres para el nombre")
+      .max(100, "Máximo 100 carácteres para el nombre")
+      .required("El nombre es obligatorio"),
+  }),
+});
+
 const requireIdValidation = yup.object({
   params: yup.object({
     id: idSchema,
@@ -87,4 +97,5 @@ module.exports = {
   perfilPhotoSchemaValidation,
   passwordChangeValidation,
   requireIdValidation,
+  nameChangeValidation,
 };

@@ -50,6 +50,17 @@ class UserService {
     delete userUpdated.password;
     return userUpdated;
   }
+
+  async changeName({ id, name }) {
+    const userUpdate = await this.UserModel.findByIdAndUpdate(
+      id,
+      { name },
+      this.optionsUpdate
+    ).lean();
+
+    delete userUpdate.password;
+    return userUpdate;
+  }
 }
 
 module.exports = new UserService();

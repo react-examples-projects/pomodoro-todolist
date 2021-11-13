@@ -15,6 +15,10 @@ export default function UserProvider({ children }) {
     setUser({ perfil_photo });
   };
 
+  const setUserName = (name) => {
+    setUser({ name });
+  };
+
   const logout = useCallback(() => {
     removeToken();
     setUserInfo(null);
@@ -26,6 +30,7 @@ export default function UserProvider({ children }) {
     setUser,
     logout,
     setPerfilPhoto,
+    setUserName,
   };
 
   return <UserContext.Provider value={value} children={children} />;

@@ -5,6 +5,7 @@ const validate = require("../../helpers/validations/validate");
 const {
   perfilPhotoSchemaValidation,
   passwordChangeValidation,
+  nameChangeValidation,
 } = require("../../helpers/validations/validations");
 
 router.patch(
@@ -17,6 +18,12 @@ router.patch(
   "/password",
   validate(passwordChangeValidation),
   userController.password
+);
+
+router.patch(
+  "/name",
+  validate(nameChangeValidation),
+  userController.changeUserName
 );
 
 router.get("/user", userController.getInfo);

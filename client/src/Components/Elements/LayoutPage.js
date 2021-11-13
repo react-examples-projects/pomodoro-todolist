@@ -8,7 +8,6 @@ import {
   Modal,
   Form,
   Input,
-  Loader,
 } from "tiny-ui";
 
 import ErrorText from "./ErrorText";
@@ -29,17 +28,23 @@ export default function LayoutPage({ children }) {
   const {
     user: { perfil_photo, name },
     setPerfilPhoto,
+    setUserName,
   } = useCurrentUser();
 
   const {
     isOpenModalPassword,
     toggleModalPassword,
+
     isOpenModalChangePhoto,
     toggleModalChangePhoto,
+
+    isOpenModalChangeName,
+    toggleModalChangeName,
 
     // setters
     setUserPasswordMutation,
     setUserPerfilPhotoMutation,
+    setUserNameMutation,
   } = useUserData();
 
   const onChangeFile = async (e) => {
@@ -61,6 +66,12 @@ export default function LayoutPage({ children }) {
     }
     await setUserPasswordMutation.mutateAsync({ password, passwordConfirm });
     toggleModalPassword();
+  };
+
+  const changeName = async ({ name }) => {
+    const data = await setUserNameMutation.mutateAsync({ name });
+    setUserName(data.name);
+    toggleModalChangeName();
   };
 
   return (
@@ -171,6 +182,49 @@ export default function LayoutPage({ children }) {
         />
       </Modal>
 
+      <Modal
+        visible={isOpenModalChangeName}
+        header="Cambiar nombre"
+        footer={null}
+        onConfirm={changeName}
+        onCancel={toggleModalChangeName}
+        centered
+      >
+        <Form layout="vertical" onFinish={changeName}>
+          <Form.Item
+            label="Nuevo nombre"
+            name="name"
+            rules={[
+              {
+                message: "El nobmre es obligatoria",
+                required: "true",
+              },
+            ]}
+          >
+            <Input type="text" name="name" maxLength={100} />
+          </Form.Item>
+
+          <Button
+            btnType="info"
+            type="submit"
+            className="mt-1"
+            loading={setUserNameMutation.isLoading}
+            block
+          >
+            Cambiar nombre
+          </Button>
+        </Form>
+
+        <ErrorText
+          className="mt-1"
+          isVisible={setUserNameMutation.isError}
+          text={
+            "Error al cambiar el nombre: " +
+            getErrorValidation(setUserNameMutation)
+          }
+        />
+      </Modal>
+
       <Layout
         style={{
           height: "100vh",
@@ -183,6 +237,7 @@ export default function LayoutPage({ children }) {
           <BiMenu />
         </label>
         <input type="checkbox" name="toggle-menu" id="toggle-menu" />
+
         <Layout.Sidebar className="layout-sidebar">
           <SideNavbar />
         </Layout.Sidebar>
@@ -202,7 +257,9 @@ export default function LayoutPage({ children }) {
                   <Menu.Item onClick={toggleModalChangePhoto}>
                     Cambiar foto
                   </Menu.Item>
-                  <Menu.Item>Cambiar nombre</Menu.Item>
+                  <Menu.Item onClick={toggleModalChangeName}>
+                    Cambiar nombre
+                  </Menu.Item>
                 </Menu>
               }
             >

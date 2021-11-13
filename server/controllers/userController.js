@@ -39,6 +39,17 @@ class UserController {
       next(err);
     }
   }
+
+  async changeUserName(req, res, next) {
+    try {
+      const { name } = req.body;
+      const id = req.user._id;
+      const userUpdated = await UserService.changeName({ id, name });
+      success(res, userUpdated);
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = new UserController();
