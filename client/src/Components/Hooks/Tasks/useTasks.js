@@ -1,7 +1,7 @@
 import { Message } from "tiny-ui";
 import useToggle from "../Utils/useToggle";
 import usePomodoro from "../Context/usePomodoro";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useEffect } from "react";
 import {
   getTasks,
@@ -18,7 +18,7 @@ export default function useTasks() {
   const [isEditMode, toggleEditMode] = useToggle(false);
   const amountTasks = tasks.length;
   const availables = amountTasks > 0;
-  const getTaskQuery = useMutation(() => getTasks());
+  const getTaskQuery = useQuery("tasks", getTasks); //useMutation(() => getTasks());
   const addTaskMutation = useMutation((payload) => createTask(payload));
   const removeTaskMutation = useMutation((id) => deleteTask(id));
   const editTaskMutation = useMutation((payload) => updateTask(payload));
@@ -53,13 +53,11 @@ export default function useTasks() {
   };
 
   useEffect(() => {
-    const fetchTasks = async () => {
-      const data = await getTaskQuery.mutateAsync();
-      setTasks(data);
-    };
-    if (!tasks?.length) fetchTasks();
+    if (getTaskQuery.data) {
+      setTasks(getTaskQuery.data);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setTasks, tasks?.length]);
+  }, [getTaskQuery.data]);
 
   return {
     tasks,

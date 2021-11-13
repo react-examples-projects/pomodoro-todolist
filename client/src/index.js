@@ -1,25 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClientProvider } from "react-query";
 import { ErrorBoundary } from "react-error-boundary";
 import UserProvider from "./Components/Context/User/UserProvider";
 import PomodoroProvider from "./Components/Context/Pomodoro/PomodoroProvider";
+import client from "./Config/reactQuery";
 
 import Routers from "./Components/Routers";
 import "tiny-ui/dist/styles/index.css";
 import "./Styles/App.scss";
 import "./Styles/utils.scss";
-
-const client = new QueryClient({
-  defaultOptions: {
-    queries: {
-      notifyOnChangePropsExclusions: ["isStale"],
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      retry: 0,
-    },
-  },
-});
 
 ReactDOM.render(
   <React.StrictMode>

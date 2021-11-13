@@ -1,7 +1,7 @@
 import { Message } from "tiny-ui";
 import useToggle from "../Utils/useToggle";
 import usePomodoro from "../Context/usePomodoro";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useEffect } from "react";
 import {
   getNotes,
@@ -18,7 +18,7 @@ export default function useNote() {
   const [isEditMode, toggleEditMode] = useToggle(false);
   const amountNotes = notes.length;
   const availables = amountNotes > 0;
-  const getNotesQuery = useMutation(() => getNotes());
+  const getNotesQuery = useQuery("notes", getNotes);
   const addNoteMutation = useMutation((payload) => createNote(payload));
   const removeNoteMutation = useMutation((id) => deleteNote(id));
   const editNoteMutation = useMutation((payload) => updateNote(payload));
@@ -50,14 +50,11 @@ export default function useNote() {
   };
 
   useEffect(() => {
-    const fetchNotes = async () => {
-      const data = await getNotesQuery.mutateAsync();
-      setNotes(data);
-    };
-
-    if (!notes?.length) fetchNotes();
+    if (getNotesQuery.data) {
+      setNotes(getNotesQuery.data);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setNotes, notes?.length]);
+  }, [getNotesQuery.data]);
 
   return {
     notes,
