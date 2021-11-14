@@ -7,7 +7,6 @@ import {
 } from "../Actions/Types/Types";
 
 export default function TasksReducer(state, { type, payload }) {
-  console.log(payload)
   switch (type) {
     case SET_TASKS:
       return [...payload];

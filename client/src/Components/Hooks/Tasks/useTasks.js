@@ -53,7 +53,7 @@ export default function useTasks() {
   };
 
   useEffect(() => {
-    if (getTaskQuery.data) {
+    if (!availables && getTaskQuery.data?.length) {
       setTasks(getTaskQuery.data);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

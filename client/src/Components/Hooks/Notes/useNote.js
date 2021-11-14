@@ -50,7 +50,7 @@ export default function useNote() {
   };
 
   useEffect(() => {
-    if (getNotesQuery.data) {
+    if (!availables && getNotesQuery.data?.length) {
       setNotes(getNotesQuery.data);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

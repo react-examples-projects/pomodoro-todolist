@@ -32,6 +32,18 @@ body[data-theme="dark"] {
     color: $dark-mode-color-font;
   }
 
+  .ty-popup__arrow {
+    &::before {
+      background-color: $dark-mode-color2 !important;
+    }
+
+    left: 175px !important;
+  }
+
+  .toggler-label {
+    background: $dark-mode-color;
+  }
+
   .text-limit {
     color: #1890ff !important;
   }
@@ -154,7 +166,6 @@ ul {
   position: absolute;
   z-index: 9999;
   cursor: pointer;
-  background: $dark-mode-color;
 
   label:focus {
     box-shadow: 0 0 0.135rem #fff;
@@ -170,14 +181,6 @@ ul {
 
 #toggle-menu {
   display: none;
-}
-
-.ty-popup__arrow {
-  &::before {
-    background-color: $dark-mode-color2 !important;
-  }
-
-  left: 175px !important;
 }
 
 .loader-page {
@@ -218,6 +221,7 @@ ul {
     position: fixed;
     z-index: 999;
     left: -17rem;
+    box-shadow: 0 0 .530rem rgba(0, 0, 0, 0.253);
 
     .layout-title {
       margin-top: 3.5rem;
