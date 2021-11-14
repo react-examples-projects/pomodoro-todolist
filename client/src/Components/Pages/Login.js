@@ -12,7 +12,7 @@ import {
   InputPassword,
   Message,
 } from "tiny-ui";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ErrorText from "../Elements/ErrorText";
 
 import { useEffect } from "react";
@@ -20,7 +20,6 @@ import { getErrorValidation } from "../Helpers/utils";
 
 export default function Login() {
   const { state } = useLocation();
-  const { push } = useHistory();
   const { setUser } = useCurrentUser();
   const login = useLogin();
   const initialValues = { email: state?.email || "", password: "" };
@@ -34,9 +33,11 @@ export default function Login() {
   const handleSubmit = async (values) => {
     const res = await login.mutateAsync(values);
     if (res.ok) {
-      setToken(res?.data?.token);
-      setUser(res?.data?.user);
-      push("/dashboard");
+      Message.success("Inicio de sesión exitoso, espere...");
+      setTimeout(() => {
+        setToken(res?.data?.token);
+        setUser(res?.data?.user);
+      }, 2000);
     }
   };
 

@@ -166,6 +166,7 @@ ul {
   position: absolute;
   z-index: 9999;
   cursor: pointer;
+  background: #fff;
 
   label:focus {
     box-shadow: 0 0 0.135rem #fff;
@@ -221,7 +222,7 @@ ul {
     position: fixed;
     z-index: 999;
     left: -17rem;
-    box-shadow: 0 0 .530rem rgba(0, 0, 0, 0.253);
+    box-shadow: 0 0 0.53rem rgba(0, 0, 0, 0.253);
 
     .layout-title {
       margin-top: 3.5rem;
