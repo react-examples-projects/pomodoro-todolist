@@ -346,6 +346,60 @@ h2.ty-typography {
   }
 }
 
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  padding: 0 5rem;
+  overflow: hidden;
+  background-image: url("../Images/bg.png");
+  background-position-y: -12rem;
+
+  @media screen and (max-width: 840px) {
+    padding: 0 2rem;
+  }
+  .home-text {
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  .home-content {
+    padding: 2rem;
+    @media screen and (max-width: 840px) {
+      text-align: center;
+    }
+
+    h1 {
+      font-family: "Archivo Black", sans-serif;
+      font-size: 3rem;
+      background: #0f2027;
+      background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+      background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+
+      @media screen and (max-width: 840px) {
+        font-size: 2rem;
+        margin-top: -3rem;
+      }
+    }
+  }
+
+  .home-image {
+    width: 120%;
+    height: 100%;
+
+    @media screen and (max-width: 840px) {
+      max-width: 500px;
+      width: 100%;
+    }
+  }
+}
+
 .error-page,
 .nothing-yet {
   max-width: 750px;
