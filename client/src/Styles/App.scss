@@ -160,6 +160,11 @@ ul {
   list-style: none;
 }
 
+h1.ty-typography,
+h2.ty-typography {
+  font-weight: bold !important;
+}
+
 .toggler-label {
   display: none;
   padding: 0.8rem;
@@ -332,6 +337,25 @@ ul {
 .ty-card__header {
   display: flex;
   align-items: center;
+}
+
+.ty-btn.ty-btn_primary:disabled {
+  opacity: 0.5;
+  span {
+    color: #fff;
+  }
+}
+
+.error-page,
+.nothing-yet {
+  max-width: 750px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 4rem;
+}
+
+.nothing-yet {
+  margin-top: 0;
 }
 
 .currentTask {

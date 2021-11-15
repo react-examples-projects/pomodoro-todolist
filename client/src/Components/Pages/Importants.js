@@ -3,6 +3,7 @@ import { Typography } from "tiny-ui";
 import TaskCard from "../Elements/Dashboard/Tasks/TaskCard";
 import useImportantTasks from "../Hooks/Tasks/useImportantTasks";
 import Container from "../Elements/MansoryLayout/Masonry";
+import NothingYet from "../Elements/Components/NothingYet";
 
 export default function Importants() {
   const tasks = useImportantTasks();
@@ -15,13 +16,17 @@ export default function Importants() {
         puedes gestionarlas como en el panel de usuario.
       </Typography.Paragraph>
 
-      <Container>
-        {tasks?.map((task) => (
-          <Container.Column key={task?._id}>
-            <TaskCard {...task} className="mb-0" />
-          </Container.Column>
-        ))}
-      </Container>
+      {tasks?.length > 0 ? (
+        <Container>
+          {tasks?.map((task) => (
+            <Container.Column key={task?._id}>
+              <TaskCard {...task} className="mb-0" />
+            </Container.Column>
+          ))}
+        </Container>
+      ) : (
+        <NothingYet />
+      )}
     </LayoutPage>
   );
 }

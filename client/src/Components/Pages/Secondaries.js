@@ -3,6 +3,7 @@ import { Typography } from "tiny-ui";
 import TaskCard from "../Elements/Dashboard/Tasks/TaskCard";
 import useSecondaryTasks from "../Hooks/Tasks/useSecondaryTask";
 import Container from "../Elements/MansoryLayout/Masonry";
+import NothingYet from "../Elements/Components/NothingYet";
 
 export default function Secondaries() {
   const tasks = useSecondaryTasks();
@@ -15,13 +16,17 @@ export default function Secondaries() {
         puedes gestionarlas como en el panel de usuario.
       </Typography.Paragraph>
 
-      <Container>
-        {tasks?.map((task) => (
-          <Container.Column key={task?._id}>
-            <TaskCard {...task} className="mb-0"/>
-          </Container.Column>
-        ))}
-      </Container>
+      {tasks?.length > 0 ? (
+        <Container>
+          {tasks?.map((task) => (
+            <Container.Column key={task?._id}>
+              <TaskCard {...task} className="mb-0" />
+            </Container.Column>
+          ))}
+        </Container>
+      ) : (
+        <NothingYet />
+      )}
     </LayoutPage>
   );
 }

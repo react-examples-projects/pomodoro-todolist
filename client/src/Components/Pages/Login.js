@@ -13,17 +13,14 @@ import {
   Message,
 } from "tiny-ui";
 import { Link, useLocation } from "react-router-dom";
-import ErrorText from "../Elements/ErrorText";
-
-import { useEffect } from "react";
-import { getErrorValidation } from "../Helpers/utils";
+import { useEffect, useState } from "react";
 
 export default function Login() {
   const { state } = useLocation();
   const { setUser } = useCurrentUser();
   const login = useLogin();
   const initialValues = { email: state?.email || "", password: "" };
-
+  const [isCorrectLogin, setIsCorrectLogin] = useState(false);
   useEffect(() => {
     if (login.isError) {
       Message.error("Contraseña o correo inválidos");
@@ -34,6 +31,9 @@ export default function Login() {
     const res = await login.mutateAsync(values);
     if (res.ok) {
       Message.success("Inicio de sesión exitoso, espere...");
+      /// block the login button to avoid double login
+      setIsCorrectLogin(true);
+
       setTimeout(() => {
         setToken(res?.data?.token);
         setUser(res?.data?.user);
@@ -86,16 +86,11 @@ export default function Login() {
             btnType="primary"
             style={{ background: "#4127c1" }}
             loading={login.isLoading}
-            disabled={login.isLoading}
+            disabled={login.isLoading || isCorrectLogin}
             block
           >
             Iniciar
           </Button>
-
-          <ErrorText
-            isVisible={login.isError}
-            text={getErrorValidation(login)}
-          />
 
           <Link to="/signup" title="Si no tienes cuenta, ¡creala en segundos!">
             <Button btnType="link" block>

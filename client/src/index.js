@@ -4,6 +4,7 @@ import { QueryClientProvider } from "react-query";
 import { ErrorBoundary } from "react-error-boundary";
 import UserProvider from "./Components/Context/User/UserProvider";
 import PomodoroProvider from "./Components/Context/Pomodoro/PomodoroProvider";
+import ErrorPage from "./Components/Pages/ErrorPage";
 import client from "./Config/reactQuery";
 
 import Routers from "./Components/Routers";
@@ -13,9 +14,7 @@ import "./Styles/utils.scss";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ErrorBoundary
-      FallbackComponent={() => <h1>Ocurrió un error en la página</h1>}
-    >
+    <ErrorBoundary FallbackComponent={ErrorPage}>
       <QueryClientProvider client={client}>
         <UserProvider>
           <PomodoroProvider>
