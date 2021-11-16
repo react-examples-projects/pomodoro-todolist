@@ -10,6 +10,9 @@ import {
   Input,
   InputPassword,
 } from "tiny-ui";
+import Captcha from "../Elements/Components/Captcha";
+import { useRef } from "react";
+import useCaptcha from "../Hooks/Utils/useCaptcha";
 
 export default function Register() {
   const initialValues = {
@@ -20,6 +23,9 @@ export default function Register() {
   };
   const signup = useSignup();
   const { push } = useHistory();
+  const captchaRef = useRef(null);
+  const { isValidCaptcha, handleChangeCaptcha, handleExpireCaptcha } =
+    useCaptcha(captchaRef);
 
   const handleSubmit = async (values) => {
     const res = await signup.mutateAsync(values);
@@ -98,12 +104,18 @@ export default function Register() {
             <InputPassword maxLength="20" minLength="6" />
           </Form.Item>
 
+          <Captcha
+            ref={captchaRef}
+            onChange={handleChangeCaptcha}
+            onExpired={handleExpireCaptcha}
+          />
+
           <Button
             type="submit"
             btnType="primary"
             style={{ background: "#4127c1" }}
             loading={signup.isLoading}
-            disabled={signup.isLoading}
+            disabled={signup.isLoading || !isValidCaptcha}
             block
           >
             Iniciar

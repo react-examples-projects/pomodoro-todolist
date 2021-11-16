@@ -19,14 +19,16 @@ import {
   getErrorValidation,
   imageToBase64,
   toFormDataObj,
-  toggleTheme
+  toggleTheme,
+  isValidFile,
+  getTheme,
 } from "../Helpers/utils";
 import { useState } from "react";
 import { BiMenu } from "react-icons/bi";
 import useToggle from "../Hooks/Utils/useToggle";
 
 export default function LayoutPage({ children }) {
-  const [isChecked, toggleChecked] = useToggle(false);
+  const [isChecked, toggleChecked] = useToggle(getTheme() === "dark");
   const [imgPreview, setImgPreview] = useState("");
   const [imgFile, setImgFile] = useState(null);
   const {
@@ -53,9 +55,13 @@ export default function LayoutPage({ children }) {
 
   const onChangeFile = async (e) => {
     const [file] = e.target.files;
-    const preview = await imageToBase64(file);
-    setImgPreview(preview);
-    setImgFile(file);
+    try {
+      await isValidFile(e.target.files);
+      const preview = await imageToBase64(file);
+      setImgPreview(preview);
+      setImgFile(file);
+    } catch (error) {}
+    e.target.value = null;
   };
 
   const changePerfilPhoto = async () => {
@@ -78,10 +84,10 @@ export default function LayoutPage({ children }) {
     toggleModalChangeName();
   };
 
-  const toggleThemeApp = ()=>{
+  const toggleThemeApp = () => {
     toggleTheme();
     toggleChecked();
-  }
+  };
 
   return (
     <>

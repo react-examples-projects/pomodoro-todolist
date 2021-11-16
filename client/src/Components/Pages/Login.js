@@ -12,8 +12,10 @@ import {
   InputPassword,
   Message,
 } from "tiny-ui";
+import Captcha from "../Elements/Components/Captcha";
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import useCaptcha from "../Hooks/Utils/useCaptcha";
 
 export default function Login() {
   const { state } = useLocation();
@@ -21,6 +23,10 @@ export default function Login() {
   const login = useLogin();
   const initialValues = { email: state?.email || "", password: "" };
   const [isCorrectLogin, setIsCorrectLogin] = useState(false);
+  const captchaRef = useRef(null);
+  const { isValidCaptcha, handleChangeCaptcha, handleExpireCaptcha } =
+    useCaptcha(captchaRef);
+   
   useEffect(() => {
     if (login.isError) {
       Message.error("Contraseña o correo inválidos");
@@ -81,12 +87,18 @@ export default function Login() {
             <InputPassword maxLength="20" minLength="6" />
           </Form.Item>
 
+          <Captcha
+            ref={captchaRef}
+            onChange={handleChangeCaptcha}
+            onExpired={handleExpireCaptcha}
+          />
+
           <Button
             type="submit"
             btnType="primary"
             style={{ background: "#4127c1" }}
             loading={login.isLoading}
-            disabled={login.isLoading || isCorrectLogin}
+            disabled={login.isLoading || isCorrectLogin || !isValidCaptcha}
             block
           >
             Iniciar

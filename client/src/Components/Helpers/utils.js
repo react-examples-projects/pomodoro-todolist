@@ -126,6 +126,35 @@ export function isNotValidFileType(mimeType) {
   return !SUPPORTED_FORMATS.includes(mimeType);
 }
 
+/**
+ * It verify if the files are valid images
+ * @param {FileList} files The images
+ * @returns A promise if the files are valids
+ */
+export function isValidFile(files) {
+  return new Promise((resolve, reject) => {
+    let isValid = true,
+      i = 0,
+      len = files.length;
+
+    while (i < len && isValid) {
+      if (isFileTooLarge(files[i].size)) {
+        alert(`La imágen ${files[i].name} es muy pesada, debe ser menor a 3mb`);
+        reject(
+          `La imágen ${files[i].name} es muy pesada, debe ser menor a 3mb`
+        );
+        isValid = false;
+      } else if (isNotValidFileType(files[i].type)) {
+        alert(`El archivo ${files[i].name} no es una imágen`);
+        reject(`El archivo ${files[i].name} no es una imágen`);
+        isValid = false;
+      }
+      i++;
+    }
+    resolve(files);
+  });
+}
+
 export function formatTagTitles(title, color) {
   const tagsMap = title
     .split(",")
@@ -188,10 +217,11 @@ export function saveTime(time) {
 }
 
 export function getTheme() {
-  return document.body.getAttribute("data-theme") || "light";
+  return localStorage.getItem("theme") || "light";
 }
 
 export function setTheme(theme = "light") {
+  localStorage.setItem("theme", theme);
   document.body.setAttribute("data-theme", theme);
 }
 
@@ -202,6 +232,11 @@ export function toggleTheme() {
   } else {
     setTheme("light");
   }
+}
+
+export function setThemeOnload() {
+  const theme = getTheme();
+  document.body.setAttribute("data-theme", theme);
 }
 
 export function getTextSubstring(text = "", maxLength) {

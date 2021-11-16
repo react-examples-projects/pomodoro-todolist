@@ -4,8 +4,14 @@ import RedirectRoute from "./Elements/Routers/RedirectRoute";
 import PublicRoute from "./Elements/Routers/PublicRoute";
 import routers from "../Config/routers";
 import CountDown from "./Elements/Components/CountDown";
+import { useEffect } from "react";
+import { setThemeOnload } from "./Helpers/utils";
 
 export default function Routers() {
+  useEffect(() => {
+    setThemeOnload();
+  }, []);
+
   return (
     <>
       <BrowserRouter>

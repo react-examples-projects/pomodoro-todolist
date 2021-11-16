@@ -207,6 +207,25 @@ h2.ty-typography {
   overflow: hidden;
 }
 
+.captcha {
+  margin: auto;
+  width: 304px;
+  transform: scale(1.08);
+
+  div[style] {
+    width: 304px;
+
+    iframe {
+      width: 100%;
+    }
+  }
+}
+
+#rc-anchor-container {
+  transform: scale(0.77);
+  transform-origin: 0 0;
+}
+
 .layout-sidebar {
   padding: 1.5rem;
   height: 100%;

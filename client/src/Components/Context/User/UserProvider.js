@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { removeToken } from "../../Helpers/token";
 import UserContext from "./UserContext";
 import client from "../../../Config/reactQuery";
+import { setTheme } from "../../Helpers/utils";
 
 export default function UserProvider({ children }) {
   const [user, setUserInfo] = useState(null);
@@ -23,6 +24,7 @@ export default function UserProvider({ children }) {
     setUserInfo(null);
     client.clear();
     client.removeQueries();
+    setTheme("light");
   }, []);
 
   const value = {
