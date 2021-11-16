@@ -8,6 +8,7 @@ import {
   Modal,
   Form,
   Input,
+  Switch,
 } from "tiny-ui";
 
 import ErrorText from "./ErrorText";
@@ -18,11 +19,14 @@ import {
   getErrorValidation,
   imageToBase64,
   toFormDataObj,
+  toggleTheme
 } from "../Helpers/utils";
 import { useState } from "react";
 import { BiMenu } from "react-icons/bi";
+import useToggle from "../Hooks/Utils/useToggle";
 
 export default function LayoutPage({ children }) {
+  const [isChecked, toggleChecked] = useToggle(false);
   const [imgPreview, setImgPreview] = useState("");
   const [imgFile, setImgFile] = useState(null);
   const {
@@ -73,6 +77,11 @@ export default function LayoutPage({ children }) {
     setUserName(data.name);
     toggleModalChangeName();
   };
+
+  const toggleThemeApp = ()=>{
+    toggleTheme();
+    toggleChecked();
+  }
 
   return (
     <>
@@ -244,6 +253,16 @@ export default function LayoutPage({ children }) {
 
         <Layout style={{ overflow: "hidden scroll" }}>
           <Layout.Header className="layout-header mt-3 pe-3 ms-auto">
+            <Switch
+              className="me-5"
+              uncheckedText="☀️"
+              checkedText="🌙"
+              size="lg"
+              checked={isChecked}
+              onChange={toggleThemeApp}
+              title="Cambiar tema"
+            />
+
             <Popover
               placement="bottom-end"
               trigger="click"
@@ -263,7 +282,7 @@ export default function LayoutPage({ children }) {
                 </Menu>
               }
             >
-              <div style={{ cursor: "pointer", marginLeft: "auto" }}>
+              <div style={{ cursor: "pointer" }}>
                 <Avatar src={perfil_photo} title={name} />
               </div>
             </Popover>

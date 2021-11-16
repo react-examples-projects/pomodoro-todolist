@@ -62,6 +62,10 @@ body[data-theme="dark"] {
     color: $dark-mode-color-font;
   }
 
+  .ty-switch__bg {
+    border: 1px solid $dark-mode-color;
+  }
+
   .ty-layout-sidebar,
   .ty-card,
   .ty-modal__header,
@@ -208,6 +212,7 @@ h2.ty-typography {
   height: 100%;
   max-width: 100% !important;
   width: 230px !important;
+  border-right: 1px solid #e8e8e8;
 
   > div:nth-child(1) {
     position: fixed;
@@ -252,6 +257,7 @@ h2.ty-typography {
 .layout-header {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   width: 100%;
   position: relative;
 }

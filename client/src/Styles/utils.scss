@@ -18,7 +18,6 @@
   }
 }
 
-
 @mixin padding($classname, $direction: null) {
   $padding: if($direction, padding-#{$direction}, padding);
   @for $i from 0 to 11 {
@@ -150,6 +149,11 @@
 .textarea-sm {
   font-size: 0.875rem;
   line-height: 24px;
+}
+
+.text-reset {
+  text-decoration: none !important;
+  color: inherit;
 }
 
 @include height-sizes();

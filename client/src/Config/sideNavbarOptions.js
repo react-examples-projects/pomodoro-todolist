@@ -19,11 +19,6 @@ const options = [
     icon: "archive",
     href: "/import",
   },
-  {
-    title: "configuración",
-    icon: "setting",
-    href: "/settings",
-  },
 ];
 
 export default options;
