@@ -1,5 +1,5 @@
 {
-  "name": "react-anime-api",
+  "name": "pomodoro-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -29,12 +29,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/znareak/react-anime-api.git"
+    "url": "git+https://github.com/react-examples-projects/pomodoro-todolist.git"
   },
   "author": "znareak",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/znareak/react-anime-api/issues"
+    "url": "https://github.com/react-examples-projects/pomodoro-todolist/issues"
   },
-  "homepage": "https://github.com/znareak/react-anime-api#readme"
+  "homepage": "https://github.com/react-examples-projects/pomodoro-todolist/issues#readme"
 }

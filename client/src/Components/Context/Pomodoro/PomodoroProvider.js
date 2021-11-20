@@ -82,6 +82,11 @@ export default function PomodoroProvider({ children }) {
     dispatch(stopTaskAction());
   }, []);
 
+  const resetGloblalState = useCallback(() => {
+    setNotes([]);
+    setTasks([]);
+  }, [setNotes, setTasks]);
+
   const value = useMemo(
     () => ({
       ...state,
@@ -99,6 +104,7 @@ export default function PomodoroProvider({ children }) {
 
       startTask,
       stopTask,
+      resetGloblalState,
     }),
     [
       state,
@@ -114,6 +120,7 @@ export default function PomodoroProvider({ children }) {
       removeAllTasks,
       startTask,
       stopTask,
+      resetGloblalState,
     ]
   );
 

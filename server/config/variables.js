@@ -5,7 +5,8 @@ require("dotenv").config({
 });
 
 const MONGO_DB = {
-  URL: process.env.MONGODB_URL + process.env.MONGO_DB,
+  URL: process.env.MONGODB_URL,
+  DB: process.env.MONGO_DB,
 };
 
 const SERVER = {
