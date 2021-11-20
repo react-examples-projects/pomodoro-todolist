@@ -12,6 +12,7 @@ const Dashboard = lazy(() => import("../Components/Pages/Dashboard"));
 const Import = lazy(() => import("../Components/Pages/Import"));
 const Importants = lazy(() => import("../Components/Pages/Importants"));
 const Secondaries = lazy(() => import("../Components/Pages/Secondaries"));
+const NotFound = lazy(() => import("../Components/Pages/404"));
 
 const routers = [
   redirectRoute(Login, "/login"),
@@ -20,7 +21,8 @@ const routers = [
   privateRoute(Import, "/import"),
   privateRoute(Importants, "/importants"),
   privateRoute(Secondaries, "/secondaries"),
-  route(Home, "/", { exact: true }),
+  route(Home, "/"),
+  route(NotFound),
 ];
 
 export default routers;

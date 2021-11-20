@@ -426,7 +426,8 @@ h2.ty-typography {
 }
 
 .error-page,
-.nothing-yet {
+.nothing-yet,
+.not-found {
   max-width: 750px;
   width: 100%;
   margin: 0 auto;
@@ -435,6 +436,10 @@ h2.ty-typography {
 
 .nothing-yet {
   margin-top: 0;
+}
+
+.not-found {
+  margin-top: 10rem;
 }
 
 .currentTask {
