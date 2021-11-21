@@ -1,4 +1,4 @@
-export const host = "http://localhost:5000/";
+export const host = "https://pomodoro-api.vercel.app/";
 export const api = host + "api/";
 export const login = "/auth/login";
 export const signup = "/auth/signup";

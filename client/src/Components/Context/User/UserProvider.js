@@ -31,8 +31,6 @@ export default function UserProvider({ children }) {
 
   }, []);
 
-  console.log(client)
-
   const value = {
     user,
     setUser,

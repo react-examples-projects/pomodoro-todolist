@@ -2,6 +2,8 @@
   "name": "pomodoro-todolist",
   "version": "0.1.0",
   "private": true,
+  "author": "znareak",
+  "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
     "classnames": "^2.3.1",

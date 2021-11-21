@@ -20,6 +20,22 @@ app.use(fileUpload());
 // Security middlewares
 app.use(helmet());
 app.use(hpp());
-app.use(cors());
+app.use(
+  cors({
+    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+    origin: "https://pomodoro-three-theta.vercel.app",
+    // origin(origin, cb) {
+    //   if (!origin || SERVER.API.ALLOWED_DOMAINS.indexOf(origin) !== -1) {
+    //     return cb(null, true);
+    //   }
+
+    //   cb(
+    //     new Error(
+    //       `Su cliente [${origin}] no puede realizar peticiones al servidor`
+    //     )
+    //   );
+    // },
+  })
+);
 app.use(rateLimit(SERVER.API.RATE_LIMITS));
 startServer(app, routers);

@@ -17,7 +17,11 @@ const SERVER = {
     SECRET_TOKEN: process.env.SECRET_TOKEN,
     API_UPLOAD_IMAGES: process.env.API_UPLOAD_IMAGES,
     API_UPLOAD_IMAGES_KEY: process.env.API_UPLOAD_IMAGES_KEY,
-    ALLOWED_DOMAINS: ["http://127.0.0.1:3000", "http://localhost:3000"],
+    ALLOWED_DOMAINS: [
+      "http://127.0.0.1:3000",
+      "http://localhost:3000",
+      "https://pomodoro-three-theta.vercel.app/",
+    ],
     RATE_LIMITS: {
       windowMs: 10 * 60 * 1000, // 10 minutes
       max: 200, // limit each IP to 200 requests per windowMs
