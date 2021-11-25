@@ -9,12 +9,17 @@ import {
   Layout,
   Input,
   InputPassword,
+  Message,
 } from "tiny-ui";
 import Captcha from "../Elements/Components/Captcha";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import useCaptcha from "../Hooks/Utils/useCaptcha";
+import { validateSignup } from "../Helpers/validations";
+import ErrorText from "../Elements/ErrorText";
+import { getErrorValidation } from "../Helpers/utils";
 
 export default function Register() {
+  const [errorForm, setErrorForm] = useState(null);
   const initialValues = {
     name: "",
     email: "",
@@ -22,14 +27,22 @@ export default function Register() {
     passwordConfirm: "",
   };
   const signup = useSignup();
+  const signupError = getErrorValidation(signup);
   const { push } = useHistory();
   const captchaRef = useRef(null);
   const { isValidCaptcha, handleChangeCaptcha, handleExpireCaptcha } =
     useCaptcha(captchaRef);
 
   const handleSubmit = async (values) => {
-    const res = await signup.mutateAsync(values);
-    if (res.ok) push("/login", { email: res?.data?.email });
+    setErrorForm(null);
+    try {
+      await validateSignup(values);
+      const res = await signup.mutateAsync(values);
+      if (res.ok) push("/login", { email: res?.data?.email });
+    } catch (err) {
+      Message.error("Error al registrar la cuenta");
+      setErrorForm(getErrorValidation(err));
+    }
   };
 
   return (
@@ -108,6 +121,11 @@ export default function Register() {
             ref={captchaRef}
             onChange={handleChangeCaptcha}
             onExpired={handleExpireCaptcha}
+          />
+
+          <ErrorText
+            isVisible={!!errorForm || signup.isError}
+            text={errorForm || signupError}
           />
 
           <Button

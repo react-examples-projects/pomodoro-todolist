@@ -72,23 +72,30 @@ export function toFormDataObj(params) {
 
 /**
  * It get the error that backend sends to client
- * @param {Response} mutationRequest The request response made by `useMutation`, `useQuery` or `axios.method`
+ * @param {Response} errorResult The request response made by `useMutation`, `useQuery` or `axios.method`
  * @returns The error text
  */
 export function getErrorValidation(
-  mutationRequest,
+  errorResult,
   defaultError = "Ocurrió un error, verifica tus datos."
 ) {
-  const objError = mutationRequest?.error?.response?.data;
-  if (typeof objError?.data === "string") return objError?.data;
+  const getMessageError = (obj) => {
+    if (errorResult.name === "ValidationError") return errorResult.message;
+    if (typeof obj?.data === "string") return obj?.data;
+    return (
+      obj?.message ||
+      obj?.data?.[0] ||
+      errorResult?.data?.message ||
+      errorResult?.error?.toString() ||
+      defaultError
+    );
+  };
 
-  return (
-    objError?.data?.[0] ||
-    objError?.message ||
-    mutationRequest?.data?.message ||
-    mutationRequest?.error?.toString() ||
-    defaultError
-  );
+  const objError = errorResult?.error?.response?.data;
+  const objErrorResponse = errorResult?.response?.data;
+
+  if (objErrorResponse) return getMessageError(objErrorResponse);
+  return getMessageError(objError);
 }
 
 /**

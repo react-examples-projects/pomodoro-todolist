@@ -12,21 +12,28 @@ import {
   InputPassword,
   Message,
 } from "tiny-ui";
+// import { Popover } from "tiny-ui";
+// import { FiHelpCircle } from "react-icons/fi";
+import { validateLogin } from "../Helpers/validations";
 import Captcha from "../Elements/Components/Captcha";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import useCaptcha from "../Hooks/Utils/useCaptcha";
+import ErrorText from "../Elements/ErrorText";
+import { getErrorValidation } from "../Helpers/utils";
 
 export default function Login() {
+  const [errorForm, setErrorForm] = useState(null);
   const { state } = useLocation();
   const { setUser } = useCurrentUser();
   const login = useLogin();
+  const loginError = getErrorValidation(login);
   const initialValues = { email: state?.email || "", password: "" };
   const [isCorrectLogin, setIsCorrectLogin] = useState(false);
   const captchaRef = useRef(null);
   const { isValidCaptcha, handleChangeCaptcha, handleExpireCaptcha } =
     useCaptcha(captchaRef);
-   
+
   useEffect(() => {
     if (login.isError) {
       Message.error("Contraseña o correo inválidos");
@@ -34,16 +41,21 @@ export default function Login() {
   }, [login.isError]);
 
   const handleSubmit = async (values) => {
-    const res = await login.mutateAsync(values);
-    if (res.ok) {
-      Message.success("Inicio de sesión exitoso, espere...");
-      /// block the login button to avoid double login
-      setIsCorrectLogin(true);
-
-      setTimeout(() => {
-        setToken(res?.data?.token);
-        setUser(res?.data?.user);
-      }, 2000);
+    setErrorForm(null);
+    try {
+      await validateLogin(values);
+      const res = await login.mutateAsync(values);
+      if (res.ok) {
+        Message.success("Inicio de sesión exitoso, espere...");
+        /// block the login button to avoid double login
+        setIsCorrectLogin(true);
+        setTimeout(() => {
+          setToken(res?.data?.token);
+          setUser(res?.data?.user);
+        }, 2000);
+      }
+    } catch (err) {
+      setErrorForm(getErrorValidation(err));
     }
   };
 
@@ -81,7 +93,6 @@ export default function Login() {
           <Form.Item
             label="Contraseña"
             name="password"
-            helper="La contraseña debe tener 6-20 carácteres"
             rules={[{ required: true, message: "La clave es obligatoria" }]}
           >
             <InputPassword maxLength="20" minLength="6" />
@@ -92,7 +103,10 @@ export default function Login() {
             onChange={handleChangeCaptcha}
             onExpired={handleExpireCaptcha}
           />
-
+          <ErrorText
+            isVisible={!!errorForm || login.isError}
+            text={errorForm || loginError}
+          />
           <Button
             type="submit"
             btnType="primary"
