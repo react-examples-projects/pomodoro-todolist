@@ -10,6 +10,7 @@ import {
   updateNote,
   deleteAllNotes,
 } from "../../Helpers/api";
+import client from "../../../Config/reactQuery";
 
 export default function useNote() {
   const { notes, setNotes, addNote, removeNote, editNote, removeAllNotes } =
@@ -47,6 +48,9 @@ export default function useNote() {
   const _removeAllNotes = async () => {
     await removeAllNotesMutation.mutateAsync();
     removeAllNotes();
+    setNotes([]);
+    client.removeQueries("notes");
+    client.invalidateQueries("notes");
   };
 
   useEffect(() => {

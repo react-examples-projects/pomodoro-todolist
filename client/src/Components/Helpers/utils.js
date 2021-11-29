@@ -242,3 +242,12 @@ export function getTextSubstring(text = "", maxLength) {
   const textShort = isLong ? text.substring(0, maxLength) + "..." : text;
   return textShort;
 }
+
+export function deleteIdsResources(resources) {
+  const json = JSON.parse(resources);
+  console.log({ json });
+  return json?.map((resource) => {
+    delete resource._id;
+    return resource;
+  });
+}

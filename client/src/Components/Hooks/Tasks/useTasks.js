@@ -10,6 +10,7 @@ import {
   updateTask,
   deleteAllTasks,
 } from "../../Helpers/api";
+import client from "../../../Config/reactQuery";
 
 export default function useTasks() {
   const { tasks, setTasks, addTask, removeTask, editTask, removeAllTasks } =
@@ -50,6 +51,9 @@ export default function useTasks() {
   const _removeAllTask = async () => {
     await removeAllTasksMutation.mutateAsync();
     removeAllTasks();
+    setTasks([]);
+    client.removeQueries("tasks");
+    client.invalidateQueries("tasks");
   };
 
   useEffect(() => {

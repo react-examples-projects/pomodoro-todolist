@@ -12,8 +12,7 @@ import {
   InputPassword,
   Message,
 } from "tiny-ui";
-// import { Popover } from "tiny-ui";
-// import { FiHelpCircle } from "react-icons/fi";
+
 import { validateLogin } from "../Helpers/validations";
 import Captcha from "../Elements/Components/Captcha";
 import { Link, useLocation } from "react-router-dom";
