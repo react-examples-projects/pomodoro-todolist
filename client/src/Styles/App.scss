@@ -7,8 +7,7 @@ $scrollbar-thumb-color: rgb(196, 196, 196);
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: "Poppins", -apple-system, "Segoe UI", sans-serif;
 }
 
 body[data-theme="dark"] {
@@ -383,7 +382,7 @@ h2.ty-typography {
   width: 100vw;
   padding: 0 5rem;
   overflow: hidden;
-  background-image: url("../Images/bg.png");
+  background-image: url("../Images/bgHome.png");
   background-position-y: -12rem;
 
   @media screen and (max-width: 840px) {

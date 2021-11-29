@@ -23,7 +23,7 @@ app.use(hpp());
 app.use(
   cors({
     methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-    //origin: "https://pomodoro-three-theta.vercel.app",
+    origin: "https://pomodoro-three-theta.vercel.app",
     // origin(origin, cb) {
     //   if (!origin || SERVER.API.ALLOWED_DOMAINS.indexOf(origin) !== -1) {
     //     return cb(null, true);
