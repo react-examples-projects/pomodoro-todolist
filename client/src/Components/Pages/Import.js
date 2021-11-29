@@ -6,10 +6,14 @@ import { useMutation } from "react-query";
 import { importData } from "../Helpers/api";
 import { deleteIdsResources } from "../Helpers/utils";
 import ErrorText from "../Elements/ErrorText";
+import useNote from "../Hooks/Notes/useNote";
+import useTasks from "../Hooks/Tasks/useTasks";
 
 export default function Import() {
   const [resource, setResource] = useState(null);
   const [type, setType] = useState("note");
+  const { notes, setNotes } = useNote();
+  const { tasks, setTasks } = useTasks();
 
   const onSelectResource = (content) => setResource(content);
   const formatResource = deleteIdsResources(resource);
@@ -22,6 +26,11 @@ export default function Import() {
       const data = await importDataMutation.mutateAsync();
       if (data.ok) {
         Message.success("Se importaron los datos correctamente");
+        if (type === "note") {
+          setNotes([...notes, ...data.data]);
+        } else {
+          setTasks([...tasks, ...data.data]);
+        }
         setResource(null);
       }
     }

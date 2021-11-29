@@ -245,7 +245,6 @@ export function getTextSubstring(text = "", maxLength) {
 
 export function deleteIdsResources(resources) {
   const json = JSON.parse(resources);
-  console.log({ json });
   return json?.map((resource) => {
     delete resource._id;
     return resource;
