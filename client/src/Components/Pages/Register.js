@@ -67,6 +67,7 @@ export default function Register() {
           layout="vertical"
           onFinish={handleSubmit}
           initialValues={initialValues}
+          className="auth-form"
         >
           <Form.Item
             label="Nombre Completo"
@@ -95,7 +96,7 @@ export default function Register() {
           <Form.Item
             label="Contraseña"
             name="password"
-            helper="La contraseña debe tener 6-20 carácteres"
+            helper="Mínimo 6 carácteres, mayúsculas, mínusculas y un número"
             rules={[
               { required: true, message: "La contraseña es obligatoria" },
             ]}

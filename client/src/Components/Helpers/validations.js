@@ -56,8 +56,20 @@ export async function validateSignup({
   return await signupSchema.validate({ name, email, password });
 }
 
-export async function validateChangePassword({ password, passwordConfirm }) {
+export async function validatePasswordChange({ password, passwordConfirm }) {
   validatePassword({ password, passwordConfirm });
-  const passwordChangeSchema = yup.object({ password: passwordSchema });
-  return await passwordChangeSchema.validate({ password });
+  const passwordChangeSchema = yup.object({
+    password: passwordSchema,
+    passwordConfirm: passwordSchema,
+  });
+
+  return await passwordChangeSchema.validate({ password, passwordConfirm });
+}
+
+export async function validateUserNameChange(name) {
+  const userNameSchema = yup.object({
+    name: nameSchema,
+  });
+
+  return await userNameSchema.validate({ name });
 }

@@ -9,6 +9,7 @@ import {
   Form,
   Input,
   Switch,
+  Message,
 } from "tiny-ui";
 
 import ErrorText from "./ErrorText";
@@ -26,11 +27,19 @@ import {
 import { useState } from "react";
 import { BiMenu } from "react-icons/bi";
 import useToggle from "../Hooks/Utils/useToggle";
+import {
+  validatePasswordChange,
+  validateUserNameChange,
+} from "../Helpers/validations";
 
 export default function LayoutPage({ children }) {
   const [isChecked, toggleChecked] = useToggle(getTheme() === "dark");
   const [imgPreview, setImgPreview] = useState("");
   const [imgFile, setImgFile] = useState(null);
+  const [errorChangePassword, setErrorChangePassword] = useState(null);
+  const [errorChangeUserName, setErrorChangeUserName] = useState(null);
+  const [errorChangeImage, setErrorChangeImage] = useState(null);
+
   const {
     user: { perfil_photo, name },
     setPerfilPhoto,
@@ -60,28 +69,46 @@ export default function LayoutPage({ children }) {
       const preview = await imageToBase64(file);
       setImgPreview(preview);
       setImgFile(file);
-    } catch (error) {}
+    } catch (err) {}
     e.target.value = null;
   };
 
   const changePerfilPhoto = async () => {
-    const payload = toFormDataObj({ perfil_photo: imgFile });
-    const data = await setUserPerfilPhotoMutation.mutateAsync(payload);
-    setPerfilPhoto(data.url);
+    try {
+      const payload = toFormDataObj({ perfil_photo: imgFile });
+      const data = await setUserPerfilPhotoMutation.mutateAsync(payload);
+      setPerfilPhoto(data.url);
+      Message.success("Foto de perfil actualizada");
+      toggleModalChangePhoto();  
+    } catch (err) {
+      Message.error("Error al cambiar la imágen");
+      setErrorChangeImage(getErrorValidation(err));
+    }
   };
 
   const changePassword = async ({ password, passwordConfirm }) => {
-    if (password !== passwordConfirm) {
-      return alert("Las contraseñas no coinciden");
+    try {
+      await validatePasswordChange({ password, passwordConfirm });
+      await setUserPasswordMutation.mutateAsync({ password, passwordConfirm });
+      toggleModalPassword();
+      Message.success("Contraseña cambiada correctamente");
+    } catch (err) {
+      Message.error("Error al cambiar la contraseña");
+      setErrorChangePassword(getErrorValidation(err));
     }
-    await setUserPasswordMutation.mutateAsync({ password, passwordConfirm });
-    toggleModalPassword();
   };
 
   const changeName = async ({ name }) => {
-    const data = await setUserNameMutation.mutateAsync({ name });
-    setUserName(data.name);
-    toggleModalChangeName();
+    try {
+      await validateUserNameChange(name);
+      const data = await setUserNameMutation.mutateAsync({ name });
+      setUserName(data.name);
+      toggleModalChangeName();
+      Message.success("Nombre cambiado correctamente");
+    } catch (err) {
+      Message.error("Error al cambiar el nombre");
+      setErrorChangeUserName(getErrorValidation(err));
+    }
   };
 
   const toggleThemeApp = () => {
@@ -138,10 +165,11 @@ export default function LayoutPage({ children }) {
 
           <ErrorText
             className="mt-1"
-            isVisible={setUserPasswordMutation.isError}
+            isVisible={!!errorChangePassword || setUserPasswordMutation.isError}
             text={
-              "Error al cambiar contraseña " +
-              getErrorValidation(setUserPasswordMutation)
+              "Error: " +
+              (errorChangePassword ||
+                getErrorValidation(setUserPasswordMutation))
             }
           />
         </Form>
@@ -189,9 +217,9 @@ export default function LayoutPage({ children }) {
 
         <ErrorText
           className="mt-1"
-          isVisible={setUserPerfilPhotoMutation.isError}
+          isVisible={!!errorChangeImage || setUserPerfilPhotoMutation.isError}
           text={
-            "Error al cambiar la foto: " +
+            "Error: " + errorChangeImage ||
             getErrorValidation(setUserPerfilPhotoMutation)
           }
         />
@@ -232,9 +260,9 @@ export default function LayoutPage({ children }) {
 
         <ErrorText
           className="mt-1"
-          isVisible={setUserNameMutation.isError}
+          isVisible={!!errorChangeUserName || setUserNameMutation.isError}
           text={
-            "Error al cambiar el nombre: " +
+            "Error: " + errorChangeUserName ||
             getErrorValidation(setUserNameMutation)
           }
         />

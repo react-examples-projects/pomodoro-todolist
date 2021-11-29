@@ -81,6 +81,7 @@ export default function Login() {
           layout="vertical"
           onFinish={handleSubmit}
           initialValues={initialValues}
+          className="auth-form"
         >
           <Form.Item
             label="E-mail"
